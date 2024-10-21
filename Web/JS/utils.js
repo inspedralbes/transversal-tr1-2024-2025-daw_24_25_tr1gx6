@@ -5,9 +5,11 @@ createApp({
         const productos = ref([]);
         const productosEnCesta = ref([]);
         const cestaActiva = ref(false);
+        const finalitzaCompraActiva = ref(false);
+        const precioTotal = ref(0); 
 
         function getProductos() {
-            fetch('/Web/js/ropa.json')
+            fetch('./JS/ropa.json')
                 .then(response => response.json())
                 .then(data => {
                     productos.value = data;
@@ -19,6 +21,20 @@ createApp({
             const productoSeleccionado = productos.value[index];
             productosEnCesta.value.push(productoSeleccionado);
             cestaActiva.value = true;
+            finalitzaCompraActiva.value = true;
+            
+            precioTotal.value += productoSeleccionado.precio;
+        }
+
+        function eliminarDeLaCesta(index) {
+            const productoEliminado = productosEnCesta.value[index];
+            productosEnCesta.value.splice(index, 1);
+
+            precioTotal.value -= productoEliminado.precio;
+
+            if (productosEnCesta.value.length === 0) {
+                finalitzaCompraActiva.value = false;
+            }
         }
 
         function toggleCesta() {
@@ -33,8 +49,11 @@ createApp({
             productos,
             productosEnCesta,
             añadirALaCesta,
+            eliminarDeLaCesta,
             cestaActiva,
             toggleCesta,
+            finalitzaCompraActiva,
+            precioTotal
         };
     }
 }).mount('#app');

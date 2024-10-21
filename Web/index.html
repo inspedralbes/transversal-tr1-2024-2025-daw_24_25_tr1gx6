@@ -9,7 +9,7 @@
 <body>
     <div id="app">
         <nav>
-            <img id="logo" src="./img/logo.png" alt="Logo">
+            <img id="logo" src="./Img/Logo.png" alt="Logo">
             <a>Botiga</a>
             <a>Checkout</a>
             <div class="search-box">
@@ -33,8 +33,8 @@
                 <img :src="producto.imagen_url" :alt="producto.nombre" class="imagenProducto">
                 <h4>{{ producto.nombre }}</h4>
                 <h5 class="outOfStock" v-if="producto.stock === 0">Out of stock</h5>
-                <h5 class="inStock" v-else>In stock</h5>
-                <p class="price">${{ producto.precio }}</p>
+                <h5 class="inStock" v-else>On stock</h5>
+                <p class="price">{{ producto.precio }}€</p>
                 <button @click="añadirALaCesta(index)">Añadir a la cesta</button>
             </div>
         </div>
@@ -45,19 +45,25 @@
                 <img :src="producto.imagen_url" :alt="producto.nombre" class="imagenProducto">
                 <h4>{{ producto.nombre }}</h4>
                 <h5 class="outOfStock" v-if="producto.stock === 0">Out of stock</h5>
-                <h5 class="inStock" v-else>In stock</h5>
-                <p class="price">${{ producto.precio }}</p>
+                <h5 class="inStock" v-else>On stock</h5>
+                <p class="price">{{ producto.precio }}€</p>
                 <button @click="añadirALaCesta(index + 10)">Añadir a la cesta</button>
             </div>
         </div>
 
         <div id="cesta" v-if="cestaActiva" class="cesta-container">
-            <h3>Carrito</h3>
-            <div v-for="(producto, index) in productosEnCesta" :key="index" class="product-card">
-                <img :src="producto.imagen_url" :alt="producto.nombre" class="imagenProducto">
-                <h4>{{ producto.nombre }}</h4>
-                <p class="price">${{ producto.precio }}</p>
+            <h2>Carrito</h2>
+            <div class="productos-container"> 
+                <div v-for="(producto, index) in productosEnCesta" :key="index" class="product-card">
+                    <img :src="producto.imagen_url" :alt="producto.nombre" class="imagenProducto">
+                    <h4>{{ producto.nombre }}</h4>
+                    <p class="price">{{ producto.precio }}€</p>
+                    <button @click="eliminarDeLaCesta(index)">Eliminar</button>
+                </div>
             </div>
+            <h3>preu: {{precioTotal}}€</h3>
+            <button v-if="finalitzaCompraActiva" id="finalizarCompra">Finalizar compra</button>
+            <h4 v-if="!finalitzaCompraActiva">Esta es la cesta, aqui podras ver los productos que has añadido a la cesta y podras pasar a finalizar la compra</h4>
         </div>
     </div>
     <script type="module" src="./js/utils.js"></script>
