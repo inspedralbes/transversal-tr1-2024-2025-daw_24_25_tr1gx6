@@ -18,7 +18,7 @@ class CreateComandaArticulosTable extends Migration
             $table->unsignedBigInteger('idProducto');
             $table->string('talla');
             $table->string('color');
-            $table->string('quantitat');
+            $table->unsignedBigInteger('quantitat');
             $table->float('preu');
             $table->foreign('idProducto')->references('id')->on('productos');
             $table->timestamps();
