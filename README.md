@@ -18,6 +18,8 @@
 Aquest projecte és una **plataforma de comerç electrònic** desenvolupada per a permetre als usuaris navegar, seleccionar i demanar articles en línia amb l'opció de recollir-los directament a la botiga, en un format conegut com a **"TAKEAWAY"**. L'objectiu és facilitar les compres en línia tot oferint una alternativa ràpida i còmoda per als clients que prefereixen evitar els enviaments a domicili o simplement volen obtenir els seus productes el més ràpid possible.
 
 ---
+ **Pagina de prototipo en penpot**
+[Prototipo de la pagina WEB en penpot](https://design.penpot.app/#/view/5e250d03-b345-8112-8005-25a23b950e83?page-id=5e250d03-b345-8112-8005-25a23b950e84&section=interactions&index=0&share-id=9cff1166-2265-80f2-8005-26edfffe4c06)
 
 ## **Funcionalitats principals**
 
