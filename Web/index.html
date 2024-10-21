@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/style.css"> 
+    <link rel="stylesheet" href="./css/style.css">
     <title>Botiga</title>
 </head>
 <body>
@@ -24,9 +24,9 @@
                     <option value="puma">Puma</option>
                 </select>
             </form>
-            <img src="./img/cesta.png" alt="cesta" class="cesta">
+            <img src="./img/cesta.png" alt="cesta" class="cesta" @click="toggleCesta">
         </nav>
-        
+
         <h2>Sección 1</h2>
         <div id="productos-container-1" class="productos-container">
             <div v-for="(producto, index) in productos.slice(0, 10)" :key="index" class="product-card">
@@ -35,10 +35,10 @@
                 <h5 class="outOfStock" v-if="producto.stock === 0">Out of stock</h5>
                 <h5 class="inStock" v-else>In stock</h5>
                 <p class="price">${{ producto.precio }}</p>
-                <!-- <button @click="añadirALaCesta({{ index }})">Añadir a la cesta</button> -->
+                <button @click="añadirALaCesta(index)">Añadir a la cesta</button>
             </div>
         </div>
-        
+
         <h2>Sección 2</h2>
         <div id="productos-container-2" class="productos-container">
             <div v-for="(producto, index) in productos.slice(10, 20)" :key="index" class="product-card">
@@ -47,18 +47,18 @@
                 <h5 class="outOfStock" v-if="producto.stock === 0">Out of stock</h5>
                 <h5 class="inStock" v-else>In stock</h5>
                 <p class="price">${{ producto.precio }}</p>
-                <!-- <button @click="añadirALaCesta({{ (index+10) }})">Añadir a la cesta</button> -->
+                <button @click="añadirALaCesta(index + 10)">Añadir a la cesta</button>
             </div>
         </div>
-        <!-- <div id="cesta" v-if="cestaActiva">
-            <div v-for="(productoEnCesta, index) in productosEnCesta" :key="index" id="ProductosEnCesta">
+
+        <div id="cesta" v-if="cestaActiva" class="cesta-container">
+            <h3>Carrito</h3>
+            <div v-for="(producto, index) in productosEnCesta" :key="index" class="product-card">
                 <img :src="producto.imagen_url" :alt="producto.nombre" class="imagenProducto">
                 <h4>{{ producto.nombre }}</h4>
-                <h5 class="outOfStock" v-if="producto.stock === 0">Out of stock</h5>
-                <h5 class="inStock" v-else>In stock</h5>
                 <p class="price">${{ producto.precio }}</p>
             </div>
-        </div> -->
+        </div>
     </div>
     <script type="module" src="./js/utils.js"></script>
 </body>
