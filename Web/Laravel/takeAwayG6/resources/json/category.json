@@ -1,0 +1,30 @@
+[
+    {
+        "nom":"zapatillas",
+        "imagen":"Img/zapatillas.jpeg"
+    },
+    {   
+        "nom":"sudadera",
+        "imagen":"Img/zapatillas.jpeg"
+    },
+    {   
+        "nom":"pantalon",
+        "imagen":"Img/zapatillas.jpeg"
+    },
+    {   
+        "nom":"chaqueta",
+        "imagen":"Img/zapatillas.jpeg"
+    },
+    {   
+        "nom":"camiseta",
+        "imagen":"Img/zapatillas.jpeg"
+    },
+    {   
+        "nom":"chandal",
+        "imagen":"Img/zapatillas.jpeg"
+    },
+    {   
+        "nom":"chaleco",
+        "imagen":"Img/zapatillas.jpeg"
+    }
+]

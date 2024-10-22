@@ -21,7 +21,9 @@ class CreateProductosTable extends Migration
             $table->enum('talla', ['XS', 'S', 'M', 'L', 'XL', 'XXL']);
             $table->enum('color', ['Negro', 'Amarillo', 'Rosa', 'Morado', 'Azul', 'Verde', 'Naranja', 'Blanco']);
             $table->unsignedBigInteger('idCategory');
+            $table->unsignedBigInteger('idMarca');
             $table->foreign('idCategory')->references('id')->on('categorias');
+            $table->foreign('idMarca')->references('id')->on('marcas');
             $table->timestamps();
         });
     }
