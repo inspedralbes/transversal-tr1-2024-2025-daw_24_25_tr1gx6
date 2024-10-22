@@ -30,11 +30,11 @@ createApp({
         }
 
         function cambiarPantallaPrincipal(){
-            paginaInicial.value = !paginaInicial.value; // Simplificado
+            paginaInicial.value = !paginaInicial.value;
         }
 
         function filtrarPorCategoria(categoria) {
-            categoriaFiltrada.value = categoria; // Accediendo a la ref directamente
+            categoriaFiltrada.value = categoria;
         }
 
         function añadirALaCesta(index) {
