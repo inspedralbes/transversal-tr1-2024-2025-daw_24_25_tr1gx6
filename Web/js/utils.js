@@ -2,12 +2,24 @@ import { createApp, ref, onMounted } from 'https://unpkg.com/vue@3/dist/vue.esm-
 
 createApp({
     setup() {
+        const categorias = ref([
+            { nombre: "zapatillas", imagen: "Img/zapatillas.jpeg" },
+            { nombre: "sudadera", imagen: "Img/sudadera.jpeg" },
+            { nombre: "pantalon", imagen: "Img/pantalon.jpeg" },
+            { nombre: "chaqueta", imagen: "Img/chaqueta.jpeg" },
+            { nombre: "camiseta", imagen: "Img/camiseta.jpeg" },
+            { nombre: "chandal", imagen: "Img/chandal.jpeg" },
+            { nombre: "chaleco", imagen: "Img/chaleco.jpeg" }
+        ]);
+        
+        let categoriaFiltrada = ref(null); // Cambiado a ref para ser reactivo        
         const productos = ref([]);
         const productosEnCesta = ref([]);
         const cestaActiva = ref(false);
         const finalitzaCompraActiva = ref(false);
         const precioTotal = ref(0); 
         const paginaInicial = ref(true);
+
         function getProductos() {
             fetch('./js/ropa.json')
                 .then(response => response.json())
@@ -18,12 +30,11 @@ createApp({
         }
 
         function cambiarPantallaPrincipal(){
-            if (paginaInicial.value) {
-                paginaInicial.value = false;
-            }else{
-                paginaInicial.value = true;
+            paginaInicial.value = !paginaInicial.value; // Simplificado
+        }
 
-            }
+        function filtrarPorCategoria(categoria) {
+            categoriaFiltrada.value = categoria; // Accediendo a la ref directamente
         }
 
         function añadirALaCesta(index) {
@@ -47,15 +58,12 @@ createApp({
         }
 
         function toggleCesta() {
-            if(cestaActiva.value){
-            cestaActiva.value = false;
-            }else{
-                cestaActiva.value = true;
-            }
+            cestaActiva.value = !cestaActiva.value; // Simplificado
         }
 
         onMounted(() => {
             getProductos();
+            getCategorias();
         });
 
         return {
@@ -68,7 +76,10 @@ createApp({
             finalitzaCompraActiva,
             precioTotal,
             cambiarPantallaPrincipal,
-            paginaInicial
+            paginaInicial,
+            categorias, // Asegúrate de incluir categorías para usarlas en tu plantilla
+            categoriaFiltrada,
+            filtrarPorCategoria // Para poder acceder en la plantilla
         };
     }
 }).mount('#app');
