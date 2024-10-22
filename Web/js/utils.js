@@ -12,7 +12,7 @@ createApp({
             { nombre: "chaleco", imagen: "Img/chaleco.jpeg" }
         ]);
         
-        let categoriaFiltrada = ref(null); // Cambiado a ref para ser reactivo        
+        let categoriaFiltrada = ref(null);       
         const productos = ref([]);
         const productosEnCesta = ref([]);
         const cestaActiva = ref(false);
@@ -32,6 +32,10 @@ createApp({
 
         function cambiarPantallaPrincipal(){
             paginaInicial.value = !paginaInicial.value;
+        }
+
+        function mostrarBotiga(){
+            divActivo.value = 'todosProductos';
         }
 
         function filtrarPorCategoria(categoria) {
@@ -86,9 +90,10 @@ createApp({
             divActivo,
             cambiarPantallaPrincipal,
             paginaInicial,
-            categorias, // Asegúrate de incluir categorías para usarlas en tu plantilla
+            categorias, 
             categoriaFiltrada,
-            filtrarPorCategoria // Para poder acceder en la plantilla
+            filtrarPorCategoria,
+            mostrarBotiga
         };
     }
 }).mount('#app');

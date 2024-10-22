@@ -12,7 +12,7 @@
     <div id="app">
         <nav>
             <img @click="cambiarPantallaPrincipal" id="logo" src="./Img/Logo.png" alt="Logo">
-            <a>Botiga</a>
+            <a @click="mostrarBotiga">Botiga</a>
             <a>Checkout</a>
             <div class="search-box">
                 <form method="get" id="search-form">
@@ -29,10 +29,31 @@
             <img src="./Img/cesta.png" alt="cesta" class="cesta" @click="toggleCesta">
         </nav>
 
-        <div v-if="divActivo=='todosProductos'" class="filtrado">
-            <div></div>
+            <div v-if="divActivo=='todosProductos'" class="paginaInicial">
+                <h2>Sección 1</h2>
+                <div id="productos-container-1" class="productos-container">
+                    <div v-for="(producto, index) in productos.slice(0, 10)" :key="index" class="product-card">
+                        <img :src="producto.imagen_url" :alt="producto.nombre" class="imagenProducto">
+                        <h4>{{ producto.nombre }}</h4>
+                        <h5 class="outOfStock" v-if="producto.stock == 0">Out of stock</h5>
+                        <h5 class="inStock" v-if="producto.stock != 0">On stock</h5>
+                        <p class="price">{{ producto.precio }}€</p>
+                        <button @click="añadirALaCesta(index)">Añadir a la cesta</button>
+                    </div>
+                </div>
 
-        </div>
+                <h2>Sección 2</h2>
+                <div id="productos-container-2" class="productos-container">
+                    <div v-for="(producto, index) in productos.slice(10, 20)" :key="index" class="product-card">
+                        <img :src="producto.imagen_url" :alt="producto.nombre" class="imagenProducto">
+                        <h4>{{ producto.nombre }}</h4>
+                        <h5 class="outOfStock" v-if="producto.stock == 0">Out of stock</h5>
+                        <h5 class="inStock" v-if="producto.stock != 0">On stock</h5>
+                        <p class="price">{{ producto.precio }}€</p>
+                        <button @click="añadirALaCesta(index + 10)">Añadir a la cesta</button>
+                    </div>
+                </div>
+            </div>
         <div v-if="divActivo=='paginaPrincipal'">
             <h2>Productes més comprats</h2>
             <div id="productos-container-1" class="productos-container">
@@ -40,8 +61,8 @@
                     :key="index" class="product-card">
                     <img :src="producto.imagen_url" :alt="producto.nombre" class="imagenProducto">
                     <h4>{{ producto.nombre }}</h4>
-                    <h5 class="outOfStock" v-if="producto.stock === 0">Out of stock</h5>
-                    <h5 class="inStock" v-else>On stock</h5>
+                    <h5 class="outOfStock" v-if="producto.stock == 0">Out of stock</h5>
+                    <h5 class="inStock" v-if="producto.stock != 0">On stock</h5>
                     <p class="price">{{ producto.precio }}€</p>
                 </div>
             </div>
