@@ -1,324 +1,236 @@
 [
     {
-        "id": 1,
         "nom": "Nike Air Max 270",
-        "descripcion": "Zapatillas Nike Air Max 270 en color blanco y negro con unidad Air visible para una mayor comodidad.",
-        "precio": 149.99,
-        "talla": [
-            "40",
-            "41",
-            "42",
-            "43",
-            "44",
-            "45"
-        ],
-        "color": "Blanco/Negro",
-        "imagen_url": "./Img/airMax.png",
-        "stock": 0
+        "desc": "Zapatillas Nike Air Max 270 en idColor blanco y negro con unidad Air visible para una mayor comodidad.",
+        "stock": 10,
+        "preu": 149.99,
+        "img": "./Img/airMax.png",
+        "idCategory": 1,
+        "idMarca": 1,
+        "idColor": 4,
+        "idTalla": 9
     },
     {
-        "id": 2,
+        "nom": "Nike Air Max 270",
+        "desc": "Zapatillas Nike Air Max 270 en idColor blanco y negro con unidad Air visible para una mayor comodidad.",
+        "stock": 10,
+        "preu": 149.99,
+        "img": "./Img/air_max_blanca.png",
+        "idCategory": 1,
+        "idMarca": 1,
+        "idColor": 5,
+        "idTalla": 10
+    },
+    {
         "nom": "adidas Originals Superstar",
-        "descripcion": "Las clásicas adidas Superstar con su icónica puntera de goma, perfectas para cualquier estilo casual.",
-        "precio": 99.99,
-        "talla": [
-            "38",
-            "39",
-            "40",
-            "41",
-            "42",
-            "43"
-        ],
-        "color": "Blanco/Negro",
-        "imagen_url": "./Img/adidasOriginalsSuperstar.png",
-        "stock": 2
+        "desc": "Las clásicas adidas Superstar con su icónica puntera de goma, perfectas para cualquier estilo casual.",
+        "stock": 10,
+        "preu": 99.99,
+        "img": "./Img/adidasOriginalsSuperstar.png",
+        "idCategory": 1,
+        "idMarca": 2,
+        "idColor": 5,
+        "idTalla": 11
     },
     {
-        "id": 3,
         "nom": "PUMA Cali Dream",
-        "descripcion": "Estilo retro y urbano con las PUMA Cali Dream en un diseño blanco con detalles en dorado.",
-        "precio": 89.99,
-        "talla": [
-            "36",
-            "37",
-            "38",
-            "39",
-            "40",
-            "41"
-        ],
-        "color": "Blanco/Dorado",
-        "imagen_url": "./Img/PUMACaliDream.webp",
-        "stock": 16
+        "desc": "Estilo retro y urbano con las PUMA Cali Dream en un diseño blanco con detalles en dorado.",
+        "stock": 16,
+        "preu": 89.99,
+        "img": "./Img/PUMACaliDream.webp",
+        "idCategory": 1,
+        "idMarca": 3,
+        "idColor": 5,
+        "idTalla": 10
     },
     {
-        "id": 4,
         "nom": "Nike Tech Fleece Hoodie",
-        "descripcion": "Sudadera con capucha Nike Tech Fleece, ligera y cálida, ideal para cualquier clima.",
-        "precio": 119.99,
-        "talla": [
-            "S",
-            "M",
-            "L",
-            "XL"
-        ],
-        "color": "Negro/Gris",
-        "imagen_url": "./Img/techChandal.webp",
-        "stock": 21
+        "desc": "Sudadera con capucha Nike Tech Fleece, ligera y cálida, ideal para cualquier clima.",
+        "stock": 21,
+        "preu": 119.99,
+        "img": "./Img/techChandal.webp",
+        "idCategory": 2,
+        "idMarca": 1,
+        "idColor": 9,
+        "idTalla": 3
+        
     },
     {
-        "id": 5,
         "nom": "adidas 3-Stripes Joggers",
-        "descripcion": "Chándal adidas con las tres rayas clásicas a los lados, cómodo y con estilo deportivo.",
-        "precio": 69.99,
-        "talla": [
-            "S",
-            "M",
-            "L",
-            "XL",
-            "XXL"
-        ],
-        "color": "Gris",
-        "imagen_url": "./Img/pantalonesJogerAdidas.webp",
-        "stock": 74
+        "desc": "Chándal adidas con las tres rayas clásicas a los lados, cómodo y con estilo deportivo.",
+        "stock": 74,
+        "img": "./Img/pantalonesJogerAdidas.webp",
+        "preu": 69.99,
+        "idCategory": 6,
+        "idMarca": 2,
+        "idColor": 9,
+        "idTalla": 3
+        
     },
     {
-        "id": 6,
         "nom": "The North Face Himalayan Jacket",
-        "descripcion": "Chaqueta de invierno The North Face Himalayan, diseñada para ofrecer calor y resistencia a la intemperie.",
-        "precio": 199.99,
-        "talla": [
-            "S",
-            "M",
-            "L",
-            "XL"
-        ],
-        "color": "Rojo/Negro",
-        "imagen_url": "./Img/chaquetaNorthFace.webp",
-        "stock": 12
+        "desc": "Chaqueta de invierno The North Face Himalayan, diseñada para ofrecer calor y resistencia a la intemperie.",
+        "stock": 12,
+        "preu": 199.99,
+        "img": "./Img/chaquetaNorthFace.webp",
+        "idCategory": 4,
+        "idMarca": 4,
+        "idColor": 1,
+        "idTalla": 5
+        
     },
     {
-        "id": 7,
         "nom": "Jordan Jumpman T-Shirt",
-        "descripcion": "Camiseta Jordan Jumpman en blanco con el logo icónico de la marca en el pecho.",
-        "precio": 29.99,
-        "talla": [
-            "S",
-            "M",
-            "L",
-            "XL",
-            "XXL"
-        ],
-        "color": "Beige",
-        "imagen_url": "./Img/camisetaJordan.webp",
-        "stock": 18
+        "desc": "Camiseta Jordan Jumpman en blanco con el logo icónico de la marca en el pecho.",
+        "stock": 18,
+        "preu": 29.99,
+        "img": "./Img/camisetaJordan.webp",
+        "idCategory": 5,
+        "idMarca": 5,
+        "idColor": 11,
+        "idTalla": 2
     },
     {
-        "id": 8,
         "nom": "Nike Air Jordan 1 Mid",
-        "descripcion": "Las legendarias Nike Air Jordan 1 en versión Mid, combinando estilo clásico y moderno.",
-        "precio": 139.99,
-        "talla": [
-            "40",
-            "41",
-            "42",
-            "43",
-            "44",
-            "45"
-        ],
-        "color": "Rojo/Negro/Blanco",
-        "imagen_url": "./Img/airJordan1.webp",
-        "stock": 0
+        "desc": "Las legendarias Nike Air Jordan 1 en versión Mid, combinando estilo clásico y moderno.",
+        "stock": 0,
+        "preu": 139.99,
+        "img": "./Img/airJordan1.webp",
+        "idCategory": 1,
+        "idMarca": 1,
+        "idColor": 1,
+        "idTalla": 14
     },
     {
-        "id": 9,
         "nom": "Nike Club Fleece Pants",
-        "descripcion": "Pantalones de chándal Nike Club Fleece, fabricados en algodón suave para una comodidad máxima.",
-        "precio": 54.99,
-        "talla": [
-            "S",
-            "M",
-            "L",
-            "XL",
-            "XXL"
-        ],
-        "color": "Negro",
-        "imagen_url": "./Img/nikeFleecePants.webp",
-        "stock": 3
+        "desc": "Pantalones de chándal Nike Club Fleece, fabricados en algodón suave para una comodidad máxima.",
+        "stock": 3,
+        "preu": 54.99,
+        "img": "./Img/nikeFleecePants.webp",
+        "idCategory": 3,
+        "idMarca": 1,
+        "idColor": 4,
+        "idTalla": 3
     },
     {
-        "id": 10,
         "nom": "adidas Tiro 21 Track Jacket",
-        "descripcion": "Chaqueta adidas Tiro 21, perfecta para los entrenamientos o un look casual deportivo.",
-        "precio": 69.99,
-        "talla": [
-            "S",
-            "M",
-            "L",
-            "XL",
-            "XXL"
-        ],
-        "color": "Negro/Blanco",
-        "imagen_url": "./Img/chaquetaAdidasTiro.webp",
-        "stock": 9
+        "desc": "Chaqueta adidas Tiro 21, perfecta para los entrenamientos o un look casual deportivo.",
+        "stock": 9,
+        "preu": 69.99,
+        "img": "./Img/chaquetaAdidasTiro.webp",
+        "idCategory": 4,
+        "idMarca": 2,
+        "idColor": 4,
+        "idTalla": 6
     },
     {
-        "id": 11,
         "nom": "Nike Dri-FIT T-Shirt",
-        "descripcion": "Camiseta Nike Dri-FIT con tecnología de absorción de sudor, perfecta para entrenamientos intensos.",
-        "precio": 24.99,
-        "talla": [
-            "S",
-            "M",
-            "L",
-            "XL"
-        ],
-        "color": "Azul Marino",
-        "imagen_url": "./Img/nikeCamisetaDriFit.webp",
-        "stock": 5
+        "desc": "Camiseta Nike Dri-FIT con tecnología de absorción de sudor, perfecta para entrenamientos intensos.",
+        "stock": 5,
+        "preu": 24.99,
+        "img": "./Img/nikeCamisetaDriFit.webp",
+        "idCategory": 5,
+        "idMarca": 1,
+        "idColor": 2,
+        "idTalla": 5
     },
     {
-        "id": 12,
         "nom": "PUMA Essentials Hoodie",
-        "descripcion": "Sudadera con capucha PUMA Essentials, diseño básico pero elegante con logo frontal.",
-        "precio": 49.99,
-        "talla": [
-            "S",
-            "M",
-            "L",
-            "XL"
-        ],
-        "color": "Gris Claro",
-        "imagen_url": "./Img/sudaderaPuma.png",
-        "stock": 0
+        "desc": "Sudadera con capucha PUMA Essentials, diseño básico pero elegante con logo frontal.",
+        "stock": 0,
+        "preu": 49.99,
+        "img": "./Img/sudaderaPuma.png",
+        "idCategory": 2,
+        "idMarca": 3,
+        "idColor": 9,
+        "idTalla": 4
     },
     {
-        "id": 13,
         "nom": "New Balance 574 Classic",
-        "descripcion": "Las New Balance 574 Classic, con un diseño retro y atemporal, ideales para el día a día.",
-        "precio": 89.99,
-        "talla": [
-            "40",
-            "41",
-            "42",
-            "43",
-            "44",
-            "45"
-        ],
-        "color": "Gris/Azul",
-        "imagen_url": "./Img/newBalance574.webp",
-        "stock": 54
+        "desc": "Las New Balance 574 Classic, con un diseño retro y atemporal, ideales para el día a día.",
+        "stock": 54,
+        "preu": 89.99,
+        "img": "./Img/newBalance574.webp",
+        "idCategory": 3,
+        "idMarca": 4,
+        "idColor": 9,
+        "idTalla": 13
     },
     {
-        "id": 14,
         "nom": "Vans Old Skool",
-        "descripcion": "Vans Old Skool con el icónico diseño de rayas en los laterales, perfecto para un estilo casual y urbano.",
-        "precio": 74.99,
-        "talla": [
-            "38",
-            "39",
-            "40",
-            "41",
-            "42",
-            "43"
-        ],
-        "color": "Negro/Blanco",
-        "imagen_url": "./Img/zapatillasVans.png",
-        "stock": 30
+        "desc": "Vans Old Skool con el icónico diseño de rayas en los laterales, perfecto para un estilo casual y urbano.",
+        "stock": 30,
+        "preu": 74.99,
+        "img": "./Img/zapatillasVans.png",
+        "idCategory": 1,
+        "idMarca": 6,
+        "idColor": 4,
+        "idTalla": 12
     },
     {
-        "id": 15,
         "nom": "Champion Reverse Weave Hoodie",
-        "descripcion": "Sudadera Champion Reverse Weave, famosa por su calidad y durabilidad, con el logo bordado en el pecho.",
-        "precio": 79.99,
-        "talla": [
-            "S",
-            "M",
-            "L",
-            "XL"
-        ],
-        "color": "Rojo",
-        "imagen_url": "./Img/ChampionReverseWeaveHoodie.png",
-        "stock": 0
+        "desc": "Sudadera Champion Reverse Weave, famosa por su calidad y durabilidad, con el logo bordado en el pecho.",
+        "stock": 0,
+        "preu": 79.99,
+        "img": "./Img/ChampionReverseWeaveHoodie.png",
+        "idCategory": 2,
+        "idMarca": 4,
+        "idColor": 1,
+        "idTalla": 3
     },
     {
-        "id": 16,
         "nom": "Fila Disruptor II",
-        "descripcion": "Zapatillas Fila Disruptor II con su diseño robusto y plataforma, ofreciendo estilo y comodidad.",
-        "precio": 99.99,
-        "talla": [
-            "36",
-            "37",
-            "38",
-            "39",
-            "40",
-            "41"
-        ],
-        "color": "Blanco",
-        "imagen_url": "./Img/Fila Disruptor II.png",
-        "stock": 0
+        "desc": "Zapatillas Fila Disruptor II con su diseño robusto y plataforma, ofreciendo estilo y comodidad.",
+        "stock": 0,
+        "preu": 99.99,
+        "img": "./Img/Fila Disruptor II.png",
+        "idCategory": 1,
+        "idMarca": 7,
+        "idColor": 5,
+        "idTalla": 7
     },
     {
-        "id": 17,
         "nom": "adidas Essentials 3-Stripes T-Shirt",
-        "descripcion": "Camiseta adidas Essentials con las icónicas tres rayas en los hombros, ideal para un look casual.",
-        "precio": 29.99,
-        "talla": [
-            "S",
-            "M",
-            "L",
-            "XL",
-            "XXL"
-        ],
-        "color": "Negro/Blanco",
-        "imagen_url": "./Img/adidas Essentials 3-Stripes T-Shirt.webp",
-        "stock": 2
+        "desc": "Camiseta adidas Essentials con las icónicas tres rayas en los hombros, ideal para un look casual.",
+        "stock": 2,
+        "preu": 29.99,
+        "img": "./Img/adidas Essentials 3-Stripes T-Shirt.webp",
+        "idCategory": 5,
+        "idMarca": 2,
+        "idColor": 4,
+        "idTalla": 1
     },
     {
-        "id": 18,
         "nom": "Converse Chuck Taylor All Star",
-        "descripcion": "Zapatillas Converse Chuck Taylor All Star, un clásico de estilo urbano con su diseño alto y atemporal.",
-        "precio": 64.99,
-        "talla": [
-            "40",
-            "41",
-            "42",
-            "43",
-            "44",
-            "45"
-        ],
-        "color": "Blanco",
-        "imagen_url": "./Img/Converse Chuck Taylor All Star.webp",
-        "stock": 1
+        "desc": "Zapatillas Converse Chuck Taylor All Star, un clásico de estilo urbano con su diseño alto y atemporal.",
+        "stock": 1,
+        "preu": 64.99,
+        "img": "./Img/Converse Chuck Taylor All Star.webp",
+        "idCategory": 1,
+        "idMarca": 8,
+        "idColor": 5,
+        "idTalla": 8
     },
     {
-        "id": 19,
         "nom": "The North Face 1996 Retro Nuptse Vest",
-        "descripcion": "Chaleco The North Face Nuptse, inspirado en el diseño de los años 90, con aislamiento térmico y estilo urbano.",
-        "precio": 179.99,
-        "talla": [
-            "S",
-            "M",
-            "L",
-            "XL"
-        ],
-        "color": "Negro",
-        "imagen_url": "./Img/The North Face 1996 Retro Nuptse Vest.webp",
-        "stock": 8
+        "desc": "Chaleco The North Face Nuptse, inspirado en el diseño de los años 90, con aislamiento térmico y estilo urbano.",
+        "stock": 8,
+        "preu": 179.99,
+        "img": "./Img/The North Face 1996 Retro Nuptse Vest.webp",
+        "idCategory": 7,
+        "idMarca": 4,
+        "idColor": 4,
+        "idTalla": 3
     },
     {
-        "id": 20,
         "nom": "Under Armour HeatGear T-Shirt",
-        "descripcion": "Camiseta Under Armour HeatGear con tecnología de absorción de humedad para un rendimiento óptimo.",
-        "precio": 25.99,
-        "talla": [
-            "S",
-            "M",
-            "L",
-            "XL",
-            "XXL"
-        ],
-        "color": "Negro",
-        "imagen_url": "./Img/Under Armour HeatGear T-Shirt.webp",
-        "stock": 17
+        "desc": "Camiseta Under Armour HeatGear con tecnología de absorción de humedad para un rendimiento óptimo.",
+        "stock": 17,
+        "preu": 25.99,
+        "img": "./Img/Under Armour HeatGear T-Shirt.webp",
+        "idCategory": 5,
+        "idMarca": 4,
+        "idColor": 4,
+        "idTalla": 1
     }
 ]

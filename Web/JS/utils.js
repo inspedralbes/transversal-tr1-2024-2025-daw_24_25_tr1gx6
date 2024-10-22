@@ -1,8 +1,9 @@
 import { createApp, ref, onMounted } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
-
+import { getProductoss } from './comunicationManager.js';
 createApp({
     setup() {
         const productos = ref([]);
+        const productos2 = ref([]);
         const productosEnCesta = ref([]);
         const cestaActiva = ref(false);
         const finalitzaCompraActiva = ref(false);
@@ -24,6 +25,15 @@ createApp({
                 paginaInicial.value = true;
 
             }
+        }
+        async function cargarProductos(){
+            try {
+                const productos2 = await getProductoss();
+                console.log(productos2); // Aquí puedes hacer lo que necesites con los productos
+            } catch (error) {
+                console.error('No se pudieron cargar los productos:', error);
+            }
+            
         }
 
         function añadirALaCesta(index) {
@@ -56,6 +66,7 @@ createApp({
 
         onMounted(() => {
             getProductos();
+            cargarProductos();
         });
 
         return {
@@ -68,7 +79,7 @@ createApp({
             finalitzaCompraActiva,
             precioTotal,
             cambiarPantallaPrincipal,
-            paginaInicial
+            paginaInicial,
         };
     }
 }).mount('#app');
