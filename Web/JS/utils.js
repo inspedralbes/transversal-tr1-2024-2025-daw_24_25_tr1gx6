@@ -7,7 +7,7 @@ createApp({
         const cestaActiva = ref(false);
         const finalitzaCompraActiva = ref(false);
         const precioTotal = ref(0); 
-
+        const paginaInicial = ref(true);
         function getProductos() {
             fetch('./JS/ropa.json')
                 .then(response => response.json())
@@ -15,6 +15,15 @@ createApp({
                     productos.value = data;
                 })
                 .catch(error => console.error('Error fetching productos:', error));
+        }
+
+        function cambiarPantallaPrincipal(){
+            if (paginaInicial.value) {
+                paginaInicial.value = false;
+            }else{
+                paginaInicial.value = true;
+
+            }
         }
 
         function añadirALaCesta(index) {
@@ -38,7 +47,11 @@ createApp({
         }
 
         function toggleCesta() {
-            cestaActiva.value = !cestaActiva.value;
+            if(cestaActiva.value){
+            cestaActiva.value = false;
+            }else{
+                cestaActiva.value = true;
+            }
         }
 
         onMounted(() => {
@@ -53,7 +66,9 @@ createApp({
             cestaActiva,
             toggleCesta,
             finalitzaCompraActiva,
-            precioTotal
+            precioTotal,
+            cambiarPantallaPrincipal,
+            paginaInicial
         };
     }
 }).mount('#app');

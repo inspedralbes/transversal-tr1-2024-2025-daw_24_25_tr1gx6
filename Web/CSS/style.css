@@ -62,17 +62,9 @@ a:hover {
     display: flex;
     overflow-x: auto;
     padding: 20px;
-    scrollbar-width: thin;
 }
 
-.productos-container::-webkit-scrollbar {
-    height: 8px;
-}
 
-.productos-container::-webkit-scrollbar-thumb {
-    background: rgb(150, 150, 150);
-    border-radius: 10px;
-}
 
 .product-card {
     min-width: 200px;
