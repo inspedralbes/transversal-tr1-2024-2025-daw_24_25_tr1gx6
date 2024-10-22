@@ -65,9 +65,9 @@
                         <button @click="eliminarDeLaCesta(index)">Eliminar</button>
                     </div>
                 </div>
-                <h3>preu: {{precioTotal.toFixed(2)}}€</h3>
+                <h3 v-if="finalitzaCompraActiva">preu: {{precioTotal.toFixed(2)}}€</h3>
                 <button v-if="finalitzaCompraActiva" id="finalizarCompra">Finalizar compra</button>
-                <h4 v-if="!finalitzaCompraActiva">Esta es la cesta, aqui podras ver los productos que has añadido a la cesta y podras pasar a finalizar la compra</h4>
+                <h4 v-if="!finalitzaCompraActiva">No hay nada en la cesta</h4>
             </div>
         </div>
         <button v-if="!paginaInicial" @click="cambiarPantallaPrincipal">Volver a la pagina principal</button>
