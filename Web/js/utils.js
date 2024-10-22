@@ -18,6 +18,7 @@ createApp({
         const cestaActiva = ref(false);
         const finalitzaCompraActiva = ref(false);
         const precioTotal = ref(0); 
+        const divActivo = ref('paginaPrincipal');
         const paginaInicial = ref(true);
 
         function getProductos() {
@@ -35,6 +36,14 @@ createApp({
 
         function filtrarPorCategoria(categoria) {
             categoriaFiltrada.value = categoria;
+        }
+
+        function cambiarACarrito(){
+            divActivo.value = 'carrito';
+        }
+
+        function volverALaPaginaPrincipal(){
+            divActivo.value = 'paginaPrincipal';
         }
 
         function añadirALaCesta(index) {
@@ -63,7 +72,6 @@ createApp({
 
         onMounted(() => {
             getProductos();
-            getCategorias();
         });
 
         return {
@@ -75,6 +83,7 @@ createApp({
             toggleCesta,
             finalitzaCompraActiva,
             precioTotal,
+            divActivo,
             cambiarPantallaPrincipal,
             paginaInicial,
             categorias, // Asegúrate de incluir categorías para usarlas en tu plantilla
