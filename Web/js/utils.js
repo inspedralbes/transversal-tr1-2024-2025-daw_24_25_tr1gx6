@@ -9,7 +9,7 @@ createApp({
         const precioTotal = ref(0); 
         const paginaInicial = ref(true);
         function getProductos() {
-            fetch('./JS/ropa.json')
+            fetch('./js/ropa.json')
                 .then(response => response.json())
                 .then(data => {
                     productos.value = data;

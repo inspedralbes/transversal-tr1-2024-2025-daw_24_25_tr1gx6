@@ -9,7 +9,7 @@
 <body>
     <div id="app">
         <nav>
-            <img @click="cambiarPantallaPrincipal" id="logo" src="./img/logo.png" alt="Logo">
+            <img @click="cambiarPantallaPrincipal" id="logo" src="./Img/Logo.png" alt="Logo">
             <a>Botiga</a>
             <a>Checkout</a>
             <div class="search-box">
@@ -24,16 +24,16 @@
                     <option value="puma">Puma</option>
                 </select>
             </form>
-            <img src="./img/cesta.png" alt="cesta" class="cesta" @click="toggleCesta">
+            <img src="./Img/cesta.png" alt="cesta" class="cesta" @click="toggleCesta">
         </nav>
         <div v-if="paginaInicial">
             <h2>En esta pantalla haced una pagina principal bonita</h2>
             <button @click="cambiarPantallaPrincipal">Ir a productos</button>
         </div>
         <div v-if="!paginaInicial">
-            <h2>Sección 1</h2>
+            <h2>Productes més comprats</h2>
             <div id="productos-container-1" class="productos-container">
-                <div v-for="(producto, index) in productos.slice(0, 10)" :key="index" class="product-card">
+                <div v-for="(producto, index) in productos.sort((a, b) => b.valoracion - a.valoracion).slice(0, 5)" :key="index" class="product-card">
                     <img :src="producto.imagen_url" :alt="producto.nombre" class="imagenProducto">
                     <h4>{{ producto.nombre }}</h4>
                     <h5 class="outOfStock" v-if="producto.stock === 0">Out of stock</h5>
@@ -42,8 +42,9 @@
                     <button @click="añadirALaCesta(index)">Añadir a la cesta</button>
                 </div>
             </div>
+            
 
-            <h2>Sección 2</h2>
+            <h2>Categoríes</h2>
             <div id="productos-container-2" class="productos-container">
                 <div v-for="(producto, index) in productos.slice(10, 20)" :key="index" class="product-card">
                     <img :src="producto.imagen_url" :alt="producto.nombre" class="imagenProducto">
