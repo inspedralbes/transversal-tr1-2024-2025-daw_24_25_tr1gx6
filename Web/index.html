@@ -28,6 +28,11 @@
             </form>
             <img src="./Img/cesta.png" alt="cesta" class="cesta" @click="toggleCesta">
         </nav>
+
+        <div v-if="divActivo=='todosProductos'" class="filtrado">
+            <div></div>
+
+        </div>
         <div v-if="divActivo=='paginaPrincipal'">
             <h2>Productes més comprats</h2>
             <div id="productos-container-1" class="productos-container">
