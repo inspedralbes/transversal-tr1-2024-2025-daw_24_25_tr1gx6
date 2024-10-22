@@ -8,6 +8,7 @@ createApp({
         const cestaActiva = ref(false);
         const finalitzaCompraActiva = ref(false);
         const precioTotal = ref(0);
+        
         function getProductos() {
             fetch('./JS/ropa.json')
                 .then(response => response.json())
