@@ -1,38 +1,31 @@
 import { createApp, ref, onMounted } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import { getProductoss } from './comunicationManager.js';
+
 createApp({
     setup() {
+        const categorias = ref([
+            { nombre: "zapatillas", imagen: "Img/zapatillas.jpeg" },
+            { nombre: "sudadera", imagen: "Img/sudadera.jpeg" },
+            { nombre: "pantalon", imagen: "Img/pantalon.jpeg" },
+            { nombre: "chaqueta", imagen: "Img/chaqueta.jpeg" },
+            { nombre: "camiseta", imagen: "Img/camiseta.jpeg" },
+            { nombre: "chandal", imagen: "Img/chandal.jpeg" },
+            { nombre: "chaleco", imagen: "Img/chaleco.jpeg" }
+        ]);
+        const categoriaFiltrada = ref('');
         const productos = ref([]);
-        const productos2 = ref([]);
         const productosEnCesta = ref([]);
+        const divActivo = ref('paginaDeInicio');
         const cestaActiva = ref(false);
         const finalitzaCompraActiva = ref(false);
-        const precioTotal = ref(0); 
-        const paginaInicial = ref(true);
+        const precioTotal = ref(0);
         function getProductos() {
-            fetch('./JS/ropa.json')
+            fetch('./js/ropa.json')
                 .then(response => response.json())
                 .then(data => {
                     productos.value = data;
                 })
                 .catch(error => console.error('Error fetching productos:', error));
-        }
-
-        function cambiarPantallaPrincipal(){
-            if (paginaInicial.value) {
-                paginaInicial.value = false;
-            }else{
-                paginaInicial.value = true;
-
-            }
-        }
-        async function cargarProductos(){
-            try {
-                const productos2 = await getProductoss();
-                console.log(productos2); // Aquí puedes hacer lo que necesites con los productos
-            } catch (error) {
-                console.error('No se pudieron cargar los productos:', error);
-            }
         }
 
         function añadirALaCesta(index) {
@@ -43,7 +36,20 @@ createApp({
             
             precioTotal.value += productoSeleccionado.precio;
         }
-
+        function irABotiga(){
+            divActivo.value = 'paginaPrincipal';
+        }
+        function filtrarPorCategoria(categoria) {
+            categoriaFiltrada.value = categoria;
+            divActivo.value = 'paginaPrincipal';
+        }
+        function cambiarACarrito(){
+            divActivo.value = 'carrito';
+            cestaActiva.value = false;
+        }
+        function irPantallaInicio(){
+            divActivo.value = 'paginaDeInicio';
+        }
         function eliminarDeLaCesta(index) {
             const productoEliminado = productosEnCesta.value[index];
             productosEnCesta.value.splice(index, 1);
@@ -55,17 +61,26 @@ createApp({
             }
         }
 
-        function toggleCesta() {
+        function botonCesta() {
             if(cestaActiva.value){
             cestaActiva.value = false;
             }else{
                 cestaActiva.value = true;
             }
         }
-
+        function volverALaPaginaPrincipal(){
+            divActivo.value = 'paginaPrincipal';
+        }
+        function IrLogin() {
+            if (divActivo.value === 'divLogin') {
+                divActivo.value = 'paginaDeInicio';
+            } else {
+                divActivo.value = 'divLogin';
+            }
+        }
+        
         onMounted(() => {
             getProductos();
-            cargarProductos();
         });
 
         return {
@@ -74,11 +89,18 @@ createApp({
             añadirALaCesta,
             eliminarDeLaCesta,
             cestaActiva,
-            toggleCesta,
+            botonCesta,
             finalitzaCompraActiva,
             precioTotal,
-            cambiarPantallaPrincipal,
-            paginaInicial,
+            divActivo,
+            cambiarACarrito,
+            volverALaPaginaPrincipal,
+            irPantallaInicio,
+            irABotiga,
+            filtrarPorCategoria,
+            categorias,
+            categoriaFiltrada,
+            IrLogin
         };
     }
 }).mount('#app');
