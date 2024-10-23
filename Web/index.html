@@ -27,6 +27,7 @@
                 </select>
             </form>
             <img src="./Img/cesta.png" alt="cesta" class="cesta" @click="botonCesta">
+            <img @click="IrLogin" id="loginIcono" src="Img/iconoLogin.png" alt="loginIcono">
         </nav>
         <div v-if="divActivo=='paginaDeInicio'">
             <h2>Productes millor valorats</h2>
@@ -145,6 +146,21 @@
             <button @click="FinalizarCompra" v-if="finalitzaCompraActiva" id="finalizarCompra">Finalizar compra</button>
             
             <h4 v-if="!finalitzaCompraActiva">No hay nada en la cesta</h4>
+        </div>
+        <div v-if="divActivo=='divLogin'">
+            <div class="card">
+                <h2>Login Form</h2>
+                <form class="form">
+                    <input type="email" placeholder="Email Adress" class="email">
+                    <input type="password" placeholder="password" class="pass">
+                </form>
+                <a href="#" class="fp">Forgot password?</a>
+                    <button type="button" class="login_btn">Login</button>
+                <div class="footer_card">
+                <p>Not a member?</p>
+                <a href="#">Singup now</a>
+                </div>
+            </div>
         </div>
     </div>
         <script type="module" src="./js/utils.js"></script>
