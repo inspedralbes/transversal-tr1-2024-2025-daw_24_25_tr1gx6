@@ -2,9 +2,19 @@ import { createApp, ref, onMounted } from 'https://unpkg.com/vue@3/dist/vue.esm-
 
 createApp({
     setup() {
+        const categorias = ref([
+            { nombre: "zapatillas", imagen: "Img/zapatillas.jpeg" },
+            { nombre: "sudadera", imagen: "Img/sudadera.jpeg" },
+            { nombre: "pantalon", imagen: "Img/pantalon.jpeg" },
+            { nombre: "chaqueta", imagen: "Img/chaqueta.jpeg" },
+            { nombre: "camiseta", imagen: "Img/camiseta.jpeg" },
+            { nombre: "chandal", imagen: "Img/chandal.jpeg" },
+            { nombre: "chaleco", imagen: "Img/chaleco.jpeg" }
+        ]);
+
         const productos = ref([]);
         const productosEnCesta = ref([]);
-        const divActivo = ref('paginaPrincipal');
+        const divActivo = ref('paginaDeInicio');
         const cestaActiva = ref(false);
         const finalitzaCompraActiva = ref(false);
         const precioTotal = ref(0);
@@ -25,8 +35,17 @@ createApp({
             
             precioTotal.value += productoSeleccionado.precio;
         }
+        function irABotiga(){
+            divActivo.value = 'paginaPrincipal';
+        }
+        function filtrarPorCategoria(categoria) {
+            categoriaFiltrada.value = categoria;
+        }
         function cambiarACarrito(){
             divActivo.value = 'carrito';
+        }
+        function irPantallaInicio(){
+            divActivo.value = 'paginaDeInicio';
         }
         function eliminarDeLaCesta(index) {
             const productoEliminado = productosEnCesta.value[index];
@@ -39,7 +58,7 @@ createApp({
             }
         }
 
-        function toggleCesta() {
+        function botonCesta() {
             if(cestaActiva.value){
             cestaActiva.value = false;
             }else{
@@ -59,12 +78,16 @@ createApp({
             añadirALaCesta,
             eliminarDeLaCesta,
             cestaActiva,
-            toggleCesta,
+            botonCesta,
             finalitzaCompraActiva,
             precioTotal,
             divActivo,
             cambiarACarrito,
-            volverALaPaginaPrincipal
+            volverALaPaginaPrincipal,
+            irPantallaInicio,
+            irABotiga,
+            filtrarPorCategoria,
+            categorias
         };
     }
 }).mount('#app');
