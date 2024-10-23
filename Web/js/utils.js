@@ -32,8 +32,7 @@ createApp({
             const productoSeleccionado = productos.value[index];
             productosEnCesta.value.push(productoSeleccionado);
             cestaActiva.value = true;
-            finalitzaCompraActiva.value = true;
-            
+            finalitzaCompraActiva.value = true;            
             precioTotal.value += productoSeleccionado.precio;
         }
         function irABotiga(){
@@ -51,6 +50,7 @@ createApp({
 
         function cambiarACarrito(){
             divActivo.value = 'carrito';
+            cestaActiva.value = false;
         }
         function irPantallaInicio(){
             divActivo.value = 'paginaDeInicio';

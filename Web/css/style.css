@@ -210,23 +210,23 @@ a:hover {
 
 #producte-item {
     display: grid;
-    grid-template-columns: 1fr 1fr 2fr; /* Definimos las columnas */
-    grid-template-rows: auto auto 1fr; /* Definimos las filas */
+    grid-template-columns: 1fr 1fr 2fr;
+    grid-template-rows: auto auto 1fr;
     grid-template-areas: 
-        "img img desc"  /* Fila 1: imagen en las dos primeras columnas, descripción en la tercera */
-        "img img desc"  /* Fila 2: misma disposición que la fila 1 */
-        "form form btn"; /* Fila 3: formulario en las dos primeras columnas y botón en la tercera */
-    gap: 20px; /* Espacio entre columnas y filas */
+        "img img desc"  
+        "img img desc"  
+        "form form btn"; 
+    gap: 20px; 
     padding: 20px;
 }
 
 .item {
-    display: contents; /* Permite que los hijos se distribuyan en el grid */
+    display: contents; 
 }
 
 .item img {
-    grid-area: img; /* Asigna la imagen a la área 'img' */
-    max-width: 500px; /* Asegura que la imagen no se desborde */
+    grid-area: img;
+    max-width: 400px; 
     object-fit: cover;
 }
 
@@ -236,4 +236,14 @@ a:hover {
 
 .form {
     grid-area: form;
+    display: flex;
+    flex-direction: column;
+}
+
+#form-btn {
+    grid-area: btn; 
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    cursor: pointer; 
 }

@@ -86,21 +86,20 @@
                     <!-- <button @click="añadirALaCesta(index + 10)">Añadir a la cesta</button> -->
                 </div>
             </div>
-
-            <div id="cesta" v-if="cestaActiva" class="cesta-container">
-                <h2>Carrito</h2>
-                <div class="productos-container"> 
-                    <div v-for="(producto, index) in productosEnCesta" :key="index" class="product-card">
-                        <img :src="producto.imagen_url" :alt="producto.nombre" class="imagenProducto">
-                        <h4>{{ producto.nombre }}</h4>
-                        <p class="price">{{ producto.precio }}€</p>
-                        <button @click="eliminarDeLaCesta(index)">Eliminar</button>
-                    </div>
+        </div>
+        <div id="cesta" v-if="cestaActiva" class="cesta-container">
+            <h2>Carrito</h2>
+            <div class="productos-container"> 
+                <div v-for="(producto, index) in productosEnCesta" :key="index" class="product-card">
+                    <img :src="producto.imagen_url" :alt="producto.nombre" class="imagenProducto">
+                    <h4>{{ producto.nombre }}</h4>
+                    <p class="price">{{ producto.precio }}€</p>
+                    <button @click="eliminarDeLaCesta(index)">Eliminar</button>
                 </div>
-                <h3 v-if="finalitzaCompraActiva">preu: {{precioTotal.toFixed(2)}}€</h3>
-                <button @click="cambiarACarrito" v-if="finalitzaCompraActiva" id="finalizarCompra">Ir al carrito</button>
-                <h4 v-if="!finalitzaCompraActiva">No hay nada en la cesta</h4>
             </div>
+            <h3 v-if="finalitzaCompraActiva">preu: {{precioTotal.toFixed(2)}}€</h3>
+            <button @click="cambiarACarrito" v-if="finalitzaCompraActiva" id="finalizarCompra">Ir al carrito</button>
+            <h4 v-if="!finalitzaCompraActiva">No hay nada en la cesta</h4>
         </div>
         <div v-if="divActivo=='carrito'" id="cestaCompleta">
             <h2>Carrito</h2>
@@ -134,8 +133,7 @@
                         <option v-for="(talla, index) in productos[veureProd].talla" :key="index">{{ talla }}</option>
                     </select>
                 </div>
-                <button @click="añadirALaCesta(veureProd, selectedTalla)">Añadir a la cesta</button>
-                
+                <button @click="añadirALaCesta(veureProd)" id="form-btn">Añadir a la cesta</button>
             </div>
         </div>
         
