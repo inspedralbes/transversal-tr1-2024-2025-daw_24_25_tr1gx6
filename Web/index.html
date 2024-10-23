@@ -28,7 +28,7 @@
         </nav>
         <div v-if="divActivo=='paginaDeInicio'">
             <h2>Productes millor valorats</h2>
-            <div class="productos-container">
+            <div class="productos-container-inici">
                 <div v-for="(producto, index) in productos.sort((a, b) => b.valoracion - a.valoracion).slice(0, 4)":key="index" class="product-card">
                     <img :src="producto.imagen_url" :alt="producto.nombre" class="imagenProducto">
                     <h4>{{ producto.nombre }}</h4>
@@ -38,10 +38,11 @@
                 </div>
             </div>
 
-            <h2>Categorías</h2>
+            <h2>Explora les nostres categories</h2>
             <div id="categorias-container" class="categorias-container">
                 <div v-for="(categoria, index) in categorias" :key="index" class="categoria-card" @click="filtrarPorCategoria(categoria.nombre)">
                     <img :src="categoria.imagen" :alt="" class="imagenCategoria" />
+                    <h4>{{ categorias.nombre }}hola</h4>
                 </div>
             </div>
 
