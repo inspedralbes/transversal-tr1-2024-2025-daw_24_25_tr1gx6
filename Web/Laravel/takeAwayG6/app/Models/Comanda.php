@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Comandas extends Model
+class Comanda extends Model
 {
     //
 }
