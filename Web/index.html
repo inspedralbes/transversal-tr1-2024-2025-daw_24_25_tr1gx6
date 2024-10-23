@@ -25,6 +25,7 @@
                 </select>
             </form>
             <img src="./Img/cesta.png" alt="cesta" class="cesta" @click="botonCesta">
+            <img @click="IrLogin" id="loginIcono" src="Img/iconoLogin.png" alt="loginIcono">
         </nav>
         <div v-if="divActivo=='paginaDeInicio'">
             <h2>Productes millor valorats</h2>
@@ -115,6 +116,39 @@
             <h3 v-if="finalitzaCompraActiva">preu: {{precioTotal.toFixed(2)}}€</h3>
             <button @click="volverALaPaginaPrincipal" v-if="finalitzaCompraActiva" id="finalizarCompra">Volver a la pagina principal</button>
             <h4 v-if="!finalitzaCompraActiva">No hay nada en la cesta</h4>
+        </div>
+        <div v-if="divActivo=='divLogin'">
+            <div class="card">
+                <h2>Login Form</h2>
+        
+                    <!-- SE CONNECTER / S'INSCRIRE -->
+                <div class="login_register">
+                    <a href="
+        https://codepen.io/pen?template=gOEqMVq
+        " class="login" target="blank">Login</a>
+                    <a href="
+        https://codepen.io/pen?template=VwRgKYB
+        " class="register" target="blank">Signup</a>
+                </div>
+        
+                    <!-- FORMULAIRE -->
+                <form class="form">
+                    <input type="email" placeholder="Email Adress" class="email">
+                    <input type="password" placeholder="password" class="pass">
+                </form>
+        
+                    <!-- MOT DE PASSE OUBLIE ? -->
+                <a href="#" class="fp">Forgot password?</a>
+        
+                    <!-- BOUTTON LOGIN -->
+                    <button type="button" class="login_btn">Login</button>
+        
+                    <!-- PIED DE LA CARD -->
+                <div class="footer_card">
+                <p>Not a member?</p>
+                <a href="#">Singup now</a>
+                </div>
+            </div>
         </div>
     </div>
     <script type="module" src="./js/utils.js"></script>

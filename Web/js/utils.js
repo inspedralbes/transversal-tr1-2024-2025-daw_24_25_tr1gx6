@@ -69,6 +69,9 @@ createApp({
         function volverALaPaginaPrincipal(){
             divActivo.value = 'paginaPrincipal';
         }
+        function IrLogin(){
+            divActivo.value = 'divLogin';
+        }
         onMounted(() => {
             getProductos();
         });
@@ -89,7 +92,8 @@ createApp({
             irABotiga,
             filtrarPorCategoria,
             categorias,
-            categoriaFiltrada
+            categoriaFiltrada,
+            IrLogin
         };
     }
 }).mount('#app');
