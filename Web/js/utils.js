@@ -45,7 +45,6 @@ createApp({
             precioTotal.value += productoSeleccionado.precio;
         }
 
-        // Funcion para Carrito
         function restarCantidad(index) {
             const producto = productosEnCesta.value[index];
 
@@ -122,6 +121,10 @@ createApp({
             }
         }
         
+        function enviarComanda(){
+            
+        }
+
         onMounted(() => {
             getProductos();
         });
@@ -147,7 +150,8 @@ createApp({
             filtrarPorCategoria,
             categorias,
             categoriaFiltrada,
-            IrLogin
+            IrLogin,
+            enviarComanda
         };
     }
 }).mount('#app');
