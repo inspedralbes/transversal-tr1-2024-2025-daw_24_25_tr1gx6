@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('comanda_articulos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idProducto');
+            $table->unsignedBigInteger('idComanda');
             $table->string('talla');
             $table->string('color');
-            $table->unsignedBigInteger('quantitat');
+            $table->integer('quantitat');
             $table->float('preu');
             $table->foreign('idProducto')->references('id')->on('productos');
+            $table->foreign('idComanda')->references('id')->on('comandas');
             $table->timestamps();
         });
     }
