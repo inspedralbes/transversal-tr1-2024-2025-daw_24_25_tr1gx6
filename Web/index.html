@@ -65,25 +65,25 @@
         <div v-if="divActivo=='paginaPrincipal'">
             <h2>Sección 1</h2>
             <div id="productos-container-1" class="productos-container">
-                <div v-for="(producto, index) in productos.slice(0, 10)" :key="index" class="product-card">
+                <div v-for="(producto, index) in productos.slice(0, 10)" :key="index" class="product-card" @click="getProducte(index)">
                     <img :src="producto.imagen_url" :alt="producto.nombre" class="imagenProducto">
                     <h4>{{ producto.nombre }}</h4>
                     <h5 class="outOfStock" v-if="producto.stock === 0">Out of stock</h5>
                     <h5 class="inStock" v-else>On stock</h5>
                     <p class="price">{{ producto.precio }}€</p>
-                    <button @click="añadirALaCesta(index)">Añadir a la cesta</button>
+                    <!-- <button @click="añadirALaCesta(index)">Añadir a la cesta</button> -->
                 </div>
             </div>
 
             <h2>Sección 2</h2>
             <div id="productos-container-2" class="productos-container">
-                <div v-for="(producto, index) in productos.slice(10, 20)" :key="index" class="product-card">
+                <div v-for="(producto, index) in productos.slice(10, 20)" :key="index" class="product-card" @click="getProducte(index+10)">
                     <img :src="producto.imagen_url" :alt="producto.nombre" class="imagenProducto">
                     <h4>{{ producto.nombre }}</h4>
                     <h5 class="outOfStock" v-if="producto.stock === 0">Out of stock</h5>
                     <h5 class="inStock" v-else>On stock</h5>
                     <p class="price">{{ producto.precio }}€</p>
-                    <button @click="añadirALaCesta(index + 10)">Añadir a la cesta</button>
+                    <!-- <button @click="añadirALaCesta(index + 10)">Añadir a la cesta</button> -->
                 </div>
             </div>
 
@@ -116,7 +116,19 @@
             <button @click="volverALaPaginaPrincipal" v-if="finalitzaCompraActiva" id="finalizarCompra">Volver a la pagina principal</button>
             <h4 v-if="!finalitzaCompraActiva">No hay nada en la cesta</h4>
         </div>
-        <div id="producte-item"></div>
+
+        <div id="producte-item" v-if="divActivo === 'producte-item'">
+            <div class="item">
+                <img :src="productos[veureProd].imagen_url" alt="">
+                <h1>{{ productos[veureProd].nombre }}</h1>
+                <h4>{{ productos[veureProd].valoracion }}/10</h4>
+                <h4>{{ productos[veureProd].descripcion }}</h4>
+                <div id="tallas">
+                    <button id="talla" v-for="(talla, index) in productos[veureProd].talla" :key="index" @click="añadirALaCesta(index)">{{ talla }}</button>
+                </div>
+            </div>
+        </div>
+        
     </div>
     <script type="module" src="./js/utils.js"></script>
 </body>

@@ -18,6 +18,7 @@ createApp({
         const cestaActiva = ref(false);
         const finalitzaCompraActiva = ref(false);
         const precioTotal = ref(0);
+        const veureProd = ref()
         function getProductos() {
             fetch('./js/ropa.json')
                 .then(response => response.json())
@@ -44,8 +45,10 @@ createApp({
         }
 
         function getProducte(index) {
-            
+            veureProd.value = index;
+            divActivo.value = 'producte-item';
         }
+
         function cambiarACarrito(){
             divActivo.value = 'carrito';
         }
@@ -93,7 +96,9 @@ createApp({
             irABotiga,
             filtrarPorCategoria,
             categorias,
-            categoriaFiltrada
+            categoriaFiltrada,
+            getProducte,
+            veureProd
         };
     }
 }).mount('#app');
