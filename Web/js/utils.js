@@ -69,9 +69,14 @@ createApp({
         function volverALaPaginaPrincipal(){
             divActivo.value = 'paginaPrincipal';
         }
-        function IrLogin(){
-            divActivo.value = 'divLogin';
+        function IrLogin() {
+            if (divActivo.value === 'divLogin') {
+                divActivo.value = 'paginaDeInicio';
+            } else {
+                divActivo.value = 'divLogin';
+            }
         }
+        
         onMounted(() => {
             getProductos();
         });

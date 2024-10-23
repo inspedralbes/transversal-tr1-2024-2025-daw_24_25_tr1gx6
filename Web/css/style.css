@@ -248,18 +248,6 @@ a:hover {
   width: 50%;
 }
 
-.login_register a.login{
-  border-radius: 15px;
-  background: linear-gradient(90deg, #003A74, #006AD5);
-  color: white;
-}
-
-.login_register a.register{
-  border-radius: 15px;
-  background-color: transparent;
-  color: black;
-}
-
 
 .login_btn{
   font-size: 20px;
@@ -271,20 +259,7 @@ a:hover {
   padding: 10px;
   margin-top: 15px;
   margin-bottom: 15px;
-  background: linear-gradient(-90deg, #003A74, #006AD5);
+  background-color: gray;
   box-shadow: 1px 5px 9px rgba(211, 211, 211, .9);
 }
 
-.footer_card{
-  display: flex;
-  width: 100%;
-  justify-content: center;
-}
-
-.footer_card p{
-  margin-right: 10px;
-}
-
-.footer_card a{
-  color: #5881D0;
-}
