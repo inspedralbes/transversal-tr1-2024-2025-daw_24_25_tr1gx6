@@ -29,7 +29,7 @@
         <div v-if="divActivo=='paginaDeInicio'">
             <h2>Productes millor valorats</h2>
             <div class="productos-container-inici">
-                <div v-for="(producto, index) in productos.sort((a, b) => b.valoracion - a.valoracion).slice(0, 4)":key="index" class="product-card">
+                <div v-for="(producto, index) in productos.sort((a, b) => b.valoracion - a.valoracion).slice(0, 4)":key="index" class="product-card-inici">
                     <img :src="producto.imagen_url" :alt="producto.nombre" class="imagenProducto">
                     <h4>{{ producto.nombre }}</h4>
                     <h5 class="outOfStock" v-if="producto.stock === 0">Out of stock</h5>
@@ -42,7 +42,7 @@
             <div id="categorias-container" class="categorias-container">
                 <div v-for="(categoria, index) in categorias" :key="index" class="categoria-card" @click="filtrarPorCategoria(categoria.nombre)">
                     <img :src="categoria.imagen" :alt="" class="imagenCategoria" />
-                    <h4>{{ categorias.nombre }}hola</h4>
+                    <h4>{{ categoria.nombre }}</h4>
                 </div>
             </div>
 

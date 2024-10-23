@@ -11,7 +11,7 @@ createApp({
             { nombre: "chandal", imagen: "Img/chandal.jpeg" },
             { nombre: "chaleco", imagen: "Img/chaleco.jpeg" }
         ]);
-
+        const categoriaFiltrada = ref('');
         const productos = ref([]);
         const productosEnCesta = ref([]);
         const divActivo = ref('paginaDeInicio');
@@ -40,6 +40,7 @@ createApp({
         }
         function filtrarPorCategoria(categoria) {
             categoriaFiltrada.value = categoria;
+            divActivo.value = 'paginaPrincipal';
         }
         function cambiarACarrito(){
             divActivo.value = 'carrito';
@@ -87,7 +88,8 @@ createApp({
             irPantallaInicio,
             irABotiga,
             filtrarPorCategoria,
-            categorias
+            categorias,
+            categoriaFiltrada
         };
     }
 }).mount('#app');
