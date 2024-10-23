@@ -42,6 +42,10 @@ createApp({
             categoriaFiltrada.value = categoria;
             divActivo.value = 'paginaPrincipal';
         }
+
+        function getProducte(index) {
+            
+        }
         function cambiarACarrito(){
             divActivo.value = 'carrito';
         }
