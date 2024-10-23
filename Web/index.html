@@ -32,6 +32,7 @@
                 <div v-for="(producto, index) in productos.sort((a, b) => b.valoracion - a.valoracion).slice(0, 4)":key="index" class="product-card-inici">
                     <img :src="producto.imagen_url" :alt="producto.nombre" class="imagenProducto">
                     <h4>{{ producto.nombre }}</h4>
+                    <h4>{{ productos[index].valoracion }}⭐</h4>
                     <h5 class="outOfStock" v-if="producto.stock === 0">Out of stock</h5>
                     <h5 class="inStock" v-else>On stock</h5>
                     <p class="price">{{ producto.precio }}€</p>
@@ -68,6 +69,7 @@
                 <div v-for="(producto, index) in productos.slice(0, 10)" :key="index" class="product-card" @click="getProducte(index)">
                     <img :src="producto.imagen_url" :alt="producto.nombre" class="imagenProducto">
                     <h4>{{ producto.nombre }}</h4>
+                    <h4>{{ productos[index].valoracion }}⭐</h4>
                     <h5 class="outOfStock" v-if="producto.stock === 0">Out of stock</h5>
                     <h5 class="inStock" v-else>On stock</h5>
                     <p class="price">{{ producto.precio }}€</p>
@@ -80,6 +82,7 @@
                 <div v-for="(producto, index) in productos.slice(10, 20)" :key="index" class="product-card" @click="getProducte(index+10)">
                     <img :src="producto.imagen_url" :alt="producto.nombre" class="imagenProducto">
                     <h4>{{ producto.nombre }}</h4>
+                    <h4>{{ productos[index].valoracion }}⭐</h4>
                     <h5 class="outOfStock" v-if="producto.stock === 0">Out of stock</h5>
                     <h5 class="inStock" v-else>On stock</h5>
                     <p class="price">{{ producto.precio }}€</p>
