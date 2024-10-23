@@ -156,3 +156,44 @@ a:hover {
 .imagenCategoria{
     height: 300px;
 }
+
+/* Parte de carrito */
+
+/* Parte de carrito */
+
+.imagenDeCarrito {
+    width: 130px; 
+    height: auto; 
+    border-radius: 8px; 
+    margin: 50px;
+    margin-right: 15px; 
+    object-fit: cover; 
+    background-color: #D3D3D3;
+  }
+  
+
+  .product-carrito {
+    margin: 50px;
+    display: flex;
+    align-items: center; 
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .product-carrito h4 {
+    margin: 50px;
+    font-size: 1.2rem;
+  }
+
+
+.sumaCantidad{
+    margin: 10px;
+}
+
+.restarCantidad{
+    margin: 10px;
+}
+.priceDeCarrito{
+
+    margin-right: 100px;
+}
