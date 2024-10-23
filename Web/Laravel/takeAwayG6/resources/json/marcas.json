@@ -1,0 +1,34 @@
+[
+    {
+        "nom":"Nike",
+        "imagen":"ruta"
+    },
+    {
+        "nom":"Adidas",
+        "imagen":"ruta"
+    },
+    {
+        "nom":"Puma",
+        "imagen":"ruta"
+    },
+    {
+        "nom":"The North Face",
+        "imagen":"ruta"
+    },
+    {
+        "nom":"Jordan",
+        "imagen":"ruta"
+    },
+    {
+        "nom":"Vans",
+        "imagen":"ruta"
+    },
+    {
+        "nom":"Fila",
+        "imagen":"ruta"
+    },
+    {
+        "nom":"Converse",
+        "imagen":"ruta"
+    }
+]
