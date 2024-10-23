@@ -7,26 +7,27 @@ use App\Models\ComandaArticulo;
 
 class ComandaArticuloController extends Controller
 {
-    public function createComandaArt(Request $request, $id){
+    public function createComandaArt(Request $request){
 
         $data = $request->validate([
-            'idProducto'=> 'required',
-            'talla'=> 'required',
-            'color'=> 'required',
-            'quantitat'=> 'required',
-            'preu'=> 'required',
+            'json.*.idProducto'=> 'required',
+            'json.*.talla'=> 'required',
+            'json.*.color'=> 'required',
+            'json.*.quantitat'=> 'required',
+            'json.*.preu'=> 'required',
         ]);
 
-        $comandaArt = new ComandaArticulo();
-        $comandaArt->idPrducto = $request->idPrducto;
-        $comandaArt->talla = $request->talla;
-        $comandaArt->color = $request->color;
-        $comandaArt->quantitat = $request->quantitat;
-        $comandaArt->preu = $request->preu;
+        foreach($data['json'] as $comandaArt){
+            $comandaArt = new ComandaArticulo();
+            $comandaArt->idPrducto = $json['idPrducto'];
+            $comandaArt->talla = $json['talla'];
+            $comandaArt->color = $json['color'];
+            $comandaArt->quantitat = $json['quantitat'];
+            $comandaArt->preu = $json['preu'];
+            $comandaArt->save();
+        }
 
-        $comandaArt->save();
-
-        return response()->json(['status'=>'success', 'message' => 'Producto creado correctamente']);
+        return response()->json(['status'=>'success', 'message' => 'Comanda aritulo creada']);
     }
 
     public function updateComandaArt(){

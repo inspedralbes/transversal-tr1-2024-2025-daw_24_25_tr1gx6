@@ -24,6 +24,7 @@ class ProductoSeeder extends Seeder
                 'stock' => $producto['stock'],
                 'preu' => $producto['preu'],
                 'img' => $producto['img'],
+                'valoracion' => $producto['valoracion'],
                 'idCategory' => $producto['idCategory'],
                 'idMarca' => $producto['idMarca'],
                 'idColor' => $producto['idColor'],

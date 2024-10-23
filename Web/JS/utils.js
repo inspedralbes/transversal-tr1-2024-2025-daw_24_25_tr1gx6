@@ -33,7 +33,6 @@ createApp({
             } catch (error) {
                 console.error('No se pudieron cargar los productos:', error);
             }
-            
         }
 
         function añadirALaCesta(index) {

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('stock');
             $table->float('preu');
             $table->string('img');
+            $table->tinyInteger('valoracion');
             $table->unsignedBigInteger('idCategory');
             $table->unsignedBigInteger('idMarca');
             $table->unsignedBigInteger('idColor');
