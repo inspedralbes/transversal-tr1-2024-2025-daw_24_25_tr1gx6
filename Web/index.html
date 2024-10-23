@@ -120,12 +120,22 @@
         <div id="producte-item" v-if="divActivo === 'producte-item'">
             <div class="item">
                 <img :src="productos[veureProd].imagen_url" alt="">
-                <h1>{{ productos[veureProd].nombre }}</h1>
-                <h4>{{ productos[veureProd].valoracion }}⭐</h4>
-                <p>{{ productos[veureProd].descripcion }}</p>
-                <div id="tallas">
-                    <button id="talla" v-for="(talla, index) in productos[veureProd].talla" :key="index" class="talla-label" @click="añadirALaCesta(index)">{{ talla }}</button>
+                <div class="desc">
+                    <h1>{{ productos[veureProd].nombre }}</h1>
+                    <h4>{{ productos[veureProd].precio }}€</h4>
+                    <h4>{{ productos[veureProd].valoracion }}⭐</h4>
+                    <h5 class="outOfStock" v-if="productos[veureProd].stock === 0">Out of stock</h5>
+                        <h5 class="inStock" v-else>On stock</h5>
+                    <p>{{ productos[veureProd].descripcion }}</p>
                 </div>
+                <div class="form">
+                    <label for="tallas">Talla:</label>
+                    <select id="tallas" v-model="selectedTalla">
+                        <option v-for="(talla, index) in productos[veureProd].talla" :key="index">{{ talla }}</option>
+                    </select>
+                </div>
+                <button @click="añadirALaCesta(veureProd, selectedTalla)">Añadir a la cesta</button>
+                
             </div>
         </div>
         

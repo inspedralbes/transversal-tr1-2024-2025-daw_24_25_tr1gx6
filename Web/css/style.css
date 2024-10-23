@@ -207,3 +207,33 @@ a:hover {
 .imagenCategoria{
     height: 300px;
 }
+
+#producte-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr; /* Definimos las columnas */
+    grid-template-rows: auto auto 1fr; /* Definimos las filas */
+    grid-template-areas: 
+        "img img desc"  /* Fila 1: imagen en las dos primeras columnas, descripción en la tercera */
+        "img img desc"  /* Fila 2: misma disposición que la fila 1 */
+        "form form btn"; /* Fila 3: formulario en las dos primeras columnas y botón en la tercera */
+    gap: 20px; /* Espacio entre columnas y filas */
+    padding: 20px;
+}
+
+.item {
+    display: contents; /* Permite que los hijos se distribuyan en el grid */
+}
+
+.item img {
+    grid-area: img; /* Asigna la imagen a la área 'img' */
+    max-width: 500px; /* Asegura que la imagen no se desborde */
+    object-fit: cover;
+}
+
+.desc {
+    grid-area: desc; 
+}
+
+.form {
+    grid-area: form;
+}
