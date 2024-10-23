@@ -11,9 +11,9 @@
 <body>
     <div id="app">
         <nav>
-            <img @click="cambiarPantallaPrincipal" id="logo" src="./Img/Logo.png" alt="Logo">
-            <a>Botiga</a>
-            <a>Checkout</a>
+            <img @click="irPantallaInicio" id="logo" src="./img/logo.png" alt="Logo">
+            <a @click="irABotiga">Botiga</a>
+            <a @click="cambiarACarrito">Checkout</a>
             <div class="search-box">
                 <form method="get" id="search-form">
                     <input type="text" id="search-input" placeholder="Buscar" />
@@ -28,10 +28,40 @@
             </form>
             <img src="./Img/cesta.png" alt="cesta" class="cesta" @click="toggleCesta">
         </nav>
+        <div v-if="divActivo=='paginaDeInicio'">
+            <h2>Productes millor valorats</h2>
+            <div class="productos-container">
+                <div v-for="(producto, index) in productos.sort((a, b) => b.valoracion - a.valoracion).slice(0, 4)":key="index" class="product-card">
+                    <img :src="producto.imagen_url" :alt="producto.nombre" class="imagenProducto">
+                    <h4>{{ producto.nombre }}</h4>
+                    <h5 class="outOfStock" v-if="producto.stock === 0">Out of stock</h5>
+                    <h5 class="inStock" v-else>On stock</h5>
+                    <p class="price">{{ producto.precio }}€</p>
+                </div>
+            </div>
 
-        <div v-if="divActivo=='todosProductos'" class="filtrado">
-            <div></div>
+            <h2>Categorías</h2>
+            <div id="categorias-container" class="categorias-container">
+                <div v-for="(categoria, index) in categorias" :key="index" class="categoria-card" @click="filtrarPorCategoria(categoria.nombre)">
+                    <img :src="categoria.imagen" :alt="" class="imagenCategoria" />
+                </div>
+            </div>
 
+            <div id="cesta" v-if="cestaActiva" class="cesta-container">
+                <h2>Carrito</h2>
+                <div class="productos-container">
+                    <div v-for="(producto, index) in productosEnCesta" :key="index" class="product-card">
+                        <img :src="producto.imagen_url" :alt="producto.nombre" class="imagenProducto">
+                        <h4>{{ producto.nombre }}</h4>
+                        <p class="price">{{ producto.precio }}€</p>
+                        <button @click="eliminarDeLaCesta(index)">Eliminar</button>
+                    </div>
+                </div>
+                <h3>preu: {{precioTotal.toFixed(2)}}€</h3>
+                <button v-if="finalitzaCompraActiva" id="finalizarCompra">Finalizar compra</button>
+                <h4 v-if="!finalitzaCompraActiva">Esta es la cesta, aqui podras ver los productos que has añadido a la
+                    cesta y podras pasar a finalizar la compra</h4>
+            </div>
         </div>
         <div v-if="divActivo=='paginaPrincipal'">
             <h2>Productes més comprats</h2>
