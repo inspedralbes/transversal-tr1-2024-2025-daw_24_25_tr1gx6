@@ -21,9 +21,10 @@ createApp({
         const precioTotal = ref(0);
 
         function getProductos() {
-            fetch('./js/ropa.json')
+            fetch('http://localhost:8000/api/getProductos')
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data)
                     productos.value = data;
                 })
                 .catch(error => console.error('Error fetching productos:', error));
@@ -42,7 +43,7 @@ createApp({
         }
         function añadirALaCesta(index) {
             const productoSeleccionado = productos.value[index];
-            const productoEnCesta = productosEnCesta.value.find(producto => producto.nombre === productoSeleccionado.nombre);
+            const productoEnCesta = productosEnCesta.value.find(producto => producto.nom === productoSeleccionado.nom);
 
             if (productoEnCesta) {
                 productoEnCesta.cantidad++;
@@ -83,7 +84,7 @@ createApp({
 
         function actualizarPrecioTotal() {
             precioTotal.value = productosEnCesta.value.reduce((total, producto) => {
-                return total + producto.precio * producto.cantidad;
+                return total + producto.preu * producto.cantidad;
             }, 0);
         }
 
