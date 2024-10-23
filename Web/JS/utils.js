@@ -31,7 +31,9 @@ createApp({
           productoEnCesta.cantidad++;
         } else {
           // Si no está en la cesta, añade el producto con cantidad 1
-          const nuevoProducto = { ...productoSeleccionado, cantidad: 1 }; // Crear una nueva referencia del objeto
+          // const nuevoProducto = { ...productoSeleccionado, cantidad: 1 }; 
+          const nuevoProducto = Object.assign({},productoSeleccionado, { cantidad: 1 }); 
+
           productosEnCesta.value.push(nuevoProducto);
         }
       
