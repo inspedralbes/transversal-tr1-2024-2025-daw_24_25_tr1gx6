@@ -139,12 +139,29 @@
                 </div>
             </div>
             <h3 v-if="finalitzaCompraActiva">preu: {{precioTotal.toFixed(2)}}€</h3>
-            <button @click="volverALaPaginaPrincipal" v-if="finalitzaCompraActiva" id="finalizarCompra">Volver a la
+            <button @click="volverALaPaginaPrincipal" v-if="finalitzaCompraActiva" id="volverPaginaPrincipal">Volver a la
                 pagina principal</button>
                 <br><br>
-            <button @click="FinalizarCompra" v-if="finalitzaCompraActiva" id="finalizarCompra">Finalizar compra</button>
+            <button @click="FinalizarCompra" v-if="finalitzaCompraActiva" id="finalizarCompraDeCarrito">Finalizar compra</button>
             
             <h4 v-if="!finalitzaCompraActiva">No hay nada en la cesta</h4>
+        </div>
+
+        <!-- Parte de finalizar la compra y pago -->
+        <div v-if="divActivo=='finalizarCompra'" id="PaginaPago">
+            <h2>Finalizar compra</h2>
+           <form @submit.prevent="procecoEnCompra">
+            <div>
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" v-model="nombre" placeholder="Nombre">
+            </div>
+            <div>
+                <label for="correoElectronico">Correo electronico</label>
+                <input type="text" id="gmail" v-model="apellidos" placeholder="Correo electronico">
+            </div>
+           </form>
+
+            </div>
         </div>
     </div>
         <script type="module" src="./js/utils.js"></script>

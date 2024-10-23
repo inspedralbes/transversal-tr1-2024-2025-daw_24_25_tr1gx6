@@ -110,6 +110,11 @@ createApp({
                 cestaActiva.value = true;
             }
         }
+
+        // Parte de Finalizar la compra y pago
+        function finalizarCompra() {
+            divActivo.value = 'finalizarCompra';
+          }
         function volverALaPaginaPrincipal(){
             divActivo.value = 'paginaPrincipal';
         }
@@ -125,6 +130,7 @@ createApp({
             restarCantidad,
             sumaCantidad,
             actualizarPrecioTotal,
+            finalizarCompra,
             eliminarDeLaCesta,
             cestaActiva,
             botonCesta,
