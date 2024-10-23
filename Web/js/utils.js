@@ -29,12 +29,55 @@ createApp({
 
         function añadirALaCesta(index) {
             const productoSeleccionado = productos.value[index];
-            productosEnCesta.value.push(productoSeleccionado);
+            // productosEnCesta.value.push(productoSeleccionado);
+            const productoEnCesta = productosEnCesta.value.find(producto => producto.nombre ===productoSeleccionado.nombre);
+            if (productoEnCesta) {
+                productoEnCesta.cantidad++;
+            } else {
+                const numevoProducto = Object.assign({}, productoSeleccionado, { cantidad: 1});
+                productosEnCesta.value.push(numevoProducto);
+            }
+
             cestaActiva.value = true;
             finalitzaCompraActiva.value = true;
+            actualizarPrecioTotal();
             
             precioTotal.value += productoSeleccionado.precio;
         }
+
+        // Funcion para Carrito
+        function restarCantidad(index) {
+            const producto = productosEnCesta.value[index];
+
+            if(producto.cantidad > 1){
+                producto.cantidad--;
+                actualizarPrecioTotal();
+            }
+        }
+
+        function sumaCantidad(index) {
+            const producto = productosEnCesta.value[index];
+            producto.cantidad++;
+            actualizarPrecioTotal();
+        }
+
+        function eliminarDesdeCarrito(index) {
+            productosEnCesta.value.splice(index,1);
+            actualizarPrecioTotal();
+
+            if(productoEnCesta.value.length === 0){
+                finalitzaCompraActiva.value = false;
+            }
+        }
+        
+        function actualizarPrecioTotal() {
+            precioTotal.value = 0;
+      
+            for (let i = 0; i < productosEnCesta.value.length; i++) {
+              precioTotal.value += productosEnCesta.value[i].precio * productosEnCesta.value[i].cantidad;
+            }
+          }
+        
         function irABotiga(){
             divActivo.value = 'paginaPrincipal';
         }
@@ -51,6 +94,8 @@ createApp({
         function eliminarDeLaCesta(index) {
             const productoEliminado = productosEnCesta.value[index];
             productosEnCesta.value.splice(index, 1);
+
+            actualizarPrecioTotal();
 
             precioTotal.value -= productoEliminado.precio;
 
@@ -77,6 +122,10 @@ createApp({
             productos,
             productosEnCesta,
             añadirALaCesta,
+            eliminarDesdeCarrito,
+            restarCantidad,
+            sumaCantidad,
+            actualizarPrecioTotal,
             eliminarDeLaCesta,
             cestaActiva,
             botonCesta,
