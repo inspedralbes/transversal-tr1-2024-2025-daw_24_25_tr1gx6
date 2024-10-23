@@ -1,0 +1,66 @@
+[
+    {
+        "idProducto": 1,
+        "idComanda": 1,
+        "talla": "40",
+        "color": "Negro",
+        "quantitat": 1,
+        "preu": 149.90
+    },
+    {
+        "idProducto": 5,
+        "idComanda": 1,
+        "talla": "M",
+        "color": "Gris",
+        "quantitat": 1,
+        "preu": 119.99
+    },
+    {
+        "idProducto": 11,
+        "idComanda": 1,
+        "talla": "XXL",
+        "color": "Negro",
+        "quantitat": 1,
+        "preu": 69.99
+    },
+    {
+        "idProducto": 8,
+        "idComanda": 2,
+        "talla": "40",
+        "color": "Negro",
+        "quantitat": 1,
+        "preu": 149.90
+    },
+    {
+        "idProducto": 5,
+        "idComanda": 2,
+        "talla": "M",
+        "color": "Gris",
+        "quantitat": 1,
+        "preu": 119.99
+    },
+    {
+        "idProducto": 14,
+        "idComanda": 1,
+        "talla": "44",
+        "color": "Gris",
+        "quantitat": 1,
+        "preu": 89.99
+    },
+    {
+        "idProducto": 5,
+        "idComanda": 3,
+        "talla": "M",
+        "color": "Gris",
+        "quantitat": 1,
+        "preu": 119.99
+    },
+    {
+        "idProducto": 14,
+        "idComanda": 3,
+        "talla": "44",
+        "color": "Gris",
+        "quantitat": 1,
+        "preu": 89.99
+    }
+]

@@ -1,0 +1,18 @@
+[
+    {
+        "idUser": 1,
+        "estat": "Preparando",
+        "total": 1203.22
+    },
+    {
+        "idUser": 2,
+        "estat": "Preparando",
+        "total": 1203.22
+    },
+    {
+        "idUser": 1,
+        "estat": "Preparando",
+        "total": 500.22
+    }
+
+]

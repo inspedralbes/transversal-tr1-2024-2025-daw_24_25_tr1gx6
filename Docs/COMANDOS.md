@@ -17,3 +17,7 @@
 # Para ejecutar el seeder y lo hago
 
     php artisan db:seed --class=NombreDeLaClase
+
+# Para ejecutar todos los seeder de golpe seria con el comando
+
+    php artisan db:seed

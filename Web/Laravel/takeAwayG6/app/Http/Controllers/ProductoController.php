@@ -12,8 +12,9 @@ class ProductoController extends Controller
     {
         $productos = Producto::with(['category', 'marca', 'talla', 'color'])->get();
 
-        /*
+        
         // Mapeamos los productos para cambiar la estructura
+        /*
         $productosResponse = $productos->map(function ($producto) {
             return [
                 'id' => $producto->id,

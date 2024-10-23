@@ -29,7 +29,7 @@ export async function checkoutProductos(json) {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        const data = response.json();
+        const data = await response.json();
         console.log(data);
         return data;
     } catch (error) {
@@ -41,20 +41,42 @@ export async function checkoutProductos(json) {
 export async function checkout(json) {
     try {
         const response = await fetch(HOST + '/checkout', {
-            method:'POST',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body:JSON.stringify(json),
+            body: JSON.stringify(json),
         });
 
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const data  = await response.json();
+        const data = await response.json();
         return data;
     } catch (error) {
         console.log(console.error());
     }
+}
+
+export async function pedidoUser(json) {
+    try {
+        const response = await fetch(HOST + '/pedidoUser', {
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify(json),
+        });
+        //CONSULTAR SI LA CONEXION ES BUENA
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
+        const data = await response.json();
+        return data;
+
+    } catch (error) {
+        console.log(error);
+    }
+
 }

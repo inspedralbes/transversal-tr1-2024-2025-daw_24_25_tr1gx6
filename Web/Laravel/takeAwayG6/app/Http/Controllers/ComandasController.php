@@ -7,7 +7,8 @@ use App\Models\Comanda;
 
 class ComandasController extends Controller
 {
-    public function createComanda(Request $request){
+    public function createComanda(Request $request)
+    {
         $data = $request->validate([
             'idUser' => 'required',
             'estat' => 'required',
@@ -21,7 +22,18 @@ class ComandasController extends Controller
 
         $comanda->save();
 
-        return response()->json(['status'=>'success', 'message'=>'Comanda creada exitosamente']);
-        
+        return response()->json(['status' => 'success', 'message' => 'Comanda creada exitosamente']);
+
+    }
+
+    public function pedidoUser(Request $request)
+    {
+        $data = $request->validate([
+            'idUser' => 'required'
+        ]);
+
+        $comanda = Comanda::with('comandaArticulo')->where('idUser', $request->idUser)->get();
+
+        return response()->json(['status' => 'success', 'comandaUser' => $comanda]);
     }
 }
