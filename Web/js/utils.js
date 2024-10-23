@@ -11,46 +11,20 @@ createApp({
             { nombre: "chandal", imagen: "Img/chandal.jpeg" },
             { nombre: "chaleco", imagen: "Img/chaleco.jpeg" }
         ]);
-<<<<<<< HEAD:Web/js/utils.js
-        
-        let categoriaFiltrada = ref(null); // Cambiado a ref para ser reactivo        
-        const productos = ref([]);
-        const productosEnCesta = ref([]);
-=======
 
         const productos = ref([]);
         const productosEnCesta = ref([]);
         const divActivo = ref('paginaDeInicio');
->>>>>>> featureTiendaComponentes:Web/JS/utils.js
         const cestaActiva = ref(false);
         const finalitzaCompraActiva = ref(false);
-        const precioTotal = ref(0); 
-        const divActivo = ref('paginaPrincipal');
-        const paginaInicial = ref(true);
-
+        const precioTotal = ref(0);
         function getProductos() {
-            fetch('./js/ropa.json')
+            fetch('./JS/ropa.json')
                 .then(response => response.json())
                 .then(data => {
                     productos.value = data;
                 })
                 .catch(error => console.error('Error fetching productos:', error));
-        }
-
-        function cambiarPantallaPrincipal(){
-            paginaInicial.value = !paginaInicial.value;
-        }
-
-        function filtrarPorCategoria(categoria) {
-            categoriaFiltrada.value = categoria;
-        }
-
-        function cambiarACarrito(){
-            divActivo.value = 'carrito';
-        }
-
-        function volverALaPaginaPrincipal(){
-            divActivo.value = 'paginaPrincipal';
         }
 
         function añadirALaCesta(index) {
@@ -61,9 +35,6 @@ createApp({
             
             precioTotal.value += productoSeleccionado.precio;
         }
-<<<<<<< HEAD:Web/js/utils.js
-
-=======
         function irABotiga(){
             divActivo.value = 'paginaPrincipal';
         }
@@ -76,7 +47,6 @@ createApp({
         function irPantallaInicio(){
             divActivo.value = 'paginaDeInicio';
         }
->>>>>>> featureTiendaComponentes:Web/JS/utils.js
         function eliminarDeLaCesta(index) {
             const productoEliminado = productosEnCesta.value[index];
             productosEnCesta.value.splice(index, 1);
@@ -88,10 +58,6 @@ createApp({
             }
         }
 
-<<<<<<< HEAD:Web/js/utils.js
-        function toggleCesta() {
-            cestaActiva.value = !cestaActiva.value; // Simplificado
-=======
         function botonCesta() {
             if(cestaActiva.value){
             cestaActiva.value = false;
@@ -101,9 +67,7 @@ createApp({
         }
         function volverALaPaginaPrincipal(){
             divActivo.value = 'paginaPrincipal';
->>>>>>> featureTiendaComponentes:Web/JS/utils.js
         }
-
         onMounted(() => {
             getProductos();
         });
@@ -118,20 +82,12 @@ createApp({
             finalitzaCompraActiva,
             precioTotal,
             divActivo,
-<<<<<<< HEAD:Web/js/utils.js
-            cambiarPantallaPrincipal,
-            paginaInicial,
-            categorias, // Asegúrate de incluir categorías para usarlas en tu plantilla
-            categoriaFiltrada,
-            filtrarPorCategoria // Para poder acceder en la plantilla
-=======
             cambiarACarrito,
             volverALaPaginaPrincipal,
             irPantallaInicio,
             irABotiga,
             filtrarPorCategoria,
             categorias
->>>>>>> featureTiendaComponentes:Web/JS/utils.js
         };
     }
 }).mount('#app');
