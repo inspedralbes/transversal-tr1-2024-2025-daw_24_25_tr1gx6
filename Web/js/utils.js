@@ -2,6 +2,14 @@ import { createApp, ref, onMounted } from 'https://unpkg.com/vue@3/dist/vue.esm-
 
 createApp({
     setup() {
+
+        //Variables para la informacion del usuario en la parte finaliza compra y pago
+        const nombre = ref('');
+        const correoElectronico = ref('');
+        const direccion = ref('');
+        const datosUsuario = ref({ tarjeta: '', expiracion: '', cvv: '' });
+
+
         const categorias = ref([
             { nombre: "zapatillas", imagen: "Img/zapatillas.jpeg" },
             { nombre: "sudadera", imagen: "Img/sudadera.jpeg" },
@@ -18,6 +26,7 @@ createApp({
         const cestaActiva = ref(false);
         const finalitzaCompraActiva = ref(false);
         const precioTotal = ref(0);
+       
         function getProductos() {
             fetch('./JS/ropa.json')
                 .then(response => response.json())
@@ -30,6 +39,7 @@ createApp({
         function añadirALaCesta(index) {
             const productoSeleccionado = productos.value[index];
             const productoEnCesta = productosEnCesta.value.find(producto => producto.nombre ===productoSeleccionado.nombre);
+            
             if (productoEnCesta) {
                 productoEnCesta.cantidad++;
             } else {
@@ -76,7 +86,15 @@ createApp({
               precioTotal.value += productosEnCesta.value[i].precio * productosEnCesta.value[i].cantidad;
             }
           }
-        
+
+           // Parte de Finalizar la compra y pago
+        function finalizarCompraDeCarrito() {
+            divActivo.value = 'finalizarCompraDeCarrito';
+            console.log('Finalizar compra');
+        }
+
+     
+
         function irABotiga(){
             divActivo.value = 'paginaPrincipal';
         }
@@ -109,6 +127,7 @@ createApp({
                 cestaActiva.value = true;
             }
         }
+
         function volverALaPaginaPrincipal(){
             divActivo.value = 'paginaPrincipal';
         }
@@ -124,6 +143,7 @@ createApp({
             restarCantidad,
             sumaCantidad,
             actualizarPrecioTotal,
+            finalizarCompraDeCarrito,
             eliminarDeLaCesta,
             cestaActiva,
             botonCesta,
