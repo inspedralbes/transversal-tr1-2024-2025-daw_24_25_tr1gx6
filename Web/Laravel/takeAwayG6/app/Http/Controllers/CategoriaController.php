@@ -7,6 +7,13 @@ use App\Models\Categoria;
 
 class CategoriaController extends Controller
 {
+    public function getCategory(){
+        
+        $categorias = Categoria::all();
+
+        return response()->json([$categorias]);
+    }
+
     public function CreateCategory(Request $request){
         $data = $request->validate(
             ['nom'=>'required']

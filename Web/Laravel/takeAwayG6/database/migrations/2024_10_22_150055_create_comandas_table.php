@@ -14,11 +14,9 @@ return new class extends Migration
         Schema::create('comandas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idUser');
-            $table->unsignedBigInteger('idComandaArt');
             $table->enum('estat', ['Preparando', 'En Almacen', 'En Reparto', 'Finalizado']);
             $table->double('total');
             $table->foreign('idUser')->references('id')->on('users');
-            $table->foreign('idComandaArt')->references('id')->on('comanda_articulos');
             $table->timestamps();
         });
     }
