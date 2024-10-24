@@ -14,12 +14,13 @@ createApp({
         ]);
 
         const productos = ref([]);
+        const categoriaFiltrada = ref('');
         const productosEnCesta = ref([]);
         const divActivo = ref('paginaDeInicio');
         const cestaActiva = ref(false);
         const finalitzaCompraActiva = ref(false);
         const precioTotal = ref(0);
-
+        const veureProd = ref()
         function getProductos() {
             fetch('http://localhost:8000/api/getProductos')
                 .then(response => response.json())
@@ -62,9 +63,16 @@ createApp({
             if (producto.cantidad > 1) {
                 producto.cantidad--;
             } else {
-                eliminarDesdeCarrito(index); 
+
+                eliminarDesdeCarrito(index);
             }
             actualizarPrecioTotal();
+            cestaActiva.value = false;
+        }
+
+        function getProducte(index) {
+            veureProd.value = index;
+            divActivo.value = 'producte-item';
         }
 
         function sumaCantidad(index) {
@@ -94,6 +102,8 @@ createApp({
         }
 
         function filtrarPorCategoria(categoria) {
+            categoriaFiltrada.value = categoria;
+            divActivo.value = 'paginaPrincipal';
         }
 
         function cambiarACarrito() {
@@ -107,13 +117,13 @@ createApp({
         }
 
         function botonCesta() {
-            if(cestaActiva.value){
-            cestaActiva.value = false;
-            }else{
+            if (cestaActiva.value) {
+                cestaActiva.value = false;
+            } else {
                 cestaActiva.value = true;
             }
         }
-        function IrLogin(){
+        function IrLogin() {
             divActivo.value = 'divLogin';
             cestaActiva.value = false;
         }
@@ -145,8 +155,11 @@ createApp({
             irABotiga,
             filtrarPorCategoria,
             categorias,
+            categoriaFiltrada,
             IrLogin,
-            eliminarDeLaCesta
+            eliminarDeLaCesta,
+            getProducte,
+            veureProd
         };
     }
 }).mount('#app');

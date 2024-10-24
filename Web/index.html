@@ -29,25 +29,23 @@
             <img src="./Img/cesta.png" alt="cesta" class="cesta" @click="botonCesta">
             <img @click="IrLogin" id="loginIcono" src="Img/iconoLogin.png" alt="loginIcono">
         </nav>
-            <div id="paginaInicial">
-            <div v-if="divActivo=='paginaDeInicio'">
-                <h2>Productes millor valorats</h2>
-                <div class="productos-container-inici">
-                    <div v-for="(producto, index) in productos.sort((a, b) => b.valoracion - a.valoracion).slice(0, 4)":key="index" class="product-card-inici">
-                        <img :src="producto.img" :alt="producto.nom" class="imagenProducto">
-                        <h4>{{ producto.nom }}</h4>
-                        <h5 class="outOfStock" v-if="producto.stock === 0">Out of stock</h5>
-                        <h5 class="inStock" v-else>On stock</h5>
-                        <p class="price">{{ producto.preu }}€</p>
-                    </div>
+        <div v-if="divActivo=='paginaDeInicio'">
+            <h2>Productes millor valorats</h2>
+            <div class="productos-container-inici">
+                <div v-for="(producto, index) in productos.sort((a, b) => b.valoracion - a.valoracion).slice(0, 4)":key="index" class="product-card-inici">
+                    <img :src="producto.img" :alt="producto.nombre" class="imagenProducto">
+                    <h4>{{ producto.nom }}</h4>
+                    <h4>{{ productos[index].valoracion }}⭐</h4>
+                    <h5 class="outOfStock" v-if="producto.stock === 0">Out of stock</h5>
+                    <h5 class="inStock" v-else>On stock</h5>
+                    <p class="price">{{ producto.preu }}€</p>
                 </div>
-
+            </div>
                 <h2>Explora les nostres categories</h2>
                 <div id="categorias-container" class="categorias-container">
-                    <div v-for="(categoria, index) in categorias" :key="index" class="categoria-card"
-                        @click="filtrarPorCategoria(categoria.nom)">
+                    <div v-for="(categoria, index) in categorias" :key="index" class="categoria-card" @click="filtrarPorCategoria(categoria.nom)">
                         <img :src="categoria.imagen" :alt="" class="imagenCategoria" />
-                        <h4>{{ categoria.nombre }}</h4>
+                        <h4>{{ categoria.nom }}</h4>
                     </div>
                 </div>
 
@@ -70,25 +68,25 @@
             <div v-if="divActivo=='paginaPrincipal'">
                 <h2>Sección 1</h2>
                 <div id="productos-container-1" class="productos-container">
-                    <div v-for="(producto, index) in productos.slice(0, 10)" :key="index" class="product-card">
+                    <div v-for="(producto, index) in productos.slice(0, 10)" :key="index" class="product-card" @click="getProducte(index)">
                         <img :src="producto.img" :alt="producto.nom" class="imagenProducto">
                         <h4>{{ producto.nom }}</h4>
-                        <h5 class="outOfStock" v-if="producto.stock === 0">Out of stock</h5>
+                        <h4>{{ productos[index].valoracion }}⭐</h4>
+                    <h5 class="outOfStock" v-if="producto.stock === 0">Out of stock</h5>
                         <h5 class="inStock" v-else>On stock</h5>
                         <p class="price">{{ producto.preu }}€</p>
-                        <button @click="añadirALaCesta(index)">Añadir a la cesta</button>
                     </div>
                 </div>
 
                 <h2>Sección 2</h2>
                 <div id="productos-container-2" class="productos-container">
-                    <div v-for="(producto, index) in productos.slice(10, 20)" :key="index" class="product-card">
+                    <div v-for="(producto, index) in productos.slice(10, 20)" :key="index" class="product-card" @click="getProducte(index+10)">
                         <img :src="producto.img" :alt="producto.nom" class="imagenProducto">
                         <h4>{{ producto.nom }}</h4>
+                    <h4>{{ productos[index].valoracion }}⭐</h4>
                         <h5 class="outOfStock" v-if="producto.stock === 0">Out of stock</h5>
                         <h5 class="inStock" v-else>On stock</h5>
                         <p class="price">{{ producto.preu }}€</p>
-                        <button @click="añadirALaCesta(index + 10)">Añadir a la cesta</button>
                     </div>
                 </div>
             </div>
@@ -160,7 +158,28 @@
                     </div>
                 </div>
             </div>
+            <div id="producte-item" v-if="divActivo == 'producte-item'">
+                <div class="item">
+                    <img :src="productos[veureProd].img" alt="">
+                    <div class="desc">
+                        <h1>{{ productos[veureProd].nom }}</h1>
+                        <h4>{{ productos[veureProd].preu }}€</h4>
+                        <h4>{{ productos[veureProd].valoracion }}⭐</h4>
+                        <h5 class="outOfStock" v-if="productos[veureProd].stock === 0">Out of stock</h5>
+                            <h5 class="inStock" v-else>On stock</h5>
+                        <p>{{ productos[veureProd].desc }}</p>
+                    </div>
+                    <div class="form">
+                        <label for="tallas">Talla:</label>
+                        <select id="tallas" v-model="selectedTalla">
+                            <option v-for="(talla, index) in productos[veureProd].talla" :key="index">{{ talla }}</option>
+                        </select>
+                    </div>
+                    <button @click="añadirALaCesta(veureProd)" id="form-btn">Añadir a la cesta</button>
+                </div>
+            </div>
         </div>
+        
     </div>
         <script type="module" src="./js/utils.js"></script>
 </body>
