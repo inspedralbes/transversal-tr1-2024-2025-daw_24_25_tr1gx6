@@ -32,7 +32,7 @@
         <div v-if="divActivo=='paginaDeInicio'">
             <h2>Productes millor valorats</h2>
             <div class="productos-container-inici">
-                <div v-for="(producto, index) in productos.sort((a, b) => b.valoracion - a.valoracion).slice(0, 4)":key="index" class="product-card-inici">
+                <div v-for="(producto, index) in productos.sort((a, b) => b.valoracion - a.valoracion).slice(0, 4)":key="index" class="product-card-inici" @click="getProducte(index)">
                     <img :src="producto.img" :alt="producto.nombre" class="imagenProducto">
                     <h4>{{ producto.nom }}</h4>
                     <h4>{{ productos[index].valoracion }}⭐</h4>
