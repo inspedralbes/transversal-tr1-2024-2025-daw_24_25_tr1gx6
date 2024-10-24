@@ -146,7 +146,6 @@ createApp({
             filtrarPorCategoria,
             categorias,
             IrLogin,
-            eliminarDeLaCesta
         };
     }
 }).mount('#app');
