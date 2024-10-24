@@ -1,3 +1,12 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+} 
+#paginaInicial{
+    margin: 10px;
+}
+
 nav {
     background-color: rgb(50, 50, 50);
     padding: 10px 0;
@@ -7,6 +16,12 @@ nav {
     position: sticky;
     top: 0;
     z-index: 1000;
+}
+
+.productos-container-1{
+    display: flex;
+    overflow-x: auto;
+    padding: 20px;
 }
 
 #logo {
@@ -64,7 +79,19 @@ a:hover {
     padding: 20px;
 }
 
+.productos-container-inici {
+    display: flex;
+    justify-content: center; 
+    overflow-x: auto;
+    padding: 20px;
+    gap: 25px;
+}
 
+.categorias-container {
+    display: flex;
+    overflow-x: auto;
+    margin-bottom: 10vh;
+}
 
 .product-card {
     min-width: 200px;
@@ -75,17 +102,57 @@ a:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     transition: transform 0.2s;
+}
+
+.product-card-inici {
+    width: 300px;
+    height: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s;
+    font-size: 15px;
 }
 
 .product-card:hover {
     transform: scale(1.05);
 }
 
+.product-card-inici:hover {
+    transform: scale(1.05);
+}
+
 .product-card img {
     max-height: 100px;
     object-fit: contain;
+}
+
+.categoria-card {
+    width: 300px;
+    height: 300px;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+.categoria-card:hover {
+    transform: scale(1.05);
+}
+
+.categoria-card img {
+    border-radius: 10px;
+    width: 275px;
+    height: 275px;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .price {
@@ -105,8 +172,8 @@ a:hover {
     height: 40px;
     margin-right: 40px;
     border-radius: 10px;
-    background-color: white;
     padding: 5px;
+    background-color: white;
     display: inline;
 }
 
@@ -117,7 +184,7 @@ a:hover {
     width: 40%; 
     height: 100%; 
     background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     padding: 10px;
     max-height: 100%;  
     overflow-x: auto;  
@@ -135,4 +202,329 @@ a:hover {
 #finalizarCompra{
     position: absolute;
     text-align: center;
+}
+.categorias-container {
+    display: flex;           
+    overflow-x: auto;      
+    padding: 20px;        
+    gap: 10px;             
+}
+.imagenCategoria{
+    height: 300px;
+}#producte-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas: 
+        "img img desc"  
+        "img img desc"  
+        "form form btn"; 
+    gap: 20px; 
+    padding: 20px;
+}
+
+.item {
+    display: contents; 
+}
+
+.item img {
+    grid-area: img;
+    max-width: 400px; 
+    object-fit: cover;
+}
+
+.desc {
+    grid-area: desc; 
+}
+
+.form {
+    grid-area: form;
+    display: flex;
+    flex-direction: column;
+}
+
+#form-btn {
+    grid-area: btn; 
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    cursor: pointer; 
+}
+#loginIcono{
+    height: 40px;
+    background-color: white;
+    margin-right: 30px;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.card {
+    width: 400px;
+    background-color: white; 
+    border-radius: 20px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
+    padding: 20px;
+    text-align: center;
+}
+
+.login_register{
+  display: flex;
+  width: 100%;
+  border: 1px solid rgba(221, 221, 221, 1);
+  border-radius: 15px;
+  margin: 20px 0;
+}
+
+.login_register a{
+  font-size: 1em;
+  padding: 10px 55px;
+  border: none;
+  width: 50%;
+}
+
+
+.login_btn{
+  font-size: 20px;
+  color: white;
+  border-radius: 15px;
+  border: none;
+  background-color: #003A74;
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  background-color: gray;
+  box-shadow: 1px 5px 9px rgba(211, 211, 211, .9);
+}
+
+.imagenDeCarrito {
+    width: 130px; 
+    height: auto; 
+    border-radius: 8px; 
+    margin: 50px;
+    margin-right: 15px; 
+    object-fit: cover; 
+    background-color: #D3D3D3;
+  }
+  
+
+  .product-carrito {
+    margin: 50px;
+    display: flex;
+    align-items: center; 
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .product-carrito h4 {
+    margin: 50px;
+    font-size: 1.2rem;
+  }
+
+
+.sumaCantidad{
+    margin: 10px;
+}
+
+.restarCantidad{
+    margin: 10px;
+}
+
+.priceDeCarrito{
+    margin-right: 100px;
+}
+
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; 
+    background-color: #f4f4f4;
+}
+.card input {
+    width: 100%; 
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    font-size: 16px;
+    transition: border-color 0.3s; 
+}
+.card input:focus {
+    border-color: #003A74;
+    outline: none;
+}
+
+.login_btn {
+    font-size: 18px; 
+    color: white;
+    background-color: #003A74;
+    border: none; 
+    border-radius: 15px;
+    padding: 10px; 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+}
+
+.login_btn:hover {
+    background-color: #002060;
+}
+#loginIcono{
+    height: 40px;
+    background-color: white;
+    margin-right: 30px;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.card {
+    width: 400px;
+    background-color: white; 
+    border-radius: 20px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
+    padding: 20px;
+    text-align: center;
+}
+
+.login_register{
+  display: flex;
+  width: 100%;
+  border: 1px solid rgba(221, 221, 221, 1);
+  border-radius: 15px;
+  margin: 20px 0;
+}
+
+.login_register a{
+  font-size: 1em;
+  padding: 10px 55px;
+  border: none;
+  width: 50%;
+}
+
+
+.login_btn{
+  font-size: 20px;
+  color: white;
+  border-radius: 15px;
+  border: none;
+  background-color: #003A74;
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  background-color: gray;
+  box-shadow: 1px 5px 9px rgba(211, 211, 211, .9);
+}
+
+.imagenDeCarrito {
+    width: 130px; 
+    height: auto; 
+    border-radius: 8px; 
+    margin: 50px;
+    margin-right: 15px; 
+    object-fit: cover; 
+    background-color: #D3D3D3;
+  }
+  
+
+  .product-carrito {
+    margin: 50px;
+    display: flex;
+    align-items: center; 
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .product-carrito h4 {
+    margin: 50px;
+    font-size: 1.2rem;
+  }
+
+
+.sumaCantidad{
+    margin: 10px;
+}
+
+.restarCantidad{
+    margin: 10px;
+}
+
+.priceDeCarrito{
+    margin-right: 100px;
+}
+
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; 
+    background-color: #f4f4f4;
+}
+.card input {
+    width: 100%; 
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    font-size: 16px;
+    transition: border-color 0.3s; 
+}
+.card input:focus {
+    border-color: #003A74;
+    outline: none;
+}
+
+.login_btn {
+    font-size: 18px; 
+    color: white;
+    background-color: #003A74;
+    border: none; 
+    border-radius: 15px;
+    padding: 10px; 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+}
+
+.login_btn:hover {
+    background-color: #002060;
+}
+
+#producte-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas: 
+        "img img desc"  
+        "img img desc"  
+        "form form btn"; 
+    gap: 20px; 
+    padding: 20px;
+}
+
+.item {
+    display: contents; 
+}
+
+.item img {
+    grid-area: img;
+    max-width: 400px; 
+    object-fit: cover;
+}
+
+.desc {
+    grid-area: desc; 
+}
+
+.form {
+    grid-area: form;
+    display: flex;
+    flex-direction: column;
+}
+
+#form-btn {
+    grid-area: btn; 
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    cursor: pointer; 
 }

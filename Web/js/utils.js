@@ -1,52 +1,40 @@
 import { createApp, ref, onMounted } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import { getProductoss } from './comunicationManager.js';
+
 createApp({
     setup() {
+        const categorias = ref([
+            { nombre: "zapatillas", imagen: "Img/zapatillas.jpeg" },
+            { nombre: "sudadera", imagen: "Img/sudadera.jpeg" },
+            { nombre: "pantalon", imagen: "Img/pantalon.jpeg" },
+            { nombre: "chaqueta", imagen: "Img/chaqueta.jpeg" },
+            { nombre: "camiseta", imagen: "Img/camiseta.jpeg" },
+            { nombre: "chandal", imagen: "Img/chandal.jpeg" },
+            { nombre: "chaleco", imagen: "Img/chaleco.jpeg" }
+        ]);
+
         const productos = ref([]);
-        const productos2 = ref([]);
+        const categoriaFiltrada = ref('');
         const productosEnCesta = ref([]);
+        const divActivo = ref('paginaDeInicio');
         const cestaActiva = ref(false);
         const finalitzaCompraActiva = ref(false);
-        const precioTotal = ref(0); 
-        const paginaInicial = ref(true);
+        const precioTotal = ref(0);
+        const veureProd = ref()
         function getProductos() {
-            fetch('./JS/ropa.json')
+            fetch('http://localhost:8000/api/getProductos')
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data)
                     productos.value = data;
                 })
                 .catch(error => console.error('Error fetching productos:', error));
         }
-
-        function cambiarPantallaPrincipal(){
-            if (paginaInicial.value) {
-                paginaInicial.value = false;
-            }else{
-                paginaInicial.value = true;
-
-            }
-        }
-        async function cargarProductos(){
-            try {
-                const productos2 = await getProductoss();
-                console.log(productos2); // Aquí puedes hacer lo que necesites con los productos
-            } catch (error) {
-                console.error('No se pudieron cargar los productos:', error);
-            }
-        }
-
-        function añadirALaCesta(index) {
-            const productoSeleccionado = productos.value[index];
-            productosEnCesta.value.push(productoSeleccionado);
-            cestaActiva.value = true;
-            finalitzaCompraActiva.value = true;
-            
-            precioTotal.value += productoSeleccionado.precio;
-        }
-
         function eliminarDeLaCesta(index) {
             const productoEliminado = productosEnCesta.value[index];
             productosEnCesta.value.splice(index, 1);
+
+            actualizarPrecioTotal();
 
             precioTotal.value -= productoEliminado.precio;
 
@@ -54,31 +42,124 @@ createApp({
                 finalitzaCompraActiva.value = false;
             }
         }
+        function añadirALaCesta(index) {
+            const productoSeleccionado = productos.value[index];
+            const productoEnCesta = productosEnCesta.value.find(producto => producto.nom === productoSeleccionado.nom);
 
-        function toggleCesta() {
-            if(cestaActiva.value){
+            if (productoEnCesta) {
+                productoEnCesta.cantidad++;
+            } else {
+                const nuevoProducto = { ...productoSeleccionado, cantidad: 1 };
+                productosEnCesta.value.push(nuevoProducto);
+            }
+
+            cestaActiva.value = true;
+            finalitzaCompraActiva.value = true;
+            actualizarPrecioTotal();
+        }
+
+        function restarCantidad(index) {
+            const producto = productosEnCesta.value[index];
+            if (producto.cantidad > 1) {
+                producto.cantidad--;
+            } else {
+
+                eliminarDesdeCarrito(index);
+            }
+            actualizarPrecioTotal();
             cestaActiva.value = false;
-            }else{
+        }
+
+        function getProducte(index) {
+            veureProd.value = index;
+            divActivo.value = 'producte-item';
+        }
+
+        function sumaCantidad(index) {
+            const producto = productosEnCesta.value[index];
+            producto.cantidad++;
+            actualizarPrecioTotal();
+        }
+
+        function eliminarDesdeCarrito(index) {
+            productosEnCesta.value.splice(index, 1);
+            actualizarPrecioTotal();
+
+            if (productosEnCesta.value.length === 0) {
+                finalitzaCompraActiva.value = false;
+            }
+        }
+
+        function actualizarPrecioTotal() {
+            precioTotal.value = productosEnCesta.value.reduce((total, producto) => {
+                return total + producto.preu * producto.cantidad;
+            }, 0);
+        }
+
+        function irABotiga() {
+            divActivo.value = 'paginaPrincipal';
+            cestaActiva.value = false;
+        }
+
+        function filtrarPorCategoria(categoria) {
+            categoriaFiltrada.value = categoria;
+            divActivo.value = 'paginaPrincipal';
+        }
+
+        function cambiarACarrito() {
+            divActivo.value = 'carrito';
+            cestaActiva.value = false;
+        }
+
+        function irPantallaInicio() {
+            divActivo.value = 'paginaDeInicio';
+            cestaActiva.value = false;
+        }
+
+        function botonCesta() {
+            if (cestaActiva.value) {
+                cestaActiva.value = false;
+            } else {
                 cestaActiva.value = true;
             }
+        }
+        function IrLogin() {
+            divActivo.value = 'divLogin';
+            cestaActiva.value = false;
+        }
+        function volverALaPaginaPrincipal() {
+            divActivo.value = 'paginaPrincipal';
+            cestaActiva.value = false;
         }
 
         onMounted(() => {
             getProductos();
-            cargarProductos();
         });
 
         return {
             productos,
             productosEnCesta,
             añadirALaCesta,
-            eliminarDeLaCesta,
+            eliminarDesdeCarrito,
+            restarCantidad,
+            sumaCantidad,
+            actualizarPrecioTotal,
             cestaActiva,
-            toggleCesta,
+            botonCesta,
             finalitzaCompraActiva,
             precioTotal,
-            cambiarPantallaPrincipal,
-            paginaInicial,
+            divActivo,
+            cambiarACarrito,
+            volverALaPaginaPrincipal,
+            irPantallaInicio,
+            irABotiga,
+            filtrarPorCategoria,
+            categorias,
+            categoriaFiltrada,
+            IrLogin,
+            eliminarDeLaCesta,
+            getProducte,
+            veureProd
         };
     }
 }).mount('#app');
