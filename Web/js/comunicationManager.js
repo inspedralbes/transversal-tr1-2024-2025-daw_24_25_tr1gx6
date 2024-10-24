@@ -85,8 +85,9 @@ export async function getCategorias() {
     try{
         const response = await fetch(HOST + '/getCategory');
         const data = await response.json();
+        console.log(data);
+        
         return data;
-
     }catch(error){
         console.log(error);
     }   
