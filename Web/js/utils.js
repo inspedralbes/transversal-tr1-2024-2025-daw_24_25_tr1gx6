@@ -70,7 +70,6 @@ createApp({
                 cestaActiva.value = false;
             }, 2000);
         }
-
         function restarCantidad(index) {
             const producto = productosEnCesta.value[index];
             if (producto.cantidad > 1) {

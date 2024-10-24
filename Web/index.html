@@ -51,7 +51,7 @@
                 </div>
             </div>
 
-            <div id="cesta" v-if="cestaActiva"  class="cesta-container">
+            <div id="cesta" v-if="cestaActiva" class="cesta-container">
                 <h2>Carrito</h2>
                 <div class="productos-container">
                     <div v-for="(producto, index) in productosEnCesta" :key="index" class="product-card">
@@ -110,36 +110,45 @@
         <!-- Carrito -->
         <div v-if="divActivo=='carrito'" id="cestaCompleta">
             <h2 style="text-align: center; font-size: 40px">Carrito</h2>
-            <h3>Productos</h3>
-            <h3>Cantidad</h3>
-            <h3>Precio</h3>
+            <div class="carrito-header" style="display: flex; justify-content: space-between;"></div>
+            <div class="mostrarInfo">
+                <h3 class="nomProducte">Productos</h3>
+                <h3 class="infoProducte">Informacion</h3>
+                <h3 class="cantidadProducte">Cantidad</h3>
+                <h3 class="preProducte">Precio</h3>
+            </div>
             <div class="productos-containerDeCarrito">
                 <div v-for="(producto, index) in productosEnCesta" :key="index" class="product-carrito">
-                    <img :src="producto.img" :alt="producto.nom" class="imagenDeCarrito">
-                    <h4>{{ producto.nom }}</h4><br>
-                    <p><strong>Categoria:</strong> {{producto.category.nom}}</p>
-                    <p><strong>Descripcion:</strong>{{producto.desc}}</p>
-                    <p><strong>Marca:</strong>{{producto.marca.nom}}</p>
-                    <p><strong>Color:</strong>{{producto.color.nom}}</p>
-
-                    <button @click="eliminarDesdeCarrito(index)" class="elininarDeCarrito">
-                        <img src="https://img.icons8.com/pastel-glyph/20/trash.png" alt="Eliminar producto">
-                    </button>
-
-                    <div class="quantity-controls">
-                        <button @click="restarCantidad(index)" class="restarCantidad">
-                            <img src="https://img.icons8.com/ios/20/minus.png" alt="Restar cantidad" />
-                        </button>
-                        <span>{{producto.cantidad}}</span>
-                        <button @click="sumaCantidad(index)" class="sumaCantidad">
-                            <img src="https://img.icons8.com/ios/20/plus--v1.png" alta="Sumar cantidad" />
-                        </button>
-
-                        <p class="precioDeCarrito">{{(producto.preu * producto.cantidad).toFixed(2)}}€</p>
+                    <div class="producto">
+                        <img :src="producto.img" :alt="producto.nom" class="imagenDeCarrito">
                     </div>
+
+                    <div class="producto-info">
+                        <h4>{{ producto.nom }}</h4>
+                        <p><strong>Categoria:</strong> {{producto.category.nom}} | <strong>Marca:</strong>
+                            {{producto.marca.nom}} | <strong>Color:</strong> {{producto.color.nom}}</p>
+                        <p><strong>Descripción:</strong> {{producto.desc}}</p>
+                    </div>
+
+                    <div class="producto-controls">
+                        <button @click="eliminarDesdeCarrito(index)" class="elininarDeCarrito">
+                            <img src="https://img.icons8.com/pastel-glyph/20/trash.png" alt="Eliminar producto">
+                        </button>
+                        <div class="quantity-controls">
+                            <button @click="restarCantidad(index)" class="restarCantidad">
+                                <img src="https://img.icons8.com/ios/20/minus.png" alt="Restar cantidad" />
+                            </button>
+                            <span>{{producto.cantidad}}</span>
+                            <button @click="sumaCantidad(index)" class="sumaCantidad">
+                                <img src="https://img.icons8.com/ios/20/plus--v1.png" alta="Sumar cantidad" />
+                            </button>
+                        </div>
+
+                    </div>
+                    <p class="precioDeCarrito">{{(producto.preu * producto.cantidad).toFixed(2)}}€</p>
                 </div>
             </div>
-            <h3 v-if="finalitzaCompraActiva">preu: {{precioTotal.toFixed(2)}}€</h3>
+            <h3 v-if="finalitzaCompraActiva" class="precioTotalDeCarrito">preu: {{precioTotal.toFixed(2)}}€</h3>
             <button @click="volverALaPaginaPrincipal" v-if="finalitzaCompraActiva" id="finalizarCompra">Volver a la
                 pagina principal</button>
             <br><br>
@@ -176,7 +185,7 @@
                 <div class="form">
                     <label for="tallas">Talla:</label>
                     <select id="tallas" v-model="selectedTalla">
-                        <option v-for="(talla, index) in productos[veureProd].talla" :key="index" >{{ talla }}</option>
+                        <option v-for="(talla, index) in productos[veureProd].talla" :key="index">{{ talla }}</option>
                     </select>
                 </div>
                 <button @click="añadirALaCesta(veureProd)" id="form-btn">Añadir a la cesta</button>
