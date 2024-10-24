@@ -29,7 +29,6 @@ createApp({
 
         function añadirALaCesta(index) {
             const productoSeleccionado = productos.value[index];
-            // productosEnCesta.value.push(productoSeleccionado);
             const productoEnCesta = productosEnCesta.value.find(producto => producto.nombre ===productoSeleccionado.nombre);
             if (productoEnCesta) {
                 productoEnCesta.cantidad++;
