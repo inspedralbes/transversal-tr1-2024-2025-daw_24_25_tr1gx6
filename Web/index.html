@@ -56,7 +56,6 @@
                             <img :src="producto.img" :alt="producto.nom" class="imagenProducto">
                             <h4>{{ producto.nom }}</h4>
                             <p class="price">{{ producto.preu }}€</p>
-                            <button @click="eliminarDeLaCesta(index)">Eliminar</button>
                         </div>
                     </div>
                     <h3>preu: {{precioTotal.toFixed(2)}}€</h3>
@@ -97,10 +96,9 @@
                         <img :src="producto.img" :alt="producto.nom" class="imagenProducto">
                         <h4>{{ producto.nom }}</h4>
                         <p class="price">{{ producto.preu }}€</p>
-                        <button @click="eliminarDeLaCesta(index)">Eliminar</button>
                     </div>
                 </div>
-                <h3 v-if="finalitzaCompraActiva">preu: {{precioTotal.toFixed(2)}}€</h3>
+                <h3 v-if="finalitzaCompraActiva">Preu: {{precioTotal.toFixed(2)}}€</h3>
                 <button @click="cambiarACarrito" v-if="finalitzaCompraActiva" id="finalizarCompra">Ir al carrito</button>
                 <h4 v-if="!finalitzaCompraActiva">No hay nada en la cesta</h4>
             </div>
