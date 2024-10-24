@@ -1,7 +1,6 @@
 const HOST = 'http://localhost:8000/api';
 
-
-
+/*---------------------------------------GET-------------------------------*/
 export async function getProductoss() {
     try {
         const response = await fetch(HOST + '/getProductos');
@@ -17,6 +16,39 @@ export async function getProductoss() {
     }
 }
 
+
+export async function getCategorias() {
+    try {
+        const response = await fetch(HOST + '/getCategory');
+        //CONSULTAR SI LA CONEXION ES BUENA
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
+        const data = await response.json();
+        console.log(data);
+
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function getMarcas() {
+    try {
+        const response = await fetch(HOST + '/getMarcas');
+        //CONSULTAR SI LA CONEXION ES BUENA
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
+        const data = await response.json();
+        return data;
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+/*----------------------------------------POST--------------------------------------*/
 export async function checkoutProductos(json) {
     try {
         const response = await fetch(HOST + '/createComandaArt', {
@@ -38,35 +70,37 @@ export async function checkoutProductos(json) {
 
 }
 
-export async function checkout(json) {
+export async function createComanda(json) {
     try {
-        const response = await fetch(HOST + '/checkout', {
+        const response = await fetch(HOST + '/createComanda', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(json),
         });
-
+        //CONSULTAR SI LA CONEXION ES BUENA
         if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+            throw new Error(`Error: ${response.status} - ${response.statusText}`);
         }
-
         const data = await response.json();
+        console.log(data);
+        console.log(data.IdComanda);
         return data;
     } catch (error) {
-        console.log(console.error());
+        console.log(error);
     }
+
 }
 
 export async function pedidoUser(json) {
     try {
         const response = await fetch(HOST + '/pedidoUser', {
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json'
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
             },
-            body:JSON.stringify(json),
+            body: JSON.stringify(json),
         });
         //CONSULTAR SI LA CONEXION ES BUENA
         if (!response.ok) {
@@ -81,25 +115,48 @@ export async function pedidoUser(json) {
 
 }
 
-export async function getCategorias() {
-    try{
-        const response = await fetch(HOST + '/getCategory');
+export async function loginUser(json) {
+    try {
+        const response = await fetch(HOST + '/loginUser', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(json),
+        });
+        //CONSULTAR SI LA CONEXION ES BUENA
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
         const data = await response.json();
         console.log(data);
-        
+
         return data;
-    }catch(error){
+
+    } catch (error) {
         console.log(error);
-    }   
+    }
 }
 
-export async function getMarcas() {
-    try{
-        const response = await fetch(HOST + '/getMarcas');
+export async function loginUser(json) {
+    try {
+        const response = await fetch(HOST + '/registerUser', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(json),
+        });
+        //CONSULTAR SI LA CONEXION ES BUENA
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
         const data = await response.json();
+        console.log(data);
+
         return data;
 
-    }catch(error){
+    } catch (error) {
         console.log(error);
-    }   
+    }
 }

@@ -22,7 +22,7 @@ class ComandasController extends Controller
 
         $comanda->save();
 
-        return response()->json(['status' => 'success', 'message' => 'Comanda creada exitosamente']);
+        return response()->json(['status' => 'success', 'message' => 'Comanda creada exitosamente', 'IdComanda'=>$comanda->id]);
 
     }
 
