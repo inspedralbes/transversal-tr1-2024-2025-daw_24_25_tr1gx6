@@ -90,25 +90,10 @@ createApp({
            // Parte de Finalizar la compra y pago
         function finalizarCompraDeCarrito() {
             divActivo.value = 'finalizarCompraDeCarrito';
-            console.log(divActivo.value);
+            console.log('Finalizar compra');
         }
 
-        function procesarCompra(){
-            const datosDeCompra={
-                nombre: nombre.value,
-                correoElectronico: correoElectronico.value,
-                direccion: direccion.value,
-                // productos: productosEnCesta.value,
-                // precioTotal: precioTotal.value,
-                tarjeta: datosUsuario.value.tarjeta,
-                expiracion: datosUsuario.value.expiracion,
-                cvv: datosUsuario.value.cvv
-            };
-            console.log("datos de compra y pago son:", datosDeCompra);
-
-   
-        
-        }
+     
 
         function irABotiga(){
             divActivo.value = 'paginaPrincipal';
@@ -159,7 +144,6 @@ createApp({
             sumaCantidad,
             actualizarPrecioTotal,
             finalizarCompraDeCarrito,
-            procesarCompra,
             eliminarDeLaCesta,
             cestaActiva,
             botonCesta,

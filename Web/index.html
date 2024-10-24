@@ -49,6 +49,7 @@
                 </div>
             </div>
 
+            <!--desplegable de carrito-->
             <div id="cesta" v-if="cestaActiva" class="cesta-container">
                 <h2>Carrito</h2>
                 <div class="productos-container">
@@ -101,7 +102,8 @@
                     </div>
                 </div>
                 <h3 v-if="finalitzaCompraActiva">preu: {{precioTotal.toFixed(2)}}€</h3>
-                <button @click="cambiarACarrito" v-if="finalitzaCompraActiva" id="finalizarCompra">Ir al carrito</button>
+                <button @click="cambiarACarrito" v-if="finalitzaCompraActiva" id="finalizarCompra">Ir al
+                    carrito</button>
                 <h4 v-if="!finalitzaCompraActiva">No hay nada en la cesta</h4>
             </div>
         </div>
@@ -117,12 +119,12 @@
                     <img :src="producto.imagen_url" :alt="producto.nombre" class="imagenDeCarrito">
                     <h4>{{ producto.nombre }}</h4>
                     <p><strong>Categoria:</strong> {{producto.categoria}} |
-                       <strong>Marca:</strong> {{producto.marca}} |
-                       <strong>Color:</strong> {{producto.color}}
+                        <strong>Marca:</strong> {{producto.marca}} |
+                        <strong>Color:</strong> {{producto.color}}
                     </p>
                     <p><strong>Descripción:</strong> {{producto.descripcion}}</p>
-        
-                   
+
+
                     <div class="quantity-controls">
                         <button @click="eliminarDesdeCarrito(index)" class="elininarDeCarrito">
                             <img src="https://img.icons8.com/pastel-glyph/20/trash.png" alt="Eliminar producto">
@@ -135,55 +137,59 @@
                             <img src="https://img.icons8.com/ios/20/plus--v1.png" alta="Sumar cantidad" />
                         </button>
                         <p class="precioDeCarrito">{{producto.precio}}</p>
-                        
+
                     </div>
                 </div>
             </div>
             <h3 v-if="finalitzaCompraActiva">preu: {{precioTotal.toFixed(2)}}€</h3>
-            <button @click="volverALaPaginaPrincipal" v-if="finalitzaCompraActiva" id="volverPaginaPrincipal">Volver a la pagina principal</button>
+            <button @click="volverALaPaginaPrincipal" v-if="finalitzaCompraActiva" id="volverPaginaPrincipal">Volver a
+                la pagina principal</button>
             <br>
             <h4 v-if="!finalitzaCompraActiva">No hay nada en la cesta</h4><br>
         </div>
-        
+
         <div v-if="divActivo == 'carrito'" id="cestaCompleta">
-            <button @click="finalizarCompraDeCarrito" v-if="finalitzaCompraActiva" id="finalizarCompraCarrito">Finalizar compra</button>
+            <button @click="finalizarCompraDeCarrito" v-if="finalitzaCompraActiva" id="finalizarCompraCarrito">Finalizar
+                compra</button>
         </div>
-        
+
         <!-- Parte de finalizar la compra y pago -->
-        <div v-if="divActivo == 'finalizarCompraDeCarrito'"> 
+        <div v-if="divActivo == 'finalizarCompraDeCarrito'">
             <h2>Finalizar pedido</h2>
 
             <form @submit.prevent="procesarCompra">
                 <div>
                     <label for="nombre">Nombre</label>
-                    <input type="text" id="nombre" v-model="nombre" placeholder="Nombre" required>
+                    <input type="text" v-model="nombre" id="nombre" placeholder="Nombre" required>
                 </div>
                 <div>
                     <label for="correoElectronico">Correo electronico</label>
-                    <input type="email" id="correoElectronico" v-model="correoElectronico" placeholder="Correo electronico" required>
+                    <input type="email" v-model="correoElectronico" id="correoElectronico"
+                        placeholder="Correo electronico" required>
                 </div>
                 <div>
                     <label for="direccion">Direccion de envio:</label>
-                    <input type="text" id="direccion" v-model="direccion" placeholder="Direccion de envio" required>
+                    <input type="text" v-model="direccion" id="direccion" placeholder="Direccion de envio" required>
                 </div>
                 <div>
-                    <label for="tarjeta">Número de tarjeta:</label>
-                    <input type="text" id="tarjeta" v-model="datosUsuario.tarjeta" required>
+                    <label for="tarjeta" Numero de tarjeta:</label>
+                        <input type="number" v-model="datosUsuario.tarjeta" id="tarjeta" placeholder="Numero de tarjeta"
+                            required>
                 </div>
                 <div>
                     <label for="expiracion">Fecha de expiración:</label>
-                    <input type="month" id="expiracion" v-model="datosUsuario.expiracion" required>
+                    <input type="month" v-model="datosUsuario.expiracion" id="expiracion" required>
                 </div>
                 <div>
                     <label for="cvv">CVV:</label>
-                    <input type="text" id="cvv" v-model="datosUsuario.cvv" required>
+                    <input type="text" v-model="datosUsuario.cvv" id="cvv" required>
                 </div>
                 <button type="submit">Confirmar compra</button>
                 <button type="button" @click="volverACarrito">Volver al carrito</button>
             </form>
         </div>
     </div>
-   
+
     <script type="module" src="./js/utils.js"></script>
 </body>
 
