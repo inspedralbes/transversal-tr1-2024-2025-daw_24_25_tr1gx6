@@ -5,26 +5,26 @@
     },
     {   
         "nom":"sudadera",
-        "imagen":"Img/zapatillas.jpeg"
+        "imagen":"Img/sudadera.jpeg"
     },
     {   
         "nom":"pantalon",
-        "imagen":"Img/zapatillas.jpeg"
+        "imagen":"Img/pantalon.jpeg"
     },
     {   
         "nom":"chaqueta",
-        "imagen":"Img/zapatillas.jpeg"
+        "imagen":"Img/chaqueta.jpeg"
     },
     {   
         "nom":"camiseta",
-        "imagen":"Img/zapatillas.jpeg"
+        "imagen":"Img/camiseta.jpeg"
     },
     {   
         "nom":"chandal",
-        "imagen":"Img/zapatillas.jpeg"
+        "imagen":"Img/chandal.jpeg"
     },
     {   
         "nom":"chaleco",
-        "imagen":"Img/zapatillas.jpeg"
+        "imagen":"Img/chaleco.jpeg"
     }
 ]

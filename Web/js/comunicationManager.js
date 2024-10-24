@@ -80,3 +80,25 @@ export async function pedidoUser(json) {
     }
 
 }
+
+export async function getCategorias() {
+    try{
+        const response = await fetch(HOST + '/getCategory');
+        const data = await response.json();
+        return data;
+
+    }catch(error){
+        console.log(error);
+    }   
+}
+
+export async function getMarcas() {
+    try{
+        const response = await fetch(HOST + '/getMarcas');
+        const data = await response.json();
+        return data;
+
+    }catch(error){
+        console.log(error);
+    }   
+}
