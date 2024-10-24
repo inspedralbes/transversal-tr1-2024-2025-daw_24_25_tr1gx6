@@ -3,6 +3,13 @@ import { getProductoss } from './comunicationManager.js';
 
 createApp({
     setup() {
+
+       //Las variables para los datos del carrito
+       const nombre = ref('');
+       const correoElectronico = ref('');
+       const direccion = ref('');
+       const datosUsuario = ref({ tarjeta: '', expiracion: '', cvv: '' });
+
         const categorias = ref([
             { nombre: "zapatillas", imagen: "Img/zapatillas.jpeg" },
             { nombre: "sudadera", imagen: "Img/sudadera.jpeg" },
@@ -21,6 +28,7 @@ createApp({
         const finalitzaCompraActiva = ref(false);
         const precioTotal = ref(0);
         const veureProd = ref()
+
         function getProductos() {
             fetch('http://localhost:8000/api/getProductos')
                 .then(response => response.json())
@@ -56,6 +64,11 @@ createApp({
             cestaActiva.value = true;
             finalitzaCompraActiva.value = true;
             actualizarPrecioTotal();
+
+            setTimeout(() => {
+                
+                cestaActiva.value = false;
+            }, 2000);
         }
 
         function restarCantidad(index) {
@@ -95,6 +108,31 @@ createApp({
                 return total + producto.preu * producto.cantidad;
             }, 0);
         }
+        
+        // Finalizar compra y pago
+        function finalizarCompraDeCarrito() {
+            divActivo.value = 'finalizarCompraDeCarrito';  // Cambia el estado a la vista de finalización de compra
+            cestaActiva.value = false;  // Oculte el carrito mientras se muestra el formulario de compra
+        }
+        
+        
+        function procesarCompra() {
+            console.log('Compra procesada', {
+                nombre: nombre.value,
+                correoElectronico: correoElectronico.value,
+                direccion: direccion.value,
+                tarjeta: datosUsuario.value.tarjeta,
+                expiracion: datosUsuario.value.expiracion,
+                cvv: datosUsuario.value.cvv
+            });
+            alert('Gracias por tu compra');
+        }
+
+        function volverACarrito() {
+            divActivo.value = 'carrito';
+            cestaActiva.value = false;
+        }
+                  
 
         function irABotiga() {
             divActivo.value = 'paginaPrincipal';
@@ -137,13 +175,19 @@ createApp({
         });
 
         return {
+            nombre,
+            correoElectronico,
+            direccion,
+            datosUsuario,
             productos,
             productosEnCesta,
             añadirALaCesta,
             eliminarDesdeCarrito,
             restarCantidad,
             sumaCantidad,
+            finalizarCompraDeCarrito,
             actualizarPrecioTotal,
+            procesarCompra,
             cestaActiva,
             botonCesta,
             finalitzaCompraActiva,

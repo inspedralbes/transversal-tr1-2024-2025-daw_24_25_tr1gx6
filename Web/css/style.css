@@ -528,3 +528,70 @@ a:hover {
     border-radius: 5px;
     cursor: pointer; 
 }
+
+.tallaDelProducte{
+   padding: 40px;
+}
+
+
+/* Estilo de finalizar compra y pago */
+
+.carritoFinal{
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #F5C21B;
+    border-radius: 10px;
+    box-shadow: 0  50px 100px rgba(0, 0, 0, 0.784);
+    cursor: pointer;
+}
+
+.carritoFinal h2{
+    text-align: center;
+    margin-bottom: 20px;
+    color: black;
+    font-size: 25px;
+}
+
+.carritoFinal form{
+    display: flex;
+    flex-direction: column;
+}
+.carritoFinal label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.carritoFinal input[type="text"],
+.carritoFinal input[type="email"],
+.carritoFinal input[type="number"],
+.carritoFinal input[type="month"],
+.carritoFinal input[type="password"]{
+    padding: 12px;
+    margin-bottom: 16px;
+    border: 1px solid #7eaa0e;
+    border-radius: 30px;
+    width: 100%;
+    box-sizing: border-box;
+    
+}
+
+
+.carritoFinal button{
+    padding: 10px;
+    background-color: gray;
+    color: white;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 10px;
+
+}
+
+.carritoFinal button:hover{
+    background-color:white;
+    color: black;
+}
+
+
+
