@@ -9,3 +9,5 @@ Route::get('/', function () {
 
 Route::get('/getProductos',[ProductoController::class, 'getProductos'])->name('get-productos');
 //Route::post('/getProductos',[ProductoController::class, 'updateProducto'])->name('get-productos');
+
+Route::get('/sceenProductos',[ProductoController::class, 'getScreenProducto'])->name('screen.productos');

@@ -35,6 +35,10 @@ class ProductoController extends Controller
         return response()->json($productos);
     }
 
+    public function getScreenProducto(){
+        return view('productos.producto');
+    }
+
     public function createProducto(Request $request, $id)
     {
 
