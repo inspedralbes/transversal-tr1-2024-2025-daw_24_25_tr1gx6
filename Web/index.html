@@ -26,7 +26,10 @@
                     <option value="puma">Puma</option>
                 </select>
             </form>
+         
             <img src="./Img/cesta.png" alt="cesta" class="cesta" @click="botonCesta">
+            <span v-if="cantidadTotalProductos > 0" class="carrito-contadorDeproductos">{{ cantidadTotalProductos }}</span>
+            
             <img @click="IrLogin" id="loginIcono" src="Img/iconoLogin.png" alt="loginIcono">
         </nav>
         <div v-if="divActivo=='paginaDeInicio'">
