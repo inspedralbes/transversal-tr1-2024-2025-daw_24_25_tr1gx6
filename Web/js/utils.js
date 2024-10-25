@@ -1,4 +1,4 @@
-import { createApp, ref, onMounted } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+import { createApp, ref, onMounted, computed } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import { getProductoss } from './comunicationManager.js';
 
 createApp({
@@ -52,7 +52,7 @@ createApp({
         }
         function añadirALaCesta(index) {
             const productoSeleccionado = productos.value[index];
-            const productoEnCesta = productosEnCesta.value.find(producto => producto.nom === productoSeleccionado.nom);
+            const productoEnCesta = productosEnCesta.value.find(producto => producto.id === productoSeleccionado.id);
 
             if (productoEnCesta) {
                 productoEnCesta.cantidad++;
@@ -68,8 +68,24 @@ createApp({
             setTimeout(() => {
                 
                 cestaActiva.value = false;
-            }, 2000);
+            }, 3000);
         }
+
+        
+        const cantidadTotalProductos = computed(() => {
+            return calcularCantidadTotalProductos();
+        });
+        
+        function calcularCantidadTotalProductos() {
+            // Utiliz0 un Set para contar solo productos únicos
+            const contados = new Set();
+            productosEnCesta.value.forEach(producto => {
+                contados.add(producto.id); // Agrega el ID del producto al Set
+            });
+            return contados.size; // Me devuelve el tamaño del Set como cantidad total de productos únicos en la cesta
+        }
+        
+        
         function restarCantidad(index) {
             const producto = productosEnCesta.value[index];
             if (producto.cantidad > 1) {
@@ -110,8 +126,8 @@ createApp({
         
         // Finalizar compra y pago
         function finalizarCompraDeCarrito() {
-            divActivo.value = 'finalizarCompraDeCarrito';  // Cambia el estado a la vista de finalización de compra
-            cestaActiva.value = false;  // Oculte el carrito mientras se muestra el formulario de compra
+            divActivo.value = 'finalizarCompraDeCarrito';  
+            cestaActiva.value = false;
         }
         
         
@@ -179,6 +195,7 @@ createApp({
             direccion,
             datosUsuario,
             productos,
+            cantidadTotalProductos,
             productosEnCesta,
             añadirALaCesta,
             eliminarDesdeCarrito,
