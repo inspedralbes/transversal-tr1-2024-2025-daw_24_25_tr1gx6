@@ -16,31 +16,31 @@
                     <td>{{ $category->id }}</td>
                     <td>{{ $category->nom }}</td>
                     <td>
-                        <!-- Formulario para eliminar -->
                         <form action="{{ route('delete.category', $category->id) }}" method="POST" style="display:inline;">
                             @csrf
                             <button type="submit">Eliminar</button>
                         </form>
 
-                        <!-- Formulario para actualizar -->
                         <form action="{{ route('update.category', $category->id) }}" method="POST" style="display:inline;">
                             @csrf
                             <input type="text" name="nom" value="{{ $category->nom }}" required>
+                            <input type="text" name="imagen" value="{{ $category->imagen }}" required>
                             <button type="submit">Actualizar</button>
                         </form>
                     </td>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+                @endforeach
+                <h2>Crear Nueva Categoría</h2>
+            </tbody>
+        </table>
+        <form action="{{ route('create.category') }}" method="POST">
+            @csrf
+            <label for="nom">Nombre de la Categoría:</label>
+            <input type="text" name="nom" required>
+            <input type="text" name="imagen" required>
+            <button type="submit">Crear Categoría</button>
+        </form>
 @endsection 
 
 @section('forms-cruds')
-    <h2>Crear Nueva Categoría</h2>
-    <form action="{{ route('create.category') }}" method="POST">
-        @csrf
-        <label for="nom">Nombre de la Categoría:</label>
-        <input type="text" name="nom" required>
-        <button type="submit">Crear Categoría</button>
-    </form>
 @endsection

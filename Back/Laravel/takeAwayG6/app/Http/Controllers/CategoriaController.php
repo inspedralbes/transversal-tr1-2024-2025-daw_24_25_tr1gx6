@@ -17,15 +17,16 @@ class CategoriaController extends Controller
 
     public function CreateCategory(Request $request){
         $data = $request->validate(
-            ['nom'=>'required']
+            ['nom'=>'required'],
+            ['imagen'=>'required']
         );
 
         $category = new Categoria();
         $category -> nom = $request->nom;
-
+        $category -> imagen = $request->imagen;
         $category->save();
 
-        return response()->json(['status'=>'success', 'message'=>'Categoria creada exitosamente']);
+        return redirect()->back()->with('success', 'Categoría creada exitosamente');
     }
 
     public function UpdateCategory(Request $request, $id){
