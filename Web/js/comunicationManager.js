@@ -115,28 +115,28 @@ export async function pedidoUser(json) {
 
 }
 
-export async function loginUser(json) {
-    try {
-        const response = await fetch(HOST + '/loginUser', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(json),
-        });
-        //CONSULTAR SI LA CONEXION ES BUENA
-        if (!response.ok) {
-            throw new Error(`Error: ${response.status} - ${response.statusText}`);
-        }
-        const data = await response.json();
-        console.log(data);
+// export async function loginUser(json) {
+//     try {
+//         const response = await fetch(HOST + '/loginUser', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify(json),
+//         });
+//         //CONSULTAR SI LA CONEXION ES BUENA
+//         if (!response.ok) {
+//             throw new Error(`Error: ${response.status} - ${response.statusText}`);
+//         }
+//         const data = await response.json();
+//         console.log(data);
 
-        return data;
+//         return data;
 
-    } catch (error) {
-        console.log(error);
-    }
-}
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
 
 export async function loginUser(json) {
     try {
