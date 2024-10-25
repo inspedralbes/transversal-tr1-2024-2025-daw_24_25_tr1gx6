@@ -11,7 +11,8 @@ class CategoriaController extends Controller
         
         $categorias = Categoria::all();
 
-        return response()->json([$categorias]);
+        //return response()->json([$categorias]);
+        return view('categorias.categoria', compact('categorias'));
     }
 
     public function CreateCategory(Request $request){
