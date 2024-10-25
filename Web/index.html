@@ -26,10 +26,13 @@
                     <option value="puma">Puma</option>
                 </select>
             </form>
-         
-            <img src="./Img/cesta.png" alt="cesta" class="cesta" @click="botonCesta">
-            <span v-if="cantidadTotalProductos > 0" class="carrito-contadorDeproductos">{{ cantidadTotalProductos }}</span>
-            
+
+            <div class="carrito-contenedor">
+                <img src="./Img/cesta.png" alt="cesta" class="cesta" @click="botonCesta">
+                <span v-if="cantidadTotalProductos > 0" class="carrito-contadorDeproductos">{{ cantidadTotalProductos
+                    }}</span>
+            </div>
+
             <img @click="IrLogin" id="loginIcono" src="Img/iconoLogin.png" alt="loginIcono">
         </nav>
         <div v-if="divActivo=='paginaDeInicio'">
@@ -96,8 +99,9 @@
                 </div>
             </div>
         </div>
+        <!-- plantilla  -->
         <div id="cesta" v-if="cestaActiva" class="cesta-container">
-            <h2>Carrito</h2>
+            <h2>Carritoaaaaaaa</h2>
             <div class="productos-container">
                 <div v-for="(producto, index) in productosEnCesta" :key="index" class="product-card">
                     <img :src="producto.img" :alt="producto.nom" class="imagenProducto">
@@ -159,6 +163,8 @@
 
             <h4 v-if="!finalitzaCompraActiva">No hay nada en la cesta</h4>
         </div>
+
+        <!-- Login -->
         <div v-if="divActivo=='divLogin'" class="login-container">
             <div class="card">
                 <h2>Login Form</h2>
