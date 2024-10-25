@@ -106,6 +106,7 @@
                 <div v-for="(producto, index) in productosEnCesta" :key="index" class="product-card">
                     <img :src="producto.img" :alt="producto.nom" class="imagenProducto">
                     <h4>{{ producto.nom }}</h4>
+                    <span>{{producto.cantidad}}</span>
                     <p class="price">{{ producto.preu }}€</p>
                 </div>
             </div>
