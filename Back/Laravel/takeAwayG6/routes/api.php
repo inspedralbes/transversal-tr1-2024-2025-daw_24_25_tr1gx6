@@ -25,3 +25,4 @@ Route::post('/createComanda',[ComandasController::class, 'createComanda'])->name
 
 Route::post('/registerUser', [UserController::class, 'createUser'])->name('register.user');
 Route::post('/loginUser', [UserController::class, 'loginUser'])->name('login.user');
+
