@@ -7,6 +7,12 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+    public function getUsers(){
+        $users = User::all();
+
+        return response()->json([$users]);
+    }
+    
     public function createUser(Request $request){
         $data = $request->validate([
             'name'=> 'required',

@@ -17,3 +17,4 @@ Route::get('/getMarcas',[MarcaController::class, 'getMarcas'])->name('get.marcas
 
 //RUTA PARA DEVOLVER UN JSON CON LA COMANDA DEL USUARIO FILTRADA
 Route::post('/pedidoUser',[ComandasController::class, 'pedidoUser'])->name('pedido.user');
+
