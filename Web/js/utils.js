@@ -6,6 +6,8 @@ import {
 } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
 import { getProductoss } from "./comunicationManager.js";
 
+import { checkoutProductos, createComanda } from "./comunicationManager.js";
+
 createApp({
   setup() {
     //Las variables para los datos del carrito
@@ -152,87 +154,49 @@ createApp({
     }
 
     function procesarCompra() {
-        const comandaData = {
-          nombre: nombre.value,
-          correoElectronico: correoElectronico.value,
-          direccion: direccion.value,
-          tarjeta: datosUsuario.value.tarjeta,
-          expiracion: datosUsuario.value.expiracion,
-          cvv: datosUsuario.value.cvv,
-          total: precioTotal.value,
-        };
+      // crea la comanda
+      const  comandaData = {
+        idUser: 1,
+        estat: "Preparando",
+        total: precioTotal.value,
+      };
+      createComanda(comandaData)
+        .then((response) => {
+          if(response && response.IdComanda){
+            const idComanda = response.IdComanda;
 
-        console.log("Datos de la comanda:",comandaData);
-      
-        // Crear la comanda y obtener su ID
-        fetch("http://localhost:8000/api/createComanda", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(comandaData),
-      })
-      
-          .then((response) => response.json())
-          .then((comandaResponse) => {
-            const comandaId = comandaResponse.id;
-            console.log("ID de la comanda:", comandaId);
+            const productosParaComanda = productosEnCesta.value.map((producto) => ({
+              idProducto: producto.id,
+              idComanda: idComanda,
+              talla: producto.talla,
+              color: producto.color,
+              quantitat: producto.cantidad,
+              preu: producto.preu,
+            }));  
+
+            return checkoutProductos(productosParaComanda);
+          }else{
+            console.log("Error!! No se puede obtener el ID de la comanda.");
+          }
+        })
+        .then((response) => {
+          if(response && response.status === "success"){
+            console.log("Copra finalizada correctamente");
             
-      
-            // Luego, registra cada producto con el ID de Comanda
-            const promesas = productosEnCesta.value.map((producto) => {
-              const comandaArticuloData = {
-                idComanda: comandaId,
-                idProducto: producto.id,
-                talla: producto.talla, 
-                color: producto.color,
-                quantitat: producto.cantidad,
-                preu: producto.preu,
-                created_at: new Date().toISOString(),
-                updated_at: new Date().toISOString(),
-              };
-
-              console.log("Datos del articulo en la comanda",comandaArticuloData);
-              
-              return fetch("http://localhost:8000/api/createComandaArt", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(comandaArticuloData),
-            
-              });
-            });
-
-            return Promise.all(promesas);
-          })
-          .then(() => {
-            alert("Gracias por tu compra");
             productosEnCesta.value = [];
+            guardarCarrito();
             actualizarPrecioTotal();
-            irPantallaInicio();
-          })
-          .catch((error) => {
-            console.error("Error al `rpcesar la compra:", error);
-            alert("Error al registrar los productos");
-          });
-      }
-      
-      //       // Espera a que todas las promesas se resuelvan
-      //       Promise.all(promesas)
-      //         .then(() => {
-      //           alert("Gracias por tu compra");
-      //           productosEnCesta.value = [];
-      //           actualizarPrecioTotal();
-      //           irPantallaInicio();
-      //         })
-      //         .catch((error) => {
-      //           console.error("Error al registrar productos:", error);
-      //           alert("Error al registrar los productos");
-      //         });
-      //     })
-      //     .catch((error) => {
-      //       console.error("Error al crear comanda:", error);
-      //       alert("Error al crear la comanda");
-      //     });
-      // }
-      
+           
+            finalitzaCompraActiva.value = false;
+            divActivo.value = "carrito";
+          }else{
+            console.log("Error!! al procesar los productos en la comanda");
+          }
+        })
+        .catch((error) => {
+          console.error("Error en el proceso de compra:", error);
+        });
+    }
 
     function volverACarrito() {
       divActivo.value = "carrito";
