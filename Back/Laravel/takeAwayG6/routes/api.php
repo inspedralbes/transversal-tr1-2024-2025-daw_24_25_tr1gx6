@@ -11,9 +11,17 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::get('/getProductos',[ProductoController::class, 'getProductos'])->name('get.productos');
-Route::get('/getCategory',[CategoriaController::class, 'getCategory'])->name('get.category');
-Route::get('/getMarcas',[MarcaController::class, 'getMarcas'])->name('get.marcas');
+Route::get('/getProductos', [ProductoController::class, 'getProductos'])->name('get.productos');
+Route::get('/getCategory', [CategoriaController::class, 'getCategory'])->name('get.category');
+Route::get('/getMarcas', [MarcaController::class, 'getMarcas'])->name('get.marcas');
 
 //RUTA PARA DEVOLVER UN JSON CON LA COMANDA DEL USUARIO FILTRADA
-Route::post('/pedidoUser',[ComandasController::class, 'pedidoUser'])->name('pedido.user');
+Route::post('/pedidoUser', [ComandasController::class, 'pedidoUser'])->name('pedido.user');
+
+
+
+Route::prefix('/productos')->group(callback: function () {
+
+    Route::post('/create', [ProductoController::class, 'createProducto'])->name('create.product');
+    Route::post('/update/{id}', [ProductoController::class, 'updateProducto'])->name('update.product');
+});
