@@ -21,14 +21,11 @@ class ProductoSeeder extends Seeder
             Producto::create([
                 'nom' => $producto['nom'],
                 'desc' => $producto['desc'],
-                'stock' => $producto['stock'],
                 'preu' => $producto['preu'],
                 'img' => $producto['img'],
                 'valoracion' => $producto['valoracion'],
                 'idCategory' => $producto['idCategory'],
                 'idMarca' => $producto['idMarca'],
-                'idColor' => $producto['idColor'],
-                'idTalla' => $producto['idTalla'],
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

@@ -21,13 +21,12 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             MarcasSeeder::class,
-            ColorSeeder::class,
-            TallaSeeder::class,
             CategorySeeder::class,
             UserSeeder::class,
             ProductoSeeder::class,
             ComandaSeeder::class,
-            ComandaArticuloSeeder::class
+            ComandaArticuloSeeder::class,
+            StockSeeder::class
         ]);
         
 

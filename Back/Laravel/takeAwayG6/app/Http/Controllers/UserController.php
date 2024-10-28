@@ -29,6 +29,12 @@ class UserController extends Controller
         return response()->json(['status' => 'success', 'message' => 'Usuario no encontrado', 'login' => false]);
     }
 
+    public function getUsers(){
+        $users = User::all();
+
+        return response()->json([$users]);
+    }
+    
     public function createUser(Request $request){
         $data = $request->validate([
             'name'=> 'required',
