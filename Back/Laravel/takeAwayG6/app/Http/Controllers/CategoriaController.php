@@ -36,9 +36,10 @@ class CategoriaController extends Controller
 
         $category = Categoria::findOrFail($id);
         $category->nom = $request->nom;
+        $category->imagen = $request->imagen;
         $category->save();
 
-        return response()->json(['status'=>'success', 'message' => 'Categoria actualizada']);
+        return redirect()->back()->with('success', 'Categoria actualizada exitosamente');
     }
 
     public function DeleteCategory($id){
@@ -46,7 +47,7 @@ class CategoriaController extends Controller
 
         $category->delete();
 
-        return response()->json(['status' => 'success', 'message'=>'Categoria eliminada']);
+        return redirect()->back()->with('success', 'Categoria eliminada exitosamente');
     }
 
 }
