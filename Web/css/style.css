@@ -559,16 +559,35 @@ a:hover {
 
 .mostrarInfo {
     display: flex;
-   justify-content: space-between;
+    justify-content: space-between;
     align-items: center;
     padding: 10px;
     border-bottom: 2px solid #ccc;
 }
-
 .mostrarInfo h3 {
-    margin: 0;                  
+    margin: 0;
     font-size: 18px;
 }
+
+ .mostrarInfo .nomProducte{
+    padding-left: 120px;
+
+}  
+
+.mostrarInfo .infoProducte{
+    position: absolute;
+    padding-left: 310px;
+}
+
+.mostrarInfo .cantidadProducte{
+    position: absolute;
+   padding-left: 1090px;
+}
+.mostrarInfo .preProducte{
+    padding-right: 120px;
+}
+
+
 
 
 .product-carrito img {
@@ -605,7 +624,7 @@ a:hover {
     display: flex;
     align-items: center;
     gap: 15px;
-    /* para espacio entre los elementos */
+   
 }
 
 .eliminarDeCarrito {
@@ -719,4 +738,27 @@ a:hover {
     font-size: 12px;
     font-weight: bold;
 
+}
+
+.btn {
+    padding: 7px 14px;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    background-color: white;
+    bottom: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.btn:hover {
+    background-color: rgba(0, 0, 0, 0.901);
+    color: white;
+   
+}
+
+.btn:active {
+    transform: scale(0.98);
+   
 }

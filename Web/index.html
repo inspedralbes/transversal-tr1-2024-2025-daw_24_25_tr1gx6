@@ -67,7 +67,6 @@
                     </div>
                 </div>
                 <h3>preu: {{precioTotal.toFixed(2)}}€</h3>
-                <button v-if="finalitzaCompraActiva" id="finalizarCompra">Finalizar compra</button>
                 <h4 v-if="!finalitzaCompraActiva">Esta es la cesta, aqui podras ver los productos que has añadido a la
                     cesta y podras pasar a finalizar la compra</h4>
             </div>
@@ -101,7 +100,7 @@
         </div>
         <!-- plantilla  -->
         <div id="cesta" v-if="cestaActiva" class="cesta-container">
-            <h2>Carritoaaaaaaa</h2>
+            <h2>Carrito</h2>
             <div class="productos-container">
                 <div v-for="(producto, index) in productosEnCesta" :key="index" class="product-card">
                     <img :src="producto.img" :alt="producto.nom" class="imagenProducto">
@@ -111,8 +110,9 @@
                 </div>
             </div>
             <h3 v-if="finalitzaCompraActiva">Preu: {{precioTotal.toFixed(2)}}€</h3>
-            <button @click="cambiarACarrito" v-if="finalitzaCompraActiva" id="finalizarCompra">Ir al carrito</button>
+            <button @click="cambiarACarrito" v-if="finalitzaCompraActiva" id="finalizarCompra" class="btn">Ir al carrito</button>
             <h4 v-if="!finalitzaCompraActiva">No hay nada en la cesta</h4>
+            
         </div>
 
         <!-- Carrito -->
@@ -151,19 +151,19 @@
                                 <img src="https://img.icons8.com/ios/20/plus--v1.png" alta="Sumar cantidad" />
                             </button>
                         </div>
-
                     </div>
                     <p class="precioDeCarrito">{{(producto.preu * producto.cantidad).toFixed(2)}}€</p>
                 </div>
             </div>
             <h3 v-if="finalitzaCompraActiva" class="precioTotalDeCarrito">preu: {{precioTotal.toFixed(2)}}€</h3>
-            <button @click="volverALaPaginaPrincipal" v-if="finalitzaCompraActiva" id="finalizarCompra">Volver a la
+            <button @click="volverALaPaginaPrincipal" v-if="finalitzaCompraActiva" id="volverALaPaginaCarrito" class="btn">Volver a la
                 pagina principal</button>
             <br><br>
-            <button @click="FinalizarCompra" v-if="finalitzaCompraActiva" id="finalizarCompra">Finalizar compra</button>
-
+            <button @click="finalizarCompraDeCarrito" v-if="productosEnCesta.length > 0" id="finalizarCompra" class="btn">Finalizar compra</button><br><br>
+            <!-- <button @click="enviarDatosABackEnd" v-if="finalitzaCompraActiva" id="EnviarDatos" class="btn">Enviar Datos A BackEnd</button> -->
             <h4 v-if="!finalitzaCompraActiva">No hay nada en la cesta</h4>
         </div>
+        
 
         <!-- Login -->
         <div v-if="divActivo=='divLogin'" class="login-container">
@@ -197,15 +197,15 @@
                     <select id="tallas" v-model="selectedTalla">
                         <option v-for="(talla, index) in productos[veureProd].talla" :key="index">{{ talla }}</option>
                     </select>
+                    <label for="colores">Color:</label>
+                    <select id="colores" v-model="selectedColor">
+                        <option v-for="(color, index) in productos[veureProd]?.color " :key="index">{{ color }}</option>
+                    </select>
                 </div>
                 <button @click="añadirALaCesta(veureProd)" id="form-btn">Añadir a la cesta</button>
             </div>
         </div>
-        <div v-if="divActivo=='carrito'" id="cestaCompleta">
-            <button @click="finalizarCompraDeCarrito" v-if="finalitzaCompraActiva" id="finalizarCompra">Finalizar
-                compra</button>
-            compra</button>
-        </div>
+        
 
         <!-- Parte de finalizar la compra y pago -->
         <div v-if="divActivo == 'finalizarCompraDeCarrito'" class="carritoFinal">
@@ -237,11 +237,17 @@
                     <label for="cvv">CVV:</label>
                     <input type="text" v-model="datosUsuario.cvv" id="cvv" required>
                 </div>
-                <button type="submit">Confirmar compra</button>
-                <button type="button" @click="volverACarrito">Volver al carrito</button>
+                <button type="submit" >Confirmar compra</button>
+
+                <button type="button" @click="volverACarrito" >Volver al carrito</button>
+               
             </form>
         </div>
 
+        <!-- Parte de reseñar la compra -->
+         <div v-if="divActivo == 'reseñarCompra'  ">
+
+         </div>
 
     </div>
     <script type="module" src="./js/utils.js"></script>
