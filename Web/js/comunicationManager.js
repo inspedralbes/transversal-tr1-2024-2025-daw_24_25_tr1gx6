@@ -40,39 +40,6 @@ export async function getMarcas() {
     }
 }
 
-/*-----------------------------------POST---------------------*/
-
-
-export async function getCategorias() {
-    try {
-        const response = await fetch(HOST + '/getCategory');
-        //CONSULTAR SI LA CONEXION ES BUENA
-        if (!response.ok) {
-            throw new Error(`Error: ${response.status} - ${response.statusText}`);
-        }
-        const data = await response.json();
-        console.log(data);
-
-        return data;
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-export async function getMarcas() {
-    try {
-        const response = await fetch(HOST + '/getMarcas');
-        //CONSULTAR SI LA CONEXION ES BUENA
-        if (!response.ok) {
-            throw new Error(`Error: ${response.status} - ${response.statusText}`);
-        }
-        const data = await response.json();
-        return data;
-
-    } catch (error) {
-        console.log(error);
-    }
-}
 
 /*----------------------------------------POST--------------------------------------*/
 export async function checkoutProductos(json) {
@@ -139,26 +106,4 @@ export async function pedidoUser(json) {
         console.log(error);
     }
 
-}
-
-export async function getCategorias() {
-    try{
-        const response = await fetch(HOST + '/getCategory');
-        const data = await response.json();
-        return data;
-
-    }catch(error){
-        console.log(error);
-    }   
-}
-
-export async function getMarcas() {
-    try{
-        const response = await fetch(HOST + '/getMarcas');
-        const data = await response.json();
-        return data;
-
-    } catch (error) {
-        console.log(error);
-    }
 }
