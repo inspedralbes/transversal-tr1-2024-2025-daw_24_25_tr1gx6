@@ -38,7 +38,8 @@ Route::prefix('stock')->group(function () {
 
 
 Route::prefix('/productos')->group(callback: function () {
-
     Route::post('/create', [ProductoController::class, 'createProducto'])->name('create.product');
     Route::post('/update/{id}', [ProductoController::class, 'updateProducto'])->name('update.product');
+    Route::delete('/delete/{id}', [ProductoController::class, 'deleteProducto'])->name('delete.product');
+
 });

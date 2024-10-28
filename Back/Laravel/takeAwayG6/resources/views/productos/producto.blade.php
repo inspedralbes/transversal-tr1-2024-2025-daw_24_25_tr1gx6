@@ -87,21 +87,25 @@
                             <h5 class="card-title text-center mt-2 mb-1">{{ $producto->nom }}</h5>
                             <p class="card-text mb-1"><b>Descripción: </b> {{ $producto->desc }}</p>
 
-                            <p class="card-text mb-1"><b>Stock: </b>{{ $producto->stock }}
+                            <p class="card-text mb-1">
                                 <b>Categoria: </b>{{ $producto->category->nom }}
                                 <b>Marca: </b>{{ $producto->marca->nom }}
-                                <b>Talla: </b>{{ $producto->talla->medida }}
-                                <b>Color: </b>{{ $producto->color->nom }}
                             </p>
-                            {{-- <p class="card-text mb-1"><b>Categoria: </b>{{ $producto->category->nom }}</p>
-                            <p class="card-text mb-1"><b>Marca: </b>{{ $producto->marca->nom }}</p>
-                            <p class="card-text mb-1"><b>Talla: </b>{{ $producto->talla->medida }}</p>
-                            <p class="card-text mb-1"><b>Color: </b>{{ $producto->color->nom }}</p> --}}
-
                             <div class="button-group mt-3 mb-1" style="border: 3px solid purple; width: 20%;">
-                                <button class="btn btn-primary btnsUpdateProducto"
-                                    data-id-producto='{{ $producto->id }}'>Editar</button>
-                                <button class="btn btn-secondary" style="background-color: red">Eliminar</button>
+                                <button class="btn btn-primary btnsUpdateProducto" data-id-producto='{{ $producto->id }}'
+                                    data-id-producto="{{ $producto->id }}" data-nom="{{ $producto->nom }}"
+                                    data-desc="{{ $producto->desc }}" data-preu="{{ $producto->preu }}"
+                                    data-img="{{ $producto->img }}" data-id-category="{{ $producto->idCategory }}"
+                                    data-id-marca="{{ $producto->idMarca }}">Editar</button>
+
+
+                                <button class="btn btn-secondary btnsDeleteProducto" style="background-color: red"
+                                    data-id-producto="{{ $producto->id }}">Eliminar</button>
+
+                                <form method="POST" action="{{ route('delete.product', ['id' => $producto->id]) }}"
+                                    class="form-delete-{{ $producto->id }}">
+                                    @method('DELETE')
+                                </form>
                             </div>
                         </div>
 
@@ -119,57 +123,61 @@
                 <form method="POST" id="form-productos">
                     @csrf
                     <div class="modal-body">
-                        <input type="text" name="nom" id="productName" style="width: 100%; height: 2rem;"
-                            placeholder="Nombre del producto" required />
 
-                        <input type="text" name="desc" id="productDesc" style="width: 100%; height: 2rem;"
-                            placeholder="Descripcion del producto" required />
-
-                        <input type="number" name="stock" id="productStock" style="width: 100%; height: 2rem;"
-                            required />
-
-                        <input type="number" name="preu" id="productPreu" step="0.01" min="0"
-                            placeholder="0.00" style="width: 100%; height: 2rem;" required />
-
-                        <input type="text" name="img" id="productImg" style="width: 100%; height: 2rem;"
-                            required />
-
-                        <!-- Para mostrar las categorías en un select -->
-                        <div class="col-md">
-                            <div class="form-floating">
-                                <select class="form-select" name="idCategory" id="categoria">
-                                    @foreach ($categorias as $categoria)
-                                        <option value="{{ $categoria->id }}">{{ $categoria->nom }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="floatingSelectGrid">Categoria</label>
-                            </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name="nom" id="productName"
+                                placeholder="Nombre del producto" aria-label="Username" aria-describedby="basic-addon1"
+                                required>
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="bi bi-box-seam"></i>
+                            </span>
                         </div>
-                        
 
-                        <!-- Para mostrar las tallas en un select -->
-                        <label for="marca">Marca:</label>
-                        <select name="idMarca" id="marca">
-                            @foreach ($marcas as $marca)
-                                <option value="{{ $marca->id }}">{{ $marca->nom }}</option>
-                            @endforeach
-                        </select>
 
-                        <!-- Para mostrar los colores en un select -->
-                        <label for="color">Color:</label>
-                        <select name="idColor" id="color">
-                            @foreach ($colores as $color)
-                                <option value="{{ $color->id }}">{{ $color->nom }}</option>
-                            @endforeach
-                        </select>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name="desc" id="productDesc"
+                                placeholder="Descripcion del producto" aria-label="Desc" aria-describedby="basic-addon1"
+                                required>
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="bi bi-blockquote-left"></i>
+                            </span>
+                        </div>
 
-                        <!-- Para mostrar las tallas en un select -->
-                        <label for="talla">Talla:</label>
-                        <select name="idTalla" id="talla">
-                            @foreach ($tallas as $talla)
-                                <option value="{{ $talla->id }}">{{ $talla->medida }}</option>
-                            @endforeach
-                        </select>
+
+                        <div class="input-group mb-3">
+                            <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)"
+                                name="preu" id="productPreu" placeholder="0.00" step="0.01" min="0"
+                                required>
+                            <span class="input-group-text">€</span>
+                        </div>
+
+
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name="img" id="productImg"
+                                placeholder="Imagen" aria-label="Desc" aria-describedby="basic-addon1" required>
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="bi bi-card-image"></i>
+                            </span>
+                        </div>
+
+
+                        <div class="input-group mb-3">
+                            <select class="form-select" name="idCategory" id="categoria">
+                                @foreach ($categorias as $categoria)
+                                    <option value="{{ $categoria->id }}">{{ $categoria->nom }}</option>
+                                @endforeach
+                            </select>
+                            <label class="input-group-text" for="inputGroupSelect02">Categorias</label>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <select class="form-select" name="idMarca" id="marca">
+                                @foreach ($marcas as $marca)
+                                    <option value="{{ $marca->id }}">{{ $marca->nom }}</option>
+                                @endforeach
+                            </select>
+                            <label class="input-group-text" for="inputGroupSelect02">Marcas</label>
+                        </div>
 
                     </div>
                     <div class="modal-footer">

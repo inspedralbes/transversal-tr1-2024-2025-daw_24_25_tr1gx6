@@ -45,7 +45,7 @@ class ProductoController extends Controller
         $categorias = Categoria::all();
         $marcas = Marca::all();
 
-        return view('productos.producto', compact('productos', 'categorias', 'marcas', 'tallas', 'colores'));
+        return view('productos.producto', compact('productos', 'categorias', 'marcas'));
     }
 
     public function createProducto(Request $request)
@@ -54,26 +54,20 @@ class ProductoController extends Controller
         $data = $request->validate([
             'nom' => 'required',
             'desc' => 'required',
-            'stock' => 'required',
             'preu' => 'required',
             'img' => 'required',
             'idCategory' => 'required',
-            'idMarca' => 'required',
-            'idColor' => 'required',
-            'idTalla' => 'required'
+            'idMarca' => 'required'
         ]);
 
         $producto = new Producto();
         $producto->nom = $request->nom;
         $producto->desc = $request->desc;
-        $producto->stock = $request->stock;
         $producto->preu = $request->preu;
         $producto->img = $request->img;
         $producto->valoracion = 0;
         $producto->idCategory = $request->idCategory; // o $id
         $producto->idMarca = $request->idMarca; // o $id
-        $producto->idColor = $request->idColor; // o $id
-        $producto->idTalla = $request->idTalla; // o $id
 
         $producto->save();
 
@@ -87,26 +81,21 @@ class ProductoController extends Controller
         $data = $request->validate([
             'nom' => 'required',
             'desc' => 'required',
-            'stock' => 'required',
             'preu' => 'required',
             'img' => 'required',
             'idCategory' => 'required',
             'idMarca' => 'required',
-            'idColor' => 'required',
-            'idTalla' => 'required'
+
         ]);
 
         $producto = Producto::findOrFail($id); //o $id
         $producto->nom = $request->nom;
         $producto->desc = $request->desc;
-        $producto->stock = $request->stock;
         $producto->preu = $request->preu;
         $producto->img = $request->img;
         $producto->valoracion = 0;
         $producto->idCategory = $request->idCategory; // o $id
         $producto->idMarca = $request->idMarca; // o $id
-        $producto->idColor = $request->idColor; // o $id
-        $producto->idTalla = $request->idTalla; // o $id
 
         $producto->save();
 
@@ -117,9 +106,10 @@ class ProductoController extends Controller
 
     public function deleteProducto($id)
     {
-
         $producto = Producto::findOrFail($id);
         $producto->delete();
+
+        return redirect()->route(route: 'screen.productos');
 
     }
 

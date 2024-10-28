@@ -1,6 +1,7 @@
 let btnCreateProducto;
 let formProductos;
 let btnsUpdateProducto;
+let btnsDeleteProducto;
 
 
 function init() {
@@ -9,6 +10,7 @@ function init() {
 
     btnCreateProducto = document.querySelector('#btnCreateProduct');
     btnsUpdateProducto = document.querySelectorAll('.btnsUpdateProducto');
+    btnsDeleteProducto = document.querySelectorAll('.btnsDeleteProducto');
 }
 
 function createProducto() {
@@ -23,16 +25,14 @@ function updateProducto() {
     btnsUpdateProducto.forEach(btnUpdateProducto => {
         btnUpdateProducto.addEventListener('click', function () {
             let idProducto = this.dataset.idProducto;
+
             formProductos.action = 'http://127.0.0.1:8000/api/productos/update' + idProducto;
             document.querySelector('#productName').value = this.dataset.nom;
             document.querySelector('#productDesc').value = this.dataset.desc;
-            document.querySelector('#productStock').value = this.dataset.stock;
             document.querySelector('#productPreu').value = this.dataset.preu;
             document.querySelector('#productImg').value = this.dataset.img;
             document.querySelector('#categoria').value = this.dataset.idCategory;
             document.querySelector('#marca').value = this.dataset.idMarca;
-            document.querySelector('#color').value = this.dataset.idColor;
-            document.querySelector('#talla').value = this.dataset.idTalla;
 
 
             let modal = new bootstrap.Modal(document.querySelector('#modal-productos'));
@@ -41,8 +41,32 @@ function updateProducto() {
     });
 }
 
+function deleteProducto() {
+    btnsDeleteProducto.forEach(btnDeleteProducto => {
+        btnDeleteProducto.addEventListener('click', function () {
+            let idProducto = this.dataset.idProducto;
+            console.log("Id producto eliminada: " + idProducto);
+            Swal.fire({
+                title: 'Advertencia!',
+                html: 'Estas seguro de eliminar este producto',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Aceptar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Aquí puedes ejecutar la lógica de eliminación
+                    console.log("Categoria eliminada: " + idProducto);
+                    document.querySelector('.form-delete-' + idProducto).submit();
+                }
+            });
+        });
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     init();
     createProducto();
     updateProducto();
+    deleteProducto();
 });
