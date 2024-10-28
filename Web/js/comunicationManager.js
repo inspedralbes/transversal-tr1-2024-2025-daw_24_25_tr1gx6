@@ -1,6 +1,7 @@
 const HOST = 'http://localhost:8000/api';
 
-/*---------------------------------------GET-------------------------------*/
+
+/*-----------------------------------GET---------------------*/
 export async function getProductoss() {
     try {
         const response = await fetch(HOST + '/getProductos');
@@ -15,6 +16,31 @@ export async function getProductoss() {
         console.error('Error al obtener productos:', error);
     }
 }
+
+
+export async function getCategorias() {
+    try {
+        const response = await fetch(HOST + '/getCategory');
+        const data = await response.json();
+        return data;
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function getMarcas() {
+    try {
+        const response = await fetch(HOST + '/getMarcas');
+        const data = await response.json();
+        return data;
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+/*-----------------------------------POST---------------------*/
 
 
 export async function getCategorias() {
@@ -115,45 +141,21 @@ export async function pedidoUser(json) {
 
 }
 
-export async function loginUser(json) {
-    try {
-        const response = await fetch(HOST + '/loginUser', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(json),
-        });
-        //CONSULTAR SI LA CONEXION ES BUENA
-        if (!response.ok) {
-            throw new Error(`Error: ${response.status} - ${response.statusText}`);
-        }
+export async function getCategorias() {
+    try{
+        const response = await fetch(HOST + '/getCategory');
         const data = await response.json();
-        console.log(data);
-
         return data;
 
-    } catch (error) {
+    }catch(error){
         console.log(error);
-    }
+    }   
 }
 
-export async function loginUser(json) {
-    try {
-        const response = await fetch(HOST + '/registerUser', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(json),
-        });
-        //CONSULTAR SI LA CONEXION ES BUENA
-        if (!response.ok) {
-            throw new Error(`Error: ${response.status} - ${response.statusText}`);
-        }
+export async function getMarcas() {
+    try{
+        const response = await fetch(HOST + '/getMarcas');
         const data = await response.json();
-        console.log(data);
-
         return data;
 
     } catch (error) {

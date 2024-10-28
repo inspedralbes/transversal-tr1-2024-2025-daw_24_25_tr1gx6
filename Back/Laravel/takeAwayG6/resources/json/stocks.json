@@ -1,0 +1,72 @@
+[
+    {
+        "idProducto": 1,
+        "Nstock": 5,
+        "Color": "Blanco",
+        "TallaCamisa": null,
+        "TallaZapato": "38"
+    },
+    {
+        "idProducto": 1,
+        "Nstock": 10,
+        "Color": "Blanco",
+        "TallaCamisa": null,
+        "TallaZapato": "39"
+    },
+    {
+        "idProducto": 1,
+        "Nstock": 1,
+        "Color": "Blanco",
+        "TallaCamisa": null,
+        "TallaZapato": "40"
+    },
+    {
+        "idProducto": 1,
+        "Nstock": 9,
+        "Color": "Blanco",
+        "TallaCamisa": null,
+        "TallaZapato": "41"
+    },
+    {
+        "idProducto": 1,
+        "Nstock": 9,
+        "Color": "Blanco",
+        "TallaCamisa": null,
+        "TallaZapato": "42"
+    },
+    {
+        "idProducto": 1,
+        "Nstock": 5,
+        "Color": "Blanco",
+        "TallaCamisa": null,
+        "TallaZapato": "38"
+    },
+    {
+        "idProducto": 2,
+        "Nstock": 2,
+        "Color": "Negro",
+        "TallaCamisa": null,
+        "TallaZapato": "39"
+    },
+    {
+        "idProducto": 2,
+        "Nstock": 4,
+        "Color": "Negro",
+        "TallaCamisa": null,
+        "TallaZapato": "40"
+    },
+    {
+        "idProducto": 2,
+        "Nstock": 6,
+        "Color": "Negro",
+        "TallaCamisa": null,
+        "TallaZapato": "41"
+    },
+    {
+        "idProducto": 2,
+        "Nstock": 1,
+        "Color": "Beige",
+        "TallaCamisa": null,
+        "TallaZapato": "42"
+    }
+]
