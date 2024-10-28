@@ -100,7 +100,7 @@
 
                             <div class="button-group mt-3 mb-1" style="border: 3px solid purple; width: 20%;">
                                 <button class="btn btn-primary btnsUpdateProducto"
-                                    data-id-Producto='{{ $producto->id }}'>Editar</button>
+                                    data-id-producto='{{ $producto->id }}'>Editar</button>
                                 <button class="btn btn-secondary" style="background-color: red">Eliminar</button>
                             </div>
                         </div>
@@ -135,12 +135,17 @@
                             required />
 
                         <!-- Para mostrar las categorías en un select -->
-                        <label for="categoria">Categoría:</label>
-                        <select name="idCategory" id="categoria">
-                            @foreach ($categorias as $categoria)
-                                <option value="{{ $categoria->id }}">{{ $categoria->nom }}</option>
-                            @endforeach
-                        </select>
+                        <div class="col-md">
+                            <div class="form-floating">
+                                <select class="form-select" name="idCategory" id="categoria">
+                                    @foreach ($categorias as $categoria)
+                                        <option value="{{ $categoria->id }}">{{ $categoria->nom }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="floatingSelectGrid">Categoria</label>
+                            </div>
+                        </div>
+                        
 
                         <!-- Para mostrar las tallas en un select -->
                         <label for="marca">Marca:</label>

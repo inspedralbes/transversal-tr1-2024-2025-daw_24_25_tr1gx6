@@ -14,7 +14,7 @@ class ProductoController extends Controller
 
     public function getProductos()
     {
-        $productos = Producto::with(['category', 'marca', 'talla', 'color'])->get();
+        $productos = Producto::with(['category', 'marca'])->get();
 
 
         // Mapeamos los productos para cambiar la estructura
@@ -41,11 +41,9 @@ class ProductoController extends Controller
 
     public function getScreenProducto()
     {
-        $productos = Producto::with(relations: ['category', 'marca', 'talla', 'color'])->get();
+        $productos = Producto::with(relations: ['category', 'marca'])->get();
         $categorias = Categoria::all();
         $marcas = Marca::all();
-        $tallas = Talla::all();
-        $colores = Color::all();
 
         return view('productos.producto', compact('productos', 'categorias', 'marcas', 'tallas', 'colores'));
     }

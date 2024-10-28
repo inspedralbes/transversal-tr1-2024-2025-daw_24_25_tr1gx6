@@ -21,7 +21,7 @@ function createProducto() {
 
 function updateProducto() {
     btnsUpdateProducto.forEach(btnUpdateProducto => {
-        btnCreateProducto.addEventListener('click', function () {
+        btnUpdateProducto.addEventListener('click', function () {
             let idProducto = this.dataset.idProducto;
             formProductos.action = 'http://127.0.0.1:8000/api/productos/update' + idProducto;
             document.querySelector('#productName').value = this.dataset.nom;
