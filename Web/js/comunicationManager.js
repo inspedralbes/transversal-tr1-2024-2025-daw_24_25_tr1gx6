@@ -108,3 +108,22 @@ export async function pedidoUser(json) {
 
 }
 
+export async function productobyID(json) {
+    try {
+        const response = await fetch(HOST + '/productoById', {
+            method:'POST',
+            headers: {
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify(json),
+        })
+        const data = await response.json();
+
+        console.log(data);
+        
+        return data;
+
+    } catch (error) {
+        console.log(error);
+    }
+}
