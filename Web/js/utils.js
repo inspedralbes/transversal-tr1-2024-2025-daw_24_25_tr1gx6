@@ -5,7 +5,6 @@ import {
   computed,
 } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
 import { getProductoss } from "./comunicationManager.js";
-
 import { checkoutProductos, createComanda } from "./comunicationManager.js";
 
 createApp({
@@ -40,6 +39,8 @@ createApp({
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
+          console.log(productos[veureProd]?.color);
+          
           productos.value = data;
         })
         .catch((error) => console.error("Error fetching productos:", error));
@@ -57,7 +58,7 @@ createApp({
       const carritoGuardado = localStorage.getItem("productosEnCesta");
       if (carritoGuardado) {
         productosEnCesta.value = JSON.parse(carritoGuardado);
-        actualizarPrecioTotal();
+        actualizarPrecioTotal(); 
       }
     }
 
@@ -74,6 +75,8 @@ createApp({
         finalitzaCompraActiva.value = false;
       }
     }
+
+    //Añadir los productos a la cesta
     function añadirALaCesta(index) {
       const productoSeleccionado = productos.value[index];
       const productoEnCesta = productosEnCesta.value.find(
@@ -116,7 +119,7 @@ createApp({
         producto.cantidad--;
       }
       actualizarPrecioTotal();
-      cestaActiva.value = false;
+      // cestaActiva.value = false;
     }
 
     function getProducte(index) {

@@ -564,23 +564,30 @@ a:hover {
     padding: 10px;
     border-bottom: 2px solid #ccc;
 }
-
-/* .mostrarInfo .nomProducte{
-    margin-left: 125px;
-}
-
-.mostrarInfo .infoProducte{
-    margin-right: 900px;
-}
-
-.mostrarInfo .cantidadProducte{
-   margin-left: -750px;
-} */
-
 .mostrarInfo h3 {
     margin: 0;
     font-size: 18px;
 }
+
+ .mostrarInfo .nomProducte{
+    padding-left: 120px;
+
+}  
+
+.mostrarInfo .infoProducte{
+    position: absolute;
+    padding-left: 310px;
+}
+
+.mostrarInfo .cantidadProducte{
+    position: absolute;
+   padding-left: 1090px;
+}
+.mostrarInfo .preProducte{
+    padding-right: 120px;
+}
+
+
 
 
 .product-carrito img {
