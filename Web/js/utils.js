@@ -25,25 +25,32 @@ createApp({
         const finalitzaCompraActiva = ref(false);
         const precioTotal = ref(0);
         const veureProd = ref()
-        function getProductos() {
-            fetch('http://localhost:8000/api/getProductos')
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data)
-                    productos.value = data;
-                })
-                .catch(error => console.error('Error fetching productos:', error));
+        async function getProductos() {
+            try {
+                productos.value = await getProductoss();
+                console.log('Productos obtenidos:', productos.value);
+            } catch (error) {
+                console.error('Error al obtener productos:', error);
+            }
         }
 
         function actualizarProductosMostrados() {
-            productosMostrados.value = productos.value.sort((a, b) => b.valoracion - a.valoracion).slice(productoIndex.value, productoIndex.value + 4);
-            productoIndex.value = (productoIndex.value + 4) % Math.max(productos.value.length, 4);
+            if (productos.value.length > 0) {
+                productosMostrados.value = productos.value
+                    .sort((a, b) => b.valoracion - a.valoracion)
+                    .slice(productoIndex.value, productoIndex.value + 4);
+                productoIndex.value = (productoIndex.value + 4) % productos.value.length;
+            }
         }
-        
 
         function actualizarCategoriasMostradas() {
-            categoriasMostradas.value = categorias.value.slice(categoriaIndex.value, categoriaIndex.value + 3);
-            categoriaIndex.value = (categoriaIndex.value + 3) % categorias.value.length;
+            if (categorias.value.length > 0) {
+                categoriasMostradas.value = categorias.value.slice(
+                    categoriaIndex.value,
+                    categoriaIndex.value + 3
+                );
+                categoriaIndex.value = (categoriaIndex.value + 3) % categorias.value.length;
+            }
         }
         
 
@@ -59,6 +66,7 @@ createApp({
                 finalitzaCompraActiva.value = false;
             }
         }
+
         function añadirALaCesta(index) {
             const productoSeleccionado = productos.value[index];
             const productoEnCesta = productosEnCesta.value.find(producto => producto.nom === productoSeleccionado.nom);
