@@ -34,14 +34,23 @@ createApp({
             }
         }
 
-        function actualizarProductosMostrados() {
-            if (productos.value.length > 0) {
-                productosMostrados.value = productos.value
-                    .sort((a, b) => b.valoracion - a.valoracion)
-                    .slice(productoIndex.value, productoIndex.value + 4);
-                productoIndex.value = (productoIndex.value + 4) % productos.value.length;
-            }
+        function inicializarMostrados() {
+            const productosOrdenados = Array.from(productos.value);
+            productosOrdenados.sort((a, b) => b.valoracion - a.valoracion);
+            productosMostrados.value = productosOrdenados.slice(0, 10);
+        
+            actualizarProductosMostrados();
+            actualizarCategoriasMostradas();
         }
+        
+
+        function actualizarProductosMostrados() {
+            if (productosMostrados.value.length > 0) { 
+                productosMostrados.value = productosMostrados.value
+                    .slice(productoIndex.value, productoIndex.value + 4);
+                productoIndex.value = (productoIndex.value + 4) % productosMostrados.value.length;
+            }
+        }        
 
         function actualizarCategoriasMostradas() {
             if (categorias.value.length > 0) {
@@ -51,8 +60,8 @@ createApp({
                 );
                 categoriaIndex.value = (categoriaIndex.value + 3) % categorias.value.length;
             }
-        }
-        
+        }        
+
 
         function eliminarDeLaCesta(index) {
             const productoEliminado = productosEnCesta.value[index];
@@ -157,14 +166,13 @@ createApp({
             cestaActiva.value = false;
         }
 
-        onMounted(() => {
-            getProductos();
-            setTimeout(() => {
-                actualizarProductosMostrados();
-                actualizarCategoriasMostradas();
-                setInterval(actualizarProductosMostrados, 3000);
-                setInterval(actualizarCategoriasMostradas, 3000);
-            }, 500);
+        onMounted(async () => {
+            await getProductos();
+            inicializarMostrados(); 
+            actualizarProductosMostrados();
+            actualizarCategoriasMostradas();
+            setInterval(actualizarProductosMostrados, 3000);
+            setInterval(actualizarCategoriasMostradas, 3000);
         });
 
         return {
