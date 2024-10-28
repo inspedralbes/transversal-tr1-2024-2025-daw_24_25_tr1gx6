@@ -14,6 +14,10 @@ createApp({
         ]);
 
         const productos = ref([]);
+        const productosMostrados = ref([]);
+        const categoriasMostradas = ref([]);
+        const productoIndex = ref(0);
+        const categoriaIndex = ref(0);
         const categoriaFiltrada = ref('');
         const productosEnCesta = ref([]);
         const divActivo = ref('paginaDeInicio');
@@ -30,6 +34,19 @@ createApp({
                 })
                 .catch(error => console.error('Error fetching productos:', error));
         }
+
+        function actualizarProductosMostrados() {
+            productosMostrados.value = productos.value.sort((a, b) => b.valoracion - a.valoracion).slice(productoIndex.value, productoIndex.value + 4);
+            productoIndex.value = (productoIndex.value + 4) % Math.max(productos.value.length, 4);
+        }
+        
+
+        function actualizarCategoriasMostradas() {
+            categoriasMostradas.value = categorias.value.slice(categoriaIndex.value, categoriaIndex.value + 3);
+            categoriaIndex.value = (categoriaIndex.value + 3) % categorias.value.length;
+        }
+        
+
         function eliminarDeLaCesta(index) {
             const productoEliminado = productosEnCesta.value[index];
             productosEnCesta.value.splice(index, 1);
@@ -134,10 +151,18 @@ createApp({
 
         onMounted(() => {
             getProductos();
+            setTimeout(() => {
+                actualizarProductosMostrados();
+                actualizarCategoriasMostradas();
+                setInterval(actualizarProductosMostrados, 3000);
+                setInterval(actualizarCategoriasMostradas, 3000);
+            }, 500);
         });
 
         return {
             productos,
+            productosMostrados,
+            categoriasMostradas,
             productosEnCesta,
             añadirALaCesta,
             eliminarDesdeCarrito,
