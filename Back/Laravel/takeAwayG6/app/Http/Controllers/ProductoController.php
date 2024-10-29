@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Stock;
 use Illuminate\Http\Request;
 use App\Models\Producto;
 use App\Models\Categoria;
@@ -68,8 +69,15 @@ class ProductoController extends Controller
         $producto->valoracion = 0;
         $producto->idCategory = $request->idCategory; // o $id
         $producto->idMarca = $request->idMarca; // o $id
-
         $producto->save();
+
+        $stock = new Stock();
+        $stock->idProducto = $producto->id;
+        $stock->Nstock = $request->Nstock;
+        $stock->color = $request->color;
+        $stock->TallaCamisa = $request->TallaCamisa;
+        $stock->TallaZapato = $request->TallaZapato;
+        $stock->save();
 
         //return response()->json(['status'=>'success', 'message'=>'Producto Creado']);
         return redirect()->route(route: 'screen.productos');

@@ -33,6 +33,7 @@ Route::post('/loginUser', [UserController::class, 'loginUser'])->name('login.use
 
 
 Route::prefix('stock')->group(function () {
+    Route::get('/create', [StockController::class,'createStock'])->name('stock.create');
     Route::post('/update', [StockController::class,''])->name('stock.update');
 });
 

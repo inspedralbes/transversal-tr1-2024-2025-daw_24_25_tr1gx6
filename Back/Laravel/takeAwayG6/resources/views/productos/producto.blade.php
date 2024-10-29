@@ -28,13 +28,16 @@
                         <a class="nav-link" href="#" style="color: white">Marcas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" style="color: white">Tallas</a>
+                        <a class="nav-link" href="#" style="color: white">Productos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" style="color: white">Comandas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" style="color: white">Comanda Articulos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('screen.stocks')}}" style="color: white">Stocks</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" style="color: white">Users</a>
@@ -88,6 +91,7 @@
                             <p class="card-text mb-1"><b>Descripción: </b> {{ $producto->desc }}</p>
 
                             <p class="card-text mb-1">
+                                <b>Preu: </b>{{ $producto->preu }} €
                                 <b>Categoria: </b>{{ $producto->category->nom }}
                                 <b>Marca: </b>{{ $producto->marca->nom }}
                             </p>

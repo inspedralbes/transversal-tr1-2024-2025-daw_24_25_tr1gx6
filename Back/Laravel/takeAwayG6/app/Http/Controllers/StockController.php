@@ -24,4 +24,11 @@ class StockController extends Controller
         $stock->save();
         return response()->json(['status' => 'succes', 'Numero' => $stock->Nstock]);
     }
+
+    public function getScreenStocks(){
+        $stocks = Stock::with('producto')->get();
+
+        return view('stocks.stock', compact('stocks'));
+        //return response()->json($stocks);
+    }
 }
