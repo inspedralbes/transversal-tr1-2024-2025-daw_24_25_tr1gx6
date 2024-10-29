@@ -200,49 +200,55 @@ import {
       }
   
       function procesarCompra() {
-        // crea la comanda
-        const  comandaData = {
-          idUser: 1,
-          estat: "Preparando",
-          total: precioTotal.value,
-        };
-        createComanda(comandaData)
-          .then((response) => {
-            if(response && response.IdComanda){
-              const idComanda = response.IdComanda;
-  
-              const productosParaComanda = productosEnCesta.value.map((producto) => ({
-                idProducto: producto.id,
-                idComanda: idComanda,
-                talla: producto.talla,
-                color: producto.color,
-                quantitat: producto.cantidad,
-                preu: producto.preu,
-              }));  
-  
-              return checkoutProductos(productosParaComanda);
-            }else{
-              console.log("Error!! No se puede obtener el ID de la comanda.");
+    const comandaData = {
+        idUser: 1,
+        estat: "Preparando",
+        total: precioTotal.value,
+    };
+
+    createComanda(comandaData)
+        .then((response) => {
+            if (response && response.IdComanda) {
+                const idComanda = response.IdComanda;
+
+                // Mostrar productos en cesta en la consola
+                console.log("Productos en la cesta:", productosEnCesta.value);
+
+                // Crear JSON para enviar al servidor sin idStock
+                const productosParaComanda = productosEnCesta.value.map((producto) => ({
+                    idProducto: producto.id,
+                    idComanda: idComanda,
+                    talla: producto.talla,
+                    color: producto.color,
+                    quantitat: producto.cantidad,
+                    preu: producto.preu,
+                }));
+
+                console.log("JSON a enviar al servidor:", JSON.stringify(productosParaComanda, null, 2));
+
+                return checkoutProductos(productosParaComanda);
+            } else {
+                console.log("Error!! No se puede obtener el ID de la comanda.");
             }
-          })
-          .then((response) => {
-            if(response && response.status === "success"){
-              console.log("Copra finalizada correctamente");
-              
-              productosEnCesta.value = [];
-              guardarCarrito();
-              actualizarPrecioTotal();
-             
-              finalitzaCompraActiva.value = false;
-              divActivo.value = "carrito";
-            }else{
-              console.log("Error!! al procesar los productos en la comanda");
+        })
+        .then((response) => {
+            if (response && response.status === "success") {
+                console.log("Compra finalizada correctamente");
+                productosEnCesta.value = [];
+                guardarCarrito();
+                actualizarPrecioTotal();
+                finalitzaCompraActiva.value = false;
+                divActivo.value = "carrito";
+            } else {
+                console.log("Error!! al procesar los productos en la comanda");
             }
-          })
-          .catch((error) => {
+        })
+        .catch((error) => {
             console.error("Error en el proceso de compra:", error);
-          });
-      }
+        });
+}
+
+    
   
       function volverACarrito() {
         divActivo.value = "carrito";

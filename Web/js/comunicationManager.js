@@ -42,12 +42,15 @@ export async function getMarcas() {
 
 
 /*----------------------------------------POST--------------------------------------*/
+
 export async function checkoutProductos(json) {
     try {
         const response = await fetch(HOST + '/createComandaArt', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+
             },
             body: JSON.stringify(json),
         });
