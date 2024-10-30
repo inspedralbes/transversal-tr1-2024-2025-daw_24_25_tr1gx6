@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MarcaController;
+use App\Mail\Notification;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,3 +36,8 @@ Route::get('/getMarcas',[MarcaController::class, 'getMarcas'])->name('get.marcas
 // });
 
 //Route::post('/createProduct', [ProductoController::class, 'createProducto'])->name('create.product');
+Route::get('/mail', function(){
+
+    Mail::to('a19pabmatpav@inspedralbes.cat')->send(new Notification);
+    return "mensaje enviado";
+});
