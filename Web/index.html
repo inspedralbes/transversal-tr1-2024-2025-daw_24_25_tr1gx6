@@ -135,18 +135,20 @@
 
                     <div class="producto-info">
                         <div v-if="producto">
+
                             <h4>{{ producto.nom }}</h4>
                             <p><strong>Categoria:</strong> {{ producto.category.nom }}</p>
                             <p><strong>Marca:</strong> {{ producto.marca.nom }}</p> 
                             <p><strong>Color:</strong> {{ producto.color }}</p>
+                            <p><strong>idStock:</strong> {{ producto.stock }}</p>
                             <p><strong>Descripción:</strong> {{ producto.desc }}</p>  
-                        </div> 
+                        </div>
                     </div>
-                    
+
                     <!-- <p><strong>Categoria:</strong> {{producto.category.nom}} | <strong>Marca:</strong>
                         {{producto.marca.nom}} | <strong>Color:</strong>{{producto.color}}</p> -->
-                        <!-- <p><strong>Categoria:</strong> {{producto.category.nom}}</p> -->
-                    
+                    <!-- <p><strong>Categoria:</strong> {{producto.category.nom}}</p> -->
+
 
                     <div class="producto-controls">
                         <button @click="eliminarDesdeCarrito(index)" class="elininarDeCarrito">
@@ -209,9 +211,10 @@
                     <div class="form">
                         <label for="combinaciones">Selecciona Color y Talla:</label>
                         <select id="combinaciones" v-model="selectedCombinacion" required>
-                            <option v-for="(combinacion, index) in productos[veureProd].colorTallas" :key="index":value="combinacion">
-                                {{ combinacion }}
-                            </option>
+                            <option v-for="(combinacion, index) in stockProdctuId" :key="index"
+                                :value="combinacion.id">
+                                {{ combinacion.Color }} 
+                                {{ combinacion.TallaCamisa ? combinacion.TallaCamisa : combinacion.TallaZapato ? combinacion.TallaZapato : 'Sin talla' }}                            </option>
                         </select>
                     </div>
 

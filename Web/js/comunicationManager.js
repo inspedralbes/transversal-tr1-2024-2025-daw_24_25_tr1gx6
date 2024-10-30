@@ -49,7 +49,7 @@ export async function checkoutProductos(json) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json'
+                // 'Accept': 'application/json'
 
             },
             body: JSON.stringify(json),
