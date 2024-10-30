@@ -31,6 +31,7 @@ Route::post('/createComanda', [ComandasController::class, 'createComanda'])->nam
 Route::post('/registerUser', [UserController::class, 'createUser'])->name('register.user');
 Route::post('/loginUser', [UserController::class, 'loginUser'])->name('login.user');
 
+Route::post('/loginAdmin',[AutorizacionController::class,'login'])->name('login.creendentials');
 
 Route::prefix('/stock')->group(function () {
     Route::post('/create', [StockController::class, 'createStock'])->name('create.stock');

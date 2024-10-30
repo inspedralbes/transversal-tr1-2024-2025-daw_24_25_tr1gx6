@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AutorizacionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\CategoriaController;
@@ -7,9 +8,10 @@ use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\StockController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('screen.login');
 });
 
+Route::get('/login', [AutorizacionController::class, 'screenlogin'])->name('screen.login');
 
 // Rutas para CRUD de categorías
 Route::get('/crudCategory', [CategoriaController::class, 'getCategory'])->name('get.category');

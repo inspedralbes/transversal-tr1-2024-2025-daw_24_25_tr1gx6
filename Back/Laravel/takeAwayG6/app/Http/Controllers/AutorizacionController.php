@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Hash;
 
 class AutorizacionController extends Controller
 {
@@ -16,33 +15,34 @@ class AutorizacionController extends Controller
             "email" => ["required", "email"],
             "password" => "required",
         ]);
-        /*
+
         if (Auth::attempt($credenciales)) {
             $request->session()->regenerate();
             $user = Auth::user();
 
             $token = $user->createToken('auth-token')->plainTextToken;
             session(['auth-token', $token]);
-            //return response()->json(["success"=>"exito"]);
-            //return redirect()->route('category.index');
-            //return redirect()->intended('category');
-        }*/
-
+            
+            dd($token);
+            
+            return redirect()->route('screen.productos');
+            
+        }
+/*
         $user = User::where('email', $credenciales['email'])->first();
 
         if ($user && Hash::check($credenciales['password'], $user->password)) {
-            /*
             // Crear un token de autenticación o realizar otras acciones si es necesario
             $token = $user->createToken('auth-token')->plainTextToken;
             session(['auth-token', $token]);
             // Regenerar la sesión si es necesario
-            $request->session()->regenerate();*/
+            $request->session()->regenerate();
 
             return response()->json(['status' => 'success', 'message' => 'Usuario encontrado', 'login' => true]);
-        }
+        }*/
 
-        //return back()->withErrors(['email'=> 'Correo o contraseña no son correctas'])->onlyInput('email');
-        return response()->json(['status' => 'success', 'message' => 'Usuario no encontrado', 'login' => false]);
+        return back()->withErrors(['email' => 'Correo o contraseña no son correctas'])->onlyInput('email');
+        //return response()->json(['status' => 'success', 'message' => 'Usuario no encontrado', 'login' => false]);
     }
 
     public function register(Request $request)
@@ -77,5 +77,10 @@ class AutorizacionController extends Controller
     {
         Auth::logout();
         return redirect()->intended('/');
+    }
+
+    public function screenLogin()
+    {
+        return view('login.login');
     }
 }
