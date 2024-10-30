@@ -42,12 +42,15 @@ export async function getMarcas() {
 
 
 /*----------------------------------------POST--------------------------------------*/
+
 export async function checkoutProductos(json) {
     try {
         const response = await fetch(HOST + '/createComandaArt', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                // 'Accept': 'application/json'
+
             },
             body: JSON.stringify(json),
         });
@@ -110,6 +113,8 @@ export async function pedidoUser(json) {
 
 export async function productobyID(json) {
     try {
+        console.log(json);
+        
         const response = await fetch(HOST + '/productoById', {
             method:'POST',
             headers: {
@@ -119,6 +124,8 @@ export async function productobyID(json) {
         })
         const data = await response.json();
 
+        console.log("Conexion correcta A");
+        
         console.log(data);
         
         return data;
