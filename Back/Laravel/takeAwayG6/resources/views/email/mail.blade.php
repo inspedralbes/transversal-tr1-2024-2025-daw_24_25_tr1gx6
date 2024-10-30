@@ -11,6 +11,6 @@
          Estem encantats d'informar-te que la teva comanda s’ha processat amb èxit i ben aviat estarà en camí cap a casa teva.
         S'adjuntará la factura al final d'aquest mail:</p>
 
-        <img src="../img/mailFoto.webp" alt="" srcset="">
+        <img src="/Img/mailFoto.webp" alt="" srcset="">
 </body>
 </html>
