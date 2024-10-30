@@ -29,7 +29,7 @@ class Notification extends Mailable
     {
         return new Envelope(
             from: new Address('fakeLocker@example.com', "FakeLocker"),
-            subject: 'Notification',
+            subject: '🎉 La teva compra està en marxa!',
         );
     }
 
