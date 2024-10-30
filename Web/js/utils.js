@@ -34,7 +34,8 @@ import {
       const finalitzaCompraActiva = ref(false);
       const precioTotal = ref(0);
       const veureProd = ref();
-  
+      const email = ref("");
+      const password = ref("");
       function getProductos() {
         fetch("http://localhost:8000/api/getProductos")
           .then((response) => response.json())
@@ -264,7 +265,22 @@ import {
           }
         }
       }
-      
+      async function submitLogin() {
+        try {
+          await fetch("http://localhost:8000/api/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: email.value,
+              password: password.value,
+            }),
+          });
+        } catch (error) {
+          console.error("Network error during login:", error);
+        }
+      }
       onMounted(() => {
         getProductos();
         cargarCarrito();
@@ -303,6 +319,9 @@ import {
         getProducte,
         veureProd,
         filtrarPorMarca,
+        submitLogin,
+        password,
+        email,
       };
     },
   }).mount("#app");

@@ -158,13 +158,13 @@
         
 
         <!-- Login -->
-        <div v-if="divActivo=='divLogin'" class="login-container">
+        <div class="login-container" v-if="divActivo=='divLogin'">
             <div class="card">
                 <h2>Login Form</h2>
-                <form class="form">
-                    <input type="email" placeholder="Email Address" class="email" required>
-                    <input type="password" placeholder="Password" class="pass" required>
-                    <button type="button" class="login_btn">Login</button>
+                <form class="form" @submit.prevent="submitLogin">
+                    <input type="email" v-model="email" placeholder="Email Address" class="email" required />
+                    <input type="password" v-model="password" placeholder="Password" class="pass" required />
+                    <button type="button" class="login_btn" @click="submitLogin">Login</button>
                     <a class="fp">Has olvidado la contraseña?</a>
                 </form>
                 <div class="footer_card">
