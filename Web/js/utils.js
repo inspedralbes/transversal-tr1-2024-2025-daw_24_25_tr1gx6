@@ -26,6 +26,7 @@ import {
       ]);
   
       const productos = ref([]);
+      const productos2 = ref([]);
       const categoriaFiltrada = ref("");
       const productosEnCesta = ref([]);
       const divActivo = ref("paginaDeInicio");
@@ -241,7 +242,29 @@ import {
         divActivo.value = "paginaPrincipal";
         cestaActiva.value = false;
       }
-  
+      function filtrarPorCategoria(categoria){
+        productos2 = [];
+        if (categoria != 'todo'){
+          if(productos.category.nom == categoria){
+            for (let i = 0; i < productos.length; i++) {
+              productos2.push(productos[i]);
+              
+            }
+          }
+        }
+      }
+      function filtrarPorMarca(marca){
+        productos2 = [];
+        if (categoria != 'todo'){
+          if(productos.marca.nom == marca){
+            for (let i = 0; i < productos.length; i++) {
+              productos2.push(productos[i]);
+              
+            }
+          }
+        }
+      }
+      
       onMounted(() => {
         getProductos();
         cargarCarrito();
@@ -279,6 +302,7 @@ import {
         eliminarDeLaCesta,
         getProducte,
         veureProd,
+        filtrarPorMarca,
       };
     },
   }).mount("#app");
