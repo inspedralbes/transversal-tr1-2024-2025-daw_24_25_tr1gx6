@@ -63,13 +63,19 @@ createApp({
         "productosEnCesta",
         JSON.stringify(productosEnCesta.value)
       );
+      actualizarPrecioTotal();
     }
 
     function cargarCarrito() {
       const carritoGuardado = localStorage.getItem("productosEnCesta");
       if (carritoGuardado) {
         productosEnCesta.value = JSON.parse(carritoGuardado);
+        // Actualizar finalitzaCompraActiva basado en si hay productos
+        finalitzaCompraActiva.value = productosEnCesta.value.length > 0;
         actualizarPrecioTotal();
+      } else {
+        productosEnCesta.value = []; //inicializar como array vacio si no hay datos
+        finalitzaCompraActiva.value = false;
       }
     }
 
@@ -88,13 +94,13 @@ createApp({
     }
     function añadirALaCesta(index) {
       const productoSeleccionado = productos.value[index];
-
-      // Log para verificar la combinación seleccionada
-      //console.log("Selected Combination:", selectedCombinacion.value);
+      const total = productosEnCesta.value.reduce((sum, producto) => {
+        return sum + (producto.precio * producto.cantidad);
+      }, 0);
+      
       // Obtener la talla seleccionada
     const tallaSeleccionada = stockProdctuId.value.find(combinacion => combinacion.id === selectedCombinacion.value);
     
-    // Log para verificar la combinación seleccionada
     console.log("Selected Combination:", selectedCombinacion.value);
     console.log("Talla Seleccionada:", tallaSeleccionada); // Para verificar si se obtuvo correctamente
 
@@ -110,8 +116,8 @@ createApp({
         marca: productoSeleccionado.marca,
         desc: productoSeleccionado.desc,
         cantidad: 1,
-        talla: tallaSeleccionada ? (tallaSeleccionada.TallaCamisa || tallaSeleccionada.TallaZapato) : 'Sin talla', // Elegir la talla disponible        color: selectedCombinacion.value.split(" ")[0],
-        color: tallaSeleccionada ? tallaSeleccionada.Color : 'Sin color', // Capturar el color
+        talla: tallaSeleccionada ? (tallaSeleccionada.TallaCamisa || tallaSeleccionada.TallaZapato) : 'Sin talla', 
+        color: tallaSeleccionada ? tallaSeleccionada.Color : 'Sin color', 
         idStock: selectedCombinacion.value,
       };
 
@@ -134,6 +140,7 @@ createApp({
       guardarCarrito();
       cestaActiva.value = true;
       finalitzaCompraActiva.value = true;
+      precioTotal.value = total;
       actualizarPrecioTotal();
 
       setTimeout(() => {
