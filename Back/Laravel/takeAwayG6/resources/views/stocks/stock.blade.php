@@ -19,7 +19,7 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" style="color: white" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" style="color: white" href="{{route('screen.home')}}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" style="color: white">Categorias</a>
@@ -109,6 +109,7 @@
 
                                     <form method="POST" action="{{ route('delete.stock', ['id' => $stock->id]) }}"
                                         class="form-delete-{{ $stock->id }}">
+                                        @csrf
                                         @method('DELETE')
                                     </form>
                                 </div>

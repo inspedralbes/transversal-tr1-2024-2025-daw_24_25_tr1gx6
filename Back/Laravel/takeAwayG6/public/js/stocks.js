@@ -26,7 +26,7 @@ function actualizarInput() {
 function createStock() {
     btnCreateStock.addEventListener('click', function () {
         formStock.reset();
-        formStock.action = 'http://127.0.0.1:8000/api/stock/create';
+        formStock.action = 'http://127.0.0.1:8000/stock/create';
         let modal = new bootstrap.Modal(document.querySelector('#modal-stock'))
         modal.show();
     });
@@ -37,7 +37,7 @@ function updateStock() {
         btnUpdateStock.addEventListener('click', function () {
             actualizarInput();
             let idStock = this.dataset.idStock;
-            formStock.action = 'http://127.0.0.1:8000/api/stock/update/' + idStock;
+            formStock.action = 'http://127.0.0.1:8000/stock/update/' + idStock;
 
             document.querySelector('#nomProducto').value = this.dataset.nomProducto;
             document.querySelector('#nstock').value = this.dataset.nStock;

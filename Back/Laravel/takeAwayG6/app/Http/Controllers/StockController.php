@@ -63,6 +63,12 @@ class StockController extends Controller
 
     public function getScreenStocks()
     {
+
+
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para acceder a esta página.');
+        }
+
         $stocks = Stock::with('producto.category')->get();
         $productos = Producto::all();
         $stockC = Stock::getEnumValues('stocks', 'TallaCamisa');

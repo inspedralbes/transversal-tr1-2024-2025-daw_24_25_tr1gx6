@@ -42,6 +42,11 @@ class ProductoController extends Controller
 
     public function getScreenProducto()
     {
+
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para acceder a esta página.');
+        }
+
         $productos = Producto::with(relations: ['category', 'marca'])->get();
         $categorias = Categoria::all();
         $marcas = Marca::all();
@@ -70,14 +75,6 @@ class ProductoController extends Controller
         $producto->idCategory = $request->idCategory; // o $id
         $producto->idMarca = $request->idMarca; // o $id
         $producto->save();
-
-        $stock = new Stock();
-        $stock->idProducto = $producto->id;
-        $stock->Nstock = $request->Nstock;
-        $stock->color = $request->color;
-        $stock->TallaCamisa = $request->TallaCamisa;
-        $stock->TallaZapato = $request->TallaZapato;
-        $stock->save();
 
         //return response()->json(['status'=>'success', 'message'=>'Producto Creado']);
         return redirect()->route(route: 'screen.productos');
