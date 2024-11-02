@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Comanda;
+use Illuminate\Support\Facades\Log;
+use App\Models\ComandaArticulo;
 
 class ComandasController extends Controller
 {
@@ -61,9 +63,19 @@ class ComandasController extends Controller
 
     public function eliminarComanda($id)
     {
-        $comanda = Comanda::findOrFail($id); // Esto lanzará un 404 si no se encuentra
-        $comanda->delete(); // Elimina la comanda
+        try {
+            $comanda = Comanda::findOrFail($id);
 
-        return response()->json(['status' => 'success', 'message' => 'Comanda eliminada']);
+            // Primero eliminamos los artículos relacionados
+            $comanda->comandaArticulo()->delete();
+
+            // Luego eliminamos la comanda
+            $comanda->delete();
+
+            return response()->json(['status' => 'success', 'message' => 'Comanda eliminada']);
+        } catch (\Exception $e) {
+            Log::error("Error al eliminar la comanda:" . $e->getMessage());
+            return response()->json(['status' => 'error', 'message' => 'Error al eliminar la comanda'], 500);
+        }
     }
 }

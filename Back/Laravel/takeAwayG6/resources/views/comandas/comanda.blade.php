@@ -5,6 +5,12 @@
     nav {
         background-color: black;
     }
+    h1{
+        text-align: center;
+        background-color: lightgray;
+        border-radius: 7px;
+        margin-top: 10px;
+    }
 </style>
 @endsection
 
