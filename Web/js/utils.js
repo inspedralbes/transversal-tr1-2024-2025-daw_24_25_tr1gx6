@@ -39,6 +39,8 @@ createApp({
     const precioTotal = ref(0);
     const veureProd = ref();
     const selectedCombinacion = ref("");
+    const email = ref("");
+    const password = ref("");
 
     function getProductos() {
       fetch("http://localhost:8000/api/getProductos")
@@ -329,6 +331,45 @@ createApp({
       cargarCarrito();
     });
 
+    function filtrarPorCategoria(categoria){
+      productos2 = [];
+      if (categoria != 'todo'){
+        if(productos.category.nom == categoria){
+          for (let i = 0; i < productos.length; i++) {
+            productos2.push(productos[i]);
+            
+          }
+        }
+      }
+    }
+    function filtrarPorMarca(marca){
+      productos2 = [];
+      if (categoria != 'todo'){
+        if(productos.marca.nom == marca){
+          for (let i = 0; i < productos.length; i++) {
+            productos2.push(productos[i]);
+            
+          }
+        }
+      }
+    }
+    async function submitLogin() {
+      try {
+        await fetch("http://localhost:8000/api/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email.value,
+            password: password.value,
+          }),
+        });
+      } catch (error) {
+        console.error("Network error during login:", error);
+      }
+    }
+
     return {
       nombre,
       correoElectronico,
@@ -363,6 +404,10 @@ createApp({
       getProducte,
       veureProd,
       stockProdctuId,
+      filtrarPorMarca,
+      submitLogin,
+      password,
+      email,
     };
   },
 }).mount("#app");

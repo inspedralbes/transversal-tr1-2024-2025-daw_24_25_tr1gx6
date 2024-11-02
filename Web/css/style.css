@@ -75,11 +75,11 @@ a:hover {
 }
 
 .productos-container {
-    display: flex;
-    overflow-x: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 40px; 
     padding: 20px;
 }
-
 .productos-container-inici {
     display: flex;
     justify-content: center;
