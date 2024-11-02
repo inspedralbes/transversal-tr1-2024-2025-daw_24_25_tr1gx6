@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MarcaController;
+use App\Http\Controllers\ComandasController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,8 +30,23 @@ Route::get('/sceenProductos',[ProductoController::class, 'getScreenProducto'])->
 Route::get('/getCategory',[CategoriaController::class, 'getCategory'])->name('get.category');
 Route::get('/getMarcas',[MarcaController::class, 'getMarcas'])->name('get.marcas');
 
+
+//Ruta para CRUD de comandas
+
+// Ruta para mostrar la vista de comandas
+Route::get('/comanda', function () {
+    return view('comandas.comanda');
+});
+
+Route::get('/comanda', [ComandasController::class, 'comanda'])->name('comandas.view');
+Route::post('/pedidoUser', [ComandasController::class, 'pedidoUser'])->name('comanda.pedidoUser');
+Route::post('/updateEstadoComanda/{id}', [ComandasController::class, 'updateEstadoComanda'])->name('comanda.updateEstado');
+Route::post('/deleteComanda/{id}', [ComandasController::class, 'eliminarComanda'])->name('comandas.delete');
+
+
 // Route::prefix('/productos')->group(callback: function () {
 
 // });
 
 //Route::post('/createProduct', [ProductoController::class, 'createProducto'])->name('create.product');
+
