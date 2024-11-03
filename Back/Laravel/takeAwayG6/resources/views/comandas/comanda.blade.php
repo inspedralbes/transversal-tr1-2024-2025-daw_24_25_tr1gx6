@@ -95,9 +95,7 @@
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
             },
-            body: JSON.stringify({
-                idUser: 1
-            }) // Cambiar por el ID del usuario actual
+            body: JSON.stringify({idUser: 1}) // Cambiar por el ID del usuario actual
         });
 
         if (response.ok) {
@@ -111,7 +109,7 @@
                     row.innerHTML = `
                         <td>${comanda.id}</td>
                         <td>
-                            <select class="form-select" onchange="updateEstadoComanda(${comanda.id}, this.value)">
+                            <select class="form-select" onchange="updateEstadoComanda(${comanda.id}, this.value)" ${comanda.estat === 'Finalizado' ? 'disabled' : ''}>
                                 <option value="Preparando" ${comanda.estat === 'Preparando' ? 'selected' : ''}>Preparando</option>
                                 <option value="En Almacen" ${comanda.estat === 'En Almacen' ? 'selected' : ''}>En Almacen</option>
                                 <option value="En Reparto" ${comanda.estat === 'En Reparto' ? 'selected' : ''}>En Reparto</option>
