@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Genial!! La teva comanda está llesta</h1>
-    <p>Tot a punt! La teva comanda està preparada i sortirà de camí ben aviat. T’ho enviarem amb molt d’afecte!</p>
+    <h1>Estem confirmant la teva comanda...</h1>
+    <p>Ei! Hem rebut la teva comanda i estem confirmant-la. En breu t’enviarem més notícies. Gràcies per confiar en nosaltres!</p>
 </body>
 </html>

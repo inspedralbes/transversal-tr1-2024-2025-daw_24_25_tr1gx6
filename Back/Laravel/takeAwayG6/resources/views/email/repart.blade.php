@@ -6,6 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <h1>Comanda en repart!!</h1>
+    <p>Quasi, quasi! La teva comanda està en procés de lliurament. El repartidor arribarà aviat. Estigues atent/a!</p>
 </body>
 </html>

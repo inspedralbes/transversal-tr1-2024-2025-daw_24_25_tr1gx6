@@ -38,16 +38,6 @@ Route::get('/getMarcas',[MarcaController::class, 'getMarcas'])->name('get.marcas
 //Route::post('/createProduct', [ProductoController::class, 'createProducto'])->name('create.product');
 
 //Rutes de gestió d'emails
-Route::get('/mail/{status}', function($status) {
-    $emailClass = match ($status) {
-        'confirmed' => new Notification,
-        'preparando' => new estadoPreparando,
-        'preparado' => new estadoPreparado,
-        'enviado' => new estadoEnviado,
-        'reparto' => new estadoReparto,
-        'entregado' => new estadoEntregado,
-        default => throw new InvalidArgumentException("Estado desconocido"),
-    };
-    Mail::to('a19pabmatpav@inspedralbes.cat')->send($emailClass);
-    return "mensaje enviado para estado $status";
-});
+use App\Http\Controllers\MailController;
+
+Route::get('/mail/{type}', [MailController::class, 'sendMail']);
