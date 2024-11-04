@@ -2,10 +2,16 @@ let btnCreateProducto;
 let formProductos;
 let btnsUpdateProducto;
 let btnsDeleteProducto;
+let token;
 
 
 function init() {
     console.log("init");
+    /*
+    // productos.js
+    const authToken = document.querySelector('meta[name="auth-token"]').getAttribute('content');
+    console.log(authToken); // Esto mostrará el token en la consola*/
+
     formProductos = document.querySelector('#form-productos');
 
     btnCreateProducto = document.querySelector('#btnCreateProduct');
@@ -15,7 +21,9 @@ function init() {
 
 function createProducto() {
     btnCreateProducto.addEventListener('click', function () {
-        formProductos.action = 'http://127.0.0.1:8000/api/productos/create';
+        // Limpiar los campos del formulario
+        formProductos.reset();
+        formProductos.action = 'http://127.0.0.1:8000/productos/create';
         let modal = new bootstrap.Modal(document.querySelector('#modal-productos'));
         modal.show();
     });
@@ -26,7 +34,7 @@ function updateProducto() {
         btnUpdateProducto.addEventListener('click', function () {
             let idProducto = this.dataset.idProducto;
 
-            formProductos.action = 'http://127.0.0.1:8000/api/productos/update' + idProducto;
+            formProductos.action = 'http://127.0.0.1:8000/productos/update/' + idProducto;
             document.querySelector('#productName').value = this.dataset.nom;
             document.querySelector('#productDesc').value = this.dataset.desc;
             document.querySelector('#productPreu').value = this.dataset.preu;
