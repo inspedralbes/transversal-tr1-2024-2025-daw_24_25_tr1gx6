@@ -27,7 +27,7 @@ class AutorizacionController extends Controller
 
             //dd($token);
 
-            return redirect()->route('screen.productos')->with('auth-token', $token);
+            return redirect()->route('screen.home')->with('auth-token', $token);
 
         }
         /*
@@ -84,7 +84,7 @@ class AutorizacionController extends Controller
     public function screenlogin()
     {
         if (auth()->check()) {
-            return redirect()->route('home.home');
+            return redirect()->route('screen.home');
         }
         return view('login.login'); // Asegúrate de que la vista de login esté configurada correctamente
     }

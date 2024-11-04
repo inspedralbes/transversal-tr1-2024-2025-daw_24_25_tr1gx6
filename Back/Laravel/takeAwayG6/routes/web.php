@@ -8,7 +8,7 @@ use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\StockController;
 
 Route::get('/', function () {
-    return redirect()->route('screen.login');
+    return redirect()->route('login');
 });
 
 //LOGINS
