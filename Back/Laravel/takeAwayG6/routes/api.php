@@ -24,22 +24,34 @@ Route::post('/productoById', [StockController::class, 'getProducteID'])->name('g
 
 
 //RUTA PARA DEVOLVER UN JSON CON LA COMANDA DEL USUARIO FILTRADA
-Route::post('/pedidoUser',[ComandasController::class, 'pedidoUser'])->name('pedido.user');
-Route::post('/createComandaArt',[ComandaArticuloController::class, 'createComandaArt'])->name('create.comandaArt');
-Route::post('/createComanda',[ComandasController::class, 'createComanda'])->name('create.comanda');
+Route::post('/pedidoUser', [ComandasController::class, 'pedidoUser'])->name('pedido.user');
+Route::post('/createComandaArt', [ComandaArticuloController::class, 'createComandaArt'])->name('create.comandaArt');
+Route::post('/createComanda', [ComandasController::class, 'createComanda'])->name('create.comanda');
 
 Route::post('/registerUser', [UserController::class, 'createUser'])->name('register.user');
 Route::post('/loginUser', [UserController::class, 'loginUser'])->name('login.user');
 
+//Route::post('/loginAdmin',[AutorizacionController::class,'login'])->name('login.creendentials');
 
-Route::prefix('stock')->group(function () {
-    Route::post('/update', [StockController::class,''])->name('stock.update');
-});
+// Route::middleware(['auth', 'role:admin'])->group(function () {
+
+//     Route::prefix('/stock')->group(function () {
+//         Route::post('/create', [StockController::class, 'createStock'])->name('create.stock');
+//         Route::post('/update/{id}', [StockController::class, 'updateStock'])->name('update.stock');
+//         Route::delete('/delete/{id}', [StockController::class, 'deleteStock'])->name('delete.stock');
+//     });
 
 
-Route::prefix('/productos')->group(callback: function () {
-    Route::post('/create', [ProductoController::class, 'createProducto'])->name('create.product');
-    Route::post('/update/{id}', [ProductoController::class, 'updateProducto'])->name('update.product');
-    Route::delete('/delete/{id}', [ProductoController::class, 'deleteProducto'])->name('delete.product');
+//     Route::prefix('/productos')->group(callback: function () {
+//         Route::post('/create', [ProductoController::class, 'createProducto'])->name('create.product');
+//         Route::post('/update/{id}', [ProductoController::class, 'updateProducto'])->name('update.product');
+//         Route::delete('/delete/{id}', [ProductoController::class, 'deleteProducto'])->name('delete.product');
+
+//     });
+// });
+
+
+Route::middleware('auth:sanctum')->group(callback: function () {
+
 
 });

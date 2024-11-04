@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Stock;
 use Illuminate\Http\Request;
 use App\Models\Producto;
 use App\Models\Categoria;
@@ -41,6 +42,11 @@ class ProductoController extends Controller
 
     public function getScreenProducto()
     {
+
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para acceder a esta página.');
+        }
+
         $productos = Producto::with(relations: ['category', 'marca'])->get();
         $categorias = Categoria::all();
         $marcas = Marca::all();
@@ -68,7 +74,6 @@ class ProductoController extends Controller
         $producto->valoracion = 0;
         $producto->idCategory = $request->idCategory; // o $id
         $producto->idMarca = $request->idMarca; // o $id
-
         $producto->save();
 
         //return response()->json(['status'=>'success', 'message'=>'Producto Creado']);
