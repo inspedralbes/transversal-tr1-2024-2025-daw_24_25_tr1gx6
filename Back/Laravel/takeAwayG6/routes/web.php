@@ -17,10 +17,10 @@ Route::post('/updateCategory/{id}', [CategoriaController::class, 'UpdateCategory
 Route::post('/deleteCategory/{id}', [CategoriaController::class, 'DeleteCategory'])->name('delete.category');
 
 // Otras rutas de usuario (si es necesario)
-Route::post('/getUsers', [CategoriaController::class, 'getUsers'])->name('get.users');
-Route::post('/createUser', [CategoriaController::class, 'createUser'])->name('create.user');
-Route::post('/updateUser', [CategoriaController::class, 'updateUser'])->name('update.user');
-Route::post('/deleteUser', [CategoriaController::class, 'deleteUser'])->name('deleteUser');
+Route::get('/crudUsers', [UserController::class, 'getUsers'])->name('get.users');
+Route::post('/createUser', [UserController::class, 'createUser'])->name('create.user');
+Route::post('/updateUser/{id}', [UserController::class, 'updateUser'])->name('update.user');
+Route::post('/deleteUser/{id}', [UserController::class, 'deleteUser'])->name('delete.user');
 
 Route::get('/getProductos',[ProductoController::class, 'getProductos'])->name('get.productos');
 //Route::post('/getProductos',[ProductoController::class, 'updateProducto'])->name('get-productos');
