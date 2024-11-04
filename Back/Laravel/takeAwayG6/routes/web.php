@@ -24,11 +24,7 @@ Route::post('/createCategory', [CategoriaController::class, 'CreateCategory'])->
 Route::post('/updateCategory/{id}', [CategoriaController::class, 'UpdateCategory'])->name('update.category');
 Route::post('/deleteCategory/{id}', [CategoriaController::class, 'DeleteCategory'])->name('delete.category');
 
-// Otras rutas de usuario (si es necesario)
-Route::get('/crudUsers', [UserController::class, 'getUsers'])->name('get.users');
-Route::post('/createUser', [UserController::class, 'createUser'])->name('create.user');
-Route::post('/updateUser/{id}', [UserController::class, 'updateUser'])->name('update.user');
-Route::post('/deleteUser/{id}', [UserController::class, 'deleteUser'])->name('delete.user');
+
 
 Route::get('/getProductos', [ProductoController::class, 'getProductos'])->name('get.productos');
 //Route::post('/getProductos',[ProductoController::class, 'updateProducto'])->name('get-productos');
@@ -41,7 +37,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/screenHome', [AutorizacionController::class, 'getscreenHome'])->name('screen.home');
     Route::get('/screenProductos', [ProductoController::class, 'getScreenProducto'])->name('screen.productos');
     Route::get('/screenStock', [StockController::class, 'getScreenStocks'])->name('screen.stocks');
-
+    Route::get('/screenUsers', [UserController::class, 'getUsers'])->name('screen.users');
 
     Route::prefix('/stock')->group(function () {
         Route::post('/create', [StockController::class, 'createStock'])->name('create.stock');
@@ -55,4 +51,10 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/delete/{id}', [ProductoController::class, 'deleteProducto'])->name('delete.product');
     });
 
+    // Otras rutas de usuario (si es necesario)
+    Route::prefix('/user')->group(function () {
+        Route::post('/create', [UserController::class, 'createUser'])->name('create.user');
+        Route::post('/update/{id}', [UserController::class, 'updateUser'])->name('update.user');
+        Route::delete('/delete/{id}', [UserController::class, 'deleteUser'])->name('delete.user');
+    });
 });

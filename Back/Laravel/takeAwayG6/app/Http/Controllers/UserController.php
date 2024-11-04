@@ -30,6 +30,11 @@ class UserController extends Controller
     }
 
     public function getUsers(){
+
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para acceder a esta página.');
+        }
+
         $users = User::all();
 
         return view('users.user', compact('users'));
@@ -40,14 +45,13 @@ class UserController extends Controller
             'name'=> 'required',
             'email'=> ['required', 'email'],
             'password'=> 'required',
-            'rol'=> 'required'
         ]);
 
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = $request->password;
-        $user->rol = $request->rol;
+        $user->rol = 'admin';
 
         $user->save();
 
