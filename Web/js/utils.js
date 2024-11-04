@@ -233,7 +233,7 @@ createApp({
     function procesarCompra() {
       const comandaData = {
         idUser: 1,
-        estat: "Preparando",
+        estat: "Por Confirmar",
         total: precioTotal.value,
       };
 

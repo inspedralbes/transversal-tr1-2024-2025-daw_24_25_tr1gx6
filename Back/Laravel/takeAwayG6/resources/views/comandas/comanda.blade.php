@@ -5,7 +5,8 @@
     nav {
         background-color: black;
     }
-    h1{
+
+    h1 {
         text-align: center;
         background-color: lightgray;
         border-radius: 7px;
@@ -88,6 +89,16 @@
 
 @section('scripts')
 <script>
+    const estados = [
+        "Por Confirmar", 
+        "Confirmado", 
+        "Preparando", 
+        "Preparado",
+        "Enviado", 
+        "En Reparto", 
+        "Entregado"
+    ];
+
     async function fetchComandas() {
         const response = await fetch('/pedidoUser', {
             method: 'POST',
@@ -95,7 +106,9 @@
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
             },
-            body: JSON.stringify({idUser: 1}) // Cambiar por el ID del usuario actual
+            body: JSON.stringify({
+                idUser: 1
+            }) // Cambiar por el ID del usuario actual
         });
 
         if (response.ok) {
@@ -109,15 +122,13 @@
                     row.innerHTML = `
                         <td>${comanda.id}</td>
                         <td>
-                            <select class="form-select" onchange="updateEstadoComanda(${comanda.id}, this.value)" ${comanda.estat === 'Finalizado' ? 'disabled' : ''}>
-                                <option value="Preparando" ${comanda.estat === 'Preparando' ? 'selected' : ''}>Preparando</option>
-                                <option value="En Almacen" ${comanda.estat === 'En Almacen' ? 'selected' : ''}>En Almacen</option>
-                                <option value="En Reparto" ${comanda.estat === 'En Reparto' ? 'selected' : ''}>En Reparto</option>
-                                <option value="Finalizado" ${comanda.estat === 'Finalizado' ? 'selected' : ''}>Finalizado</option>
+                            <select class="form-select" id="estadoComanda${comanda.id}" onchange="updateEstadoComanda(${comanda.id}, this.value)" ${comanda.estat === 'Entregado' ? 'disabled' : ''}>
+                                ${estados.map(estado => `<option value="${estado}" ${comanda.estat === estado ? 'selected' : ''}>${estado}</option>`).join('')}
                             </select>
                         </td>
                         <td>
-                            <button class="btn btn-danger" onclick="eliminarComanda(${comanda.id})">Eliminar</button>
+                        <button id="btnSiguiente${comanda.id}" class="btn btn-primary" onclick="cambiarSiguienteEstado(${comanda.id})" ${comanda.estat === 'Entregado' ? 'disabled' : ''}>Siguiente</button>
+                        <button class="btn btn-danger" onclick="eliminarComanda(${comanda.id})">Eliminar</button>
                         </td>
                     `;
                     comandasTabla.appendChild(row);
@@ -130,53 +141,52 @@
         }
     }
 
-    async function updateEstadoComanda(id, newEstado) {
-        const response = await fetch(`/updateEstadoComanda/${id}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({
-                estat: newEstado
-            })
-        });
+   async function cambiarSiguienteEstado(id) {
+        const select = document.getElementById(`estadoComanda${id}`);        
+        const currentIndex = estados.indexOf(select.value);
+        if (currentIndex < estados.length - 1) {
+            const newEstado = estados[currentIndex + 1];
+            select.value = newEstado;
+            await updateEstadoComanda(id, newEstado);
+        } else {
+            console.log('La comanda ya está en el último estado.');
+        }
+    }
 
-        if (response.ok) {
-            const data = await response.json();
-            if (data.status === 'success') {
-                console.log('Estado actualizado');
-            } else {
-                console.error('Error al actualizar el estado');
+    async function updateEstadoComanda(id, newEstado) {
+    const response = await fetch('/updateEstadoComanda/'+id, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({
+            estat: newEstado
+        })
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        
+        if (data.status === 'success') {
+            console.log('Estado actualizado a:', newEstado);
+
+            // Deshabilitar el select y el botón si el nuevo estado es 'Entregado'
+            if (newEstado === 'Entregado') {
+                const select = document.getElementById(`estadoComanda${id}`);
+                const boton = document.getElementById(`btnSiguiente${id}`);
+
+                if (select) select.disabled = true;
+                if (boton) boton.disabled = true;
             }
         } else {
-            console.error('Error al hacer la solicitud');
+            console.error('Error al actualizar el estado');
         }
+    } else {
+        console.error('Error al hacer la solicitud');
     }
+}
 
-    async function eliminarComanda(id) {
-        if (confirm("¿Estás seguro de que deseas eliminar esta comanda?")) {
-            const response = await fetch(`/deleteComanda/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                }
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                if (data.status === 'success') {
-                    console.log('Comanda eliminada');
-                    fetchComandas(); // Actualizar la tabla de comandas después de eliminar
-                } else {
-                    console.error('Error al eliminar la comanda');
-                }
-            } else {
-                console.error('Error al hacer la solicitud de eliminación');
-            }
-        }
-    }
 
     async function eliminarComanda(id) {
         if (confirm("¿Estás seguro de que deseas eliminar esta comanda?")) {
@@ -202,7 +212,7 @@
         }
     }
 
-
     window.onload = fetchComandas;
 </script>
 @endsection
+

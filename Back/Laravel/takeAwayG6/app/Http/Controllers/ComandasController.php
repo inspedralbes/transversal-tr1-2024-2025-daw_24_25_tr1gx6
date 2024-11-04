@@ -50,16 +50,19 @@ class ComandasController extends Controller
         return response()->json(['status' => 'success', 'comandas' => $comanda]);
     }
 
-    public function updateEstadoComanda(Request $request, $id)
-    {
-        $data = $request->validate(['estat' => 'required|in:Preparando,En Almacen,En Reparto,Finalizado']);
-
-        $comanda = Comanda::findOrFail($id);
-        $comanda->estat = $data['estat'];
-        $comanda->save();
-
-        return response()->json(['status' => 'success', 'message' => 'Estado de la comanda actualizado']);
+    public function updateEstadoComanda(Request $request, $id) {
+        try {
+            $comanda = Comanda::findOrFail($id);
+            $comanda->estat = $request->estat;
+            $comanda->save();
+            return response()->json(['status' => 'success']);
+        } catch (\Exception $e) {
+            Log::error("Error en updateEstadoComanda: " . $e->getMessage());
+            return response()->json(['status' => 'error', 'message' => 'Error al actualizar el estado de la comanda'], 500);
+        }
     }
+    
+    
 
     public function eliminarComanda($id)
     {
