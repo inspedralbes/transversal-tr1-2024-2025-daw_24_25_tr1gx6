@@ -29,7 +29,7 @@ class Notification extends Mailable
     {
         return new Envelope(
             from: new Address('fakeLocker@example.com', "FakeLocker"),
-            subject: '🎉 La teva compra està en marxa!',
+            subject: "🎉 La teva compra ja s'està preparant!",
         );
     }
 
@@ -39,7 +39,7 @@ class Notification extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'email.confirmed',
+            view: 'email.preparant',
         );
     }
 
