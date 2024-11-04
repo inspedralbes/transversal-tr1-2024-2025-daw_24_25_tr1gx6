@@ -267,7 +267,7 @@ import {
       }
       async function submitLogin() {
         try {
-          await fetch("http://localhost:8000/api/login", {
+          const response = await fetch("http://localhost:8000/api/loginUser", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -277,10 +277,22 @@ import {
               password: password.value,
             }),
           });
+      
+          const data = await response.json();
+      
+          if (response.ok && data.login) {
+            console.log("Login exitoso:", data.token);
+            // Guardar el token en localStorage o en un lugar seguro
+            localStorage.setItem("token", data.token);
+            // Aquí puedes redirigir al usuario a otra parte de la aplicación
+          } else {
+            console.error("Error de login:", data.message);
+          }
         } catch (error) {
-          console.error("Network error during login:", error);
+          console.error("Error de red durante el login:", error);
         }
       }
+      
       onMounted(() => {
         getProductos();
         cargarCarrito();

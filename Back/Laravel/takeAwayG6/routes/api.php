@@ -18,7 +18,6 @@ Route::get('/user', function (Request $request) {
 Route::get('/getProductos', [ProductoController::class, 'getProductos'])->name('get.productos');
 Route::get('/getCategory', [CategoriaController::class, 'getCategory'])->name('get.category');
 Route::get('/getMarcas', [MarcaController::class, 'getMarcas'])->name('get.marcas');
-Route::get('/getLogin', [AutorizacionController::class, 'login'])->name('get.login');
 
 Route::post('/productoById', [StockController::class, 'getProducteID'])->name('get.productoID');
 
