@@ -36,8 +36,9 @@ class UserController extends Controller
         }
 
         $users = User::all();
+        $rols = User::getEnumValues('users', 'rol');
 
-        return view('users.user', compact('users'));
+        return view('users.user', compact('users', 'rols'));
     }
     
     public function createUser(Request $request){
@@ -45,13 +46,14 @@ class UserController extends Controller
             'name'=> 'required',
             'email'=> ['required', 'email'],
             'password'=> 'required',
+            'rol'=> 'required'
         ]);
 
         $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        $user->rol = 'admin';
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->password = $data['password'];
+        $user->rol = $data['rol'];
 
         $user->save();
 
@@ -67,10 +69,10 @@ class UserController extends Controller
         ]);
 
         $user = User::findOrFail($id);
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        $user->rol = $request->rol;
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->password = $data['password'];
+        $user->rol = $data['rol'];
 
         $user->save();
 

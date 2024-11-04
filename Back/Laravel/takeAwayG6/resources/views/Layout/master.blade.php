@@ -39,13 +39,14 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" style="color: white" href="{{ route('screen.home') }}">Home</a>
+                        <a class="nav-link active" aria-current="page" style="color: white"
+                            href="{{ route('screen.home') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" style="color: white">Categorias</a>
+                        <a class="nav-link" href="{{ route('screen.category') }}" style="color: white">Categorias</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" style="color: white">Marcas</a>
+                        <a class="nav-link" href="{{route('screen.marca')}}" style="color: white">Marcas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('screen.productos') }}" style="color: white">Productos</a>

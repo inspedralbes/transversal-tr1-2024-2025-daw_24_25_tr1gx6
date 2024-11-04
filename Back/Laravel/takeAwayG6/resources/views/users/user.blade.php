@@ -36,7 +36,8 @@
                                 <div>
                                     <button class="btn btn-primary btnsUpdateUser" data-id-user="{{ $user->id }}"
                                         data-name="{{ $user->name }}" data-email="{{ $user->email }}"
-                                        data-password="{{ $user->password }}">Editar</button>
+                                        data-password="{{ $user->password }}"
+                                        data-rol="{{$user->rol}}">Editar</button>
                                     <button class="btn btn-secondary btnsDeleteUser" style="background-color: red;"
                                         data-id-user="{{ $user->id }}">Eliminar</button>
 
@@ -51,32 +52,6 @@
                     </div>
                 @endforeach
             </div>
-
-            @foreach ($users as $user)
-                <form action="{{ route('update.user', $user->id) }}" method="POST">
-                    @csrf
-                    <input type="text" value="{{ $user->name }}" name="name" required>
-                    <input type="text" value="{{ $user->email }}" name="email" required>
-                    <input type="text" value="{{ $user->password }}" name="password" required>
-                    <input type="text" value="{{ $user->rol }}" name="rol" required>
-                    <button type="submit">Actualiza</button>
-                </form>
-                <p>{{ $user->name }}</p>
-                <p>{{ $user->email }}</p>
-                <p>{{ $user->password }}</p>
-                <form action="{{ route('delete.user', $user->id) }}" method="POST">
-                    @csrf
-                    <button type="submit">Eliminar</button>
-                </form>
-            @endforeach
-            <form action="{{ route('create.user') }}" method="POST">
-                @csrf
-                <input type="text" name="name" required>
-                <input type="text" name="email" required>
-                <input type="text" name="password" required>
-                <input type="text" name="rol" required>
-                <button type="submit">Registrar usuario</button>
-            </form>
         </div>
     </div>
 @endsection
@@ -111,7 +86,18 @@
                                 <i class="bi bi-blockquote-left"></i>
                             </span>
                         </div>
+
+                        <div class="input-group mb-3">
+                            <select class="form-select" name="rol" id="rol">
+                                @foreach ($rols as $rol)
+                                    <option value="{{ $rol }}">{{ $rol }}</option>
+                                @endforeach
+                            </select>
+                            <label class="input-group-text" for="inputGroupSelect02">Rol</label>
+                        </div>
+
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                             style="background-color: red">Cancelar</button>

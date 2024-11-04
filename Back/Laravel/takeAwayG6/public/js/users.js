@@ -32,6 +32,7 @@ function updateUser() {
             document.querySelector('#Name').value = this.dataset.name;
             document.querySelector('#Email').value = this.dataset.email;
             document.querySelector('#Password').value = this.dataset.password;
+            document.querySelector('#rol').value = this.dataset.rol;
 
             let modal = new bootstrap.Modal(document.querySelector('#modal-user'))
             modal.show();
