@@ -39,8 +39,12 @@ class ComandasController extends Controller
     }
 
     // Vista de comandas de CRUD
-    public function comanda()
+    public function getScreenComanda()
     {
+        if(!auth()->check()){
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para acceder a esta página.');
+        }
+        
         return view('comandas.comanda');
     }
     // Traer todas las comandas

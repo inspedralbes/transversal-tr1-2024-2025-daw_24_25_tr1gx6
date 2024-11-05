@@ -34,6 +34,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/screenUsers', [UserController::class, 'getUsers'])->name('screen.users');
     Route::get('/screenCategory', [CategoriaController::class, 'getCategory'])->name('screen.category');
     Route::get('/screenMarca', [MarcaController::class, 'getScreenMarca'])->name('screen.marca');
+    Route::get('/screenComanda', [ComandasController::class, 'getScreenComanda'])->name('screen.comanda');
+
 
     Route::prefix('/stock')->group(function () {
         Route::post('/create', [StockController::class, 'createStock'])->name('create.stock');
@@ -66,15 +68,10 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/update/{id}', [MarcaController::class, 'updateMarca'])->name('update.marca');
         Route::delete('/delete/{id}', [MarcaController::class, 'deleteMarca'])->name('delete.marca');
     });
+
+    Route::prefix('/comanda')->group(function () {
+        Route::post('/pedidoUser', [ComandasController::class, 'pedidoUser'])->name('comanda.pedidoUser');
+        Route::post('/update/{id}', [ComandasController::class, 'updateEstadoComanda'])->name('update.comanda');
+        Route::post('/delete/{id}', [ComandasController::class, 'eliminarComanda'])->name('delete.comandas');
+    });
 });
-
-
-// Ruta para mostrar la vista de comandas
-Route::get('/comanda', function () {
-    return view('comandas.comanda');
-});
-
-Route::get('/comanda', [ComandasController::class, 'comanda'])->name('comandas.view');
-Route::post('/pedidoUser', [ComandasController::class, 'pedidoUser'])->name('comanda.pedidoUser');
-Route::post('/updateEstadoComanda/{id}', [ComandasController::class, 'updateEstadoComanda'])->name('comanda.updateEstado');
-Route::post('/deleteComanda/{id}', [ComandasController::class, 'eliminarComanda'])->name('comandas.delete');

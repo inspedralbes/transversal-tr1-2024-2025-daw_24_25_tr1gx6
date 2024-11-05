@@ -52,7 +52,7 @@
                         <a class="nav-link" href="{{ route('screen.productos') }}" style="color: white">Productos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" style="color: white">Comandas</a>
+                        <a class="nav-link" href="{{route('screen.comanda')}}" style="color: white">Comandas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" style="color: white">Comanda Articulos</a>
