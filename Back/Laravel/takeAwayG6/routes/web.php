@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ComandasController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -56,3 +57,13 @@ Route::middleware(['auth'])->group(function () {
     });
 
 });
+
+// Ruta para mostrar la vista de comandas
+Route::get('/comanda', function () {
+    return view('comandas.comanda');
+});
+
+Route::get('/comanda', [ComandasController::class, 'comanda'])->name('comandas.view');
+Route::post('/pedidoUser', [ComandasController::class, 'pedidoUser'])->name('comanda.pedidoUser');
+Route::post('/updateEstadoComanda/{id}', [ComandasController::class, 'updateEstadoComanda'])->name('comanda.updateEstado');
+Route::post('/deleteComanda/{id}', [ComandasController::class, 'eliminarComanda'])->name('comandas.delete');
