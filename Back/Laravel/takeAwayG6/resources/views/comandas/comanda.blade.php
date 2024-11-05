@@ -90,12 +90,12 @@
 @section('scripts')
 <script>
     const estados = [
-        "Por Confirmar", 
-        "Confirmado", 
-        "Preparando", 
+        "Por Confirmar",
+        "Confirmado",
+        "Preparando",
         "Preparado",
-        "Enviado", 
-        "En Reparto", 
+        "Enviado",
+        "En Reparto",
         "Entregado"
     ];
 
@@ -121,14 +121,10 @@
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${comanda.id}</td>
+                        <td id="estadoComanda${comanda.id}">${comanda.estat}</td>
                         <td>
-                            <select class="form-select" id="estadoComanda${comanda.id}" onchange="updateEstadoComanda(${comanda.id}, this.value)" ${comanda.estat === 'Entregado' ? 'disabled' : ''}>
-                                ${estados.map(estado => `<option value="${estado}" ${comanda.estat === estado ? 'selected' : ''}>${estado}</option>`).join('')}
-                            </select>
-                        </td>
-                        <td>
-                        <button id="btnSiguiente${comanda.id}" class="btn btn-primary" onclick="cambiarSiguienteEstado(${comanda.id})" ${comanda.estat === 'Entregado' ? 'disabled' : ''}>Siguiente</button>
-                        <button class="btn btn-danger" onclick="eliminarComanda(${comanda.id})">Eliminar</button>
+                            <button id="btnSiguiente${comanda.id}" class="btn btn-primary" onclick="cambiarSiguienteEstado(${comanda.id})" ${comanda.estat === 'Entregado' ? 'disabled' : ''}>Siguiente</button>
+                            <button class="btn btn-danger" onclick="eliminarComanda(${comanda.id})">Eliminar</button>
                         </td>
                     `;
                     comandasTabla.appendChild(row);
@@ -141,78 +137,97 @@
         }
     }
 
-   async function cambiarSiguienteEstado(id) {
-        const select = document.getElementById(`estadoComanda${id}`);        
-        const currentIndex = estados.indexOf(select.value);
+    async function cambiarSiguienteEstado(id) {
+        const estadoActual = document.getElementById(`estadoComanda${id}`).innerText;
+        const currentIndex = estados.indexOf(estadoActual);
         if (currentIndex < estados.length - 1) {
             const newEstado = estados[currentIndex + 1];
-            select.value = newEstado;
-            await updateEstadoComanda(id, newEstado);
+            
+            // Actualiza el estado en la base de datos
+            const response = await fetch(`/updateEstadoComanda/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    estat: newEstado
+                })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    //Actualizar el estado en la tabla
+                    document.getElementById(`estadoComanda${id}`).innerText = newEstado;
+                    console.log('Estado actualizado a:', newEstado);
+
+                    // Desactivar el botoón si el estado es 'Entregado'
+                    if (newEstado === 'Entregado') {
+                        document.getElementById(`btnSiguiente${id}`).disabled = true;
+                    }
+                } else {
+                    console.error('Error al actualizar el estado');
+                }
+            } else {
+                console.error('Error al hacer la solicitud');
+            }
         } else {
             console.log('La comanda ya está en el último estado.');
         }
     }
 
-    async function updateEstadoComanda(id, newEstado) {
-    const response = await fetch('/updateEstadoComanda/'+id, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        },
-        body: JSON.stringify({
-            estat: newEstado
-        })
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        
-        if (data.status === 'success') {
-            console.log('Estado actualizado a:', newEstado);
-
-            // Deshabilitar el select y el botón si el nuevo estado es 'Entregado'
-            if (newEstado === 'Entregado') {
-                const select = document.getElementById(`estadoComanda${id}`);
-                const boton = document.getElementById(`btnSiguiente${id}`);
-
-                if (select) select.disabled = true;
-                if (boton) boton.disabled = true;
-            }
-        } else {
-            console.error('Error al actualizar el estado');
-        }
-    } else {
-        console.error('Error al hacer la solicitud');
-    }
-}
 
 
-    async function eliminarComanda(id) {
-        if (confirm("¿Estás seguro de que deseas eliminar esta comanda?")) {
-            const response = await fetch(`/deleteComanda/${id}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            //     if (response.ok) {
+            //         const data = await response.json();
+
+            //         if (data.status === 'success') {
+            //             console.log('Estado actualizado a:', newEstado);
+            //             alert('Estado actualizado a:', newEstado);
+
+            //             // Deshabilitar el select y el botón si el nuevo estado es 'Entregado'
+            //             if (newEstado === 'Entregado') {
+            //                 const select = document.getElementById(`estadoComanda${id}`);
+            //                 const boton = document.getElementById(`btnSiguiente${id}`);
+
+            //                 if (select) select.disabled = true;
+            //                 if (boton) boton.disabled = true;
+            //             }
+            //         } else {
+            //             console.error('Error al actualizar el estado');
+            //         }
+            //     } else {
+            //         console.error('Error al hacer la solicitud');
+            //     }
+            // }
+
+
+            async function eliminarComanda(id) {
+                if (confirm("¿Estás seguro de que deseas eliminar esta comanda?")) {
+                    const response = await fetch(`/deleteComanda/${id}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        }
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.status === 'success') {
+                            console.log('Comanda eliminada');
+                            fetchComandas();
+                        } else {
+                            console.error('Error al eliminar la comanda');
+                        }
+                    } else {
+                        console.error('Error al hacer la solicitud de eliminación');
+                    }
                 }
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                if (data.status === 'success') {
-                    console.log('Comanda eliminada');
-                    fetchComandas(); // Actualizar la tabla de comandas después de eliminar
-                } else {
-                    console.error('Error al eliminar la comanda');
-                }
-            } else {
-                console.error('Error al hacer la solicitud de eliminación');
             }
-        }
-    }
 
-    window.onload = fetchComandas;
+            window.onload = fetchComandas;
 </script>
 @endsection
-
