@@ -10,7 +10,7 @@
 
 <body>
     <div id="app">
-        <nav>
+        <nav id="navbar">
             <img @click="irPantallaInicio" id="logo" src="./Img/Logo.png" alt="Logo">
             <a @click="irABotiga">Botiga</a>
             <a @click="cambiarACarrito">Checkout</a>
@@ -19,18 +19,6 @@
                     <input type="text" id="search-input" placeholder="Buscar" />
                 </form>
             </div>
-            <form id="categoria">
-                <select class="categoria" name="usuario" id="lang" @change="filtrarPorCategoria">
-                    <option value="todo">Todo</option>
-                    <option value="camiseta">Camiseta</option>
-                    <option value="sudadera">Sudadera</option>
-                    <option value="pantalon">Pantalon</option>
-                    <option value="chaqueta">Chaqueta</option>
-                    <option value="camiseta">Camiseta</option>
-                    <option value="chandal">Chandal</option>
-                    <option value="chaleco">Chaleco</option>
-                </select>
-            </form>
 
             <div class="carrito-contenedor">
                 <img src="./Img/cesta.png" alt="cesta" class="cesta" @click="botonCesta">
@@ -40,13 +28,12 @@
 
             <img @click="IrLogin" id="loginIcono" src="Img/iconoLogin.png" alt="loginIcono">
         </nav>
-        <div id="paginaInicial">
-                
+        <div id="paginaInicial">  
             <div v-if="divActivo=='paginaDeInicio'">
                 <h2>Productes millor valorats</h2>
                 <div class="productos-container-inici">
                     <div v-for="(producto, index) in productos.sort((a, b) => b.valoracion - a.valoracion).slice(0, 4)"
-                        :key="index" class="product-card-inici" @click="getProducte(index)">
+                        :key="index" class="product-card-inici" @click="getProducte(producto.id)">
                         <img :src="producto.img" :alt="producto.nombre" class="imagenProducto">
                         <h4>{{ producto.nom }}</h4>
                         <h4>{{ productos[index].valoracion }}⭐</h4>
@@ -79,10 +66,43 @@
                 </div>
             </div>
             <div v-if="divActivo=='paginaPrincipal'">
+                 <div class="navbarFiltros">
+                    <select class="marca" name="marca" id="desplegable" @change="cambioFiltros">
+                        <option value="todo">Marcas</option>
+                        <option value="The North Face">The North Face</option>
+                        <option value="Puma">Puma</option>
+                        <option value="Nike">Nike</option>
+                        <option value="Adidas">Adidas</option>
+                        <option value="Fila">Fila</option>
+                        <option value="Vans">Vans</option>
+                        <option value="Converse">Converse</option>
+                        <option value="Jordan">Jordan</option>
+                    </select>
+                    <select class="categoria" name="categoria" id="desplegable" @change="cambioFiltros">
+                        <option value="todo">Categorias</option>
+                        <option value="camiseta">Camiseta</option>
+                        <option value="sudadera">Sudadera</option>
+                        <option value="pantalon">Pantalon</option>
+                        <option value="chaqueta">Chaqueta</option>
+                        <option value="camiseta">Camiseta</option>
+                        <option value="chandal">Chandal</option>
+                        <option value="chaleco">Chaleco</option>
+                        <option value="zapatillas">Zapatillas</option>
+                    </select>
+                    <select class="precio" name="precio" id="desplegable" @change="cambioFiltros">
+                        <option value="todo">Precio</option>
+                        <option value="<=50">Hasta 50€</option>
+                        <option value="<=100">Hasta 100€</option>
+                        <option value="<=125">Hasta 125€</option>
+                        <option value="<=150">Hasta 150€</option>
+                        <option value="<=175">Hasta 175€</option>
+                        <option value="<=200">Hasta 200€</option>
+                      </select>
+                </div> 
                 <h2>Productos</h2>
                 <div id="productos-container-1" class="productos-container">
                     <div v-for="(producto, index) in productos2" :key="index" class="product-card"
-                        @click="getProducte(index)">
+                        @click="getProducte(producto.id)">
                         <img :src="producto.img" :alt="producto.nom" class="imagenProducto">
                         <h4>{{ producto.nom }}</h4>
                         <h4>{{ productos[index].valoracion }}⭐</h4>

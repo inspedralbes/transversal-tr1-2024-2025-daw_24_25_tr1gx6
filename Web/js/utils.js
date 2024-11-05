@@ -29,7 +29,11 @@ createApp({
       { nombre: "chandal", imagen: "Img/chandal.jpeg" },
       { nombre: "chaleco", imagen: "Img/chaleco.jpeg" },
     ]);
-    
+    const filtros = reactive({
+      categoria: "todo",
+      marca: "todo",
+      precio: "todo",
+    });
     const productos = ref([]);
     let productos2 = ref([]);
     const stockProdctuId = ref([]);
@@ -44,11 +48,11 @@ createApp({
     const email = ref("");
     const password = ref("");
 
-    function getProductos() {
-      fetch("http://localhost:8000/api/getProductos")
+    async function getProductos() {
+      await fetch("http://localhost:8000/api/getProductos")
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          console.log('Hola',data);
           if (Array.isArray(data) && data.length > 0) {
             productos.value = data;
             productos2.value = data;
@@ -60,6 +64,24 @@ createApp({
           }
         })
         .catch((error) => console.error("Error fetching productos:", error));
+    }
+
+    async function cargar(){
+      const data = await getProductoss();
+      console.log('front', data);
+      productos.value = data;
+      console.log(productos.value);
+      
+      // if (Array.isArray(data) && data.length > 0) {
+      //   productos.value = data;
+      //   productos2.value = data;
+      //   console.log(productos.value); // Verificar que cada producto tenga category y marca
+      // } else {
+      //   console.error(
+      //     "No se encontraron productos o la respuesta no es válida."
+      //   );
+      // }
+      
     }
 
     // funcion para guardar en local storage
@@ -158,7 +180,7 @@ createApp({
       });
       return contados.size;
     }
-
+    
     function restarCantidad(index) {
       const producto = productosEnCesta.value[index];
       if (producto.cantidad > 1) {
@@ -167,24 +189,24 @@ createApp({
       actualizarPrecioTotal();
       // cestaActiva.value = false;
     }
-
+    
     function getProducte(index) {
       if (index >= 0 && index < productos.value.length) {
         veureProd.value = index;
         divActivo.value = "producte-item";
         const idProducto = productos.value[index].id;
-
+        
         productobyID({ idProducto })
-          .then((detallesProducto) => {
-            console.log("Antes del if:", detallesProducto);
-            stockProdctuId.value = detallesProducto;
-            if (detallesProducto && Array.isArray(detallesProducto)) {
-              console.log("index:", index);
-
-              productos.value[index].category = productos.value[index].category || { nom: "" };
-              productos.value[index].marca = productos.value[index].marca || {nom: "",};
-
-              console.log("Detalles del producto con idStock:",productos.value[index]);
+        .then((detallesProducto) => {
+          console.log("Antes del if:", detallesProducto);
+          stockProdctuId.value = detallesProducto;
+          if (detallesProducto && Array.isArray(detallesProducto)) {
+            console.log("index:", index);
+            
+            productos.value[index].category = productos.value[index].category || { nom: "" };
+            productos.value[index].marca = productos.value[index].marca || {nom: "",};
+            
+            console.log("Detalles del producto con idStock:",productos.value[index]);
             } else {
               console.error("No se encontraron detalles para el producto.");
             }
@@ -196,54 +218,54 @@ createApp({
         console.log("El índice del producto no es válido", index);
       }
     }
-
+    
     function sumaCantidad(index) {
       const producto = productosEnCesta.value[index];
       producto.cantidad++;
       actualizarPrecioTotal();
     }
-
+    
     function eliminarDesdeCarrito(index) {
       productosEnCesta.value.splice(index, 1);
 
       guardarCarrito();
       actualizarPrecioTotal();
-
+      
       if (productosEnCesta.value.length === 0) {
         finalitzaCompraActiva.value = false;
       }
     }
-
+    
     function actualizarPrecioTotal() {
       precioTotal.value = productosEnCesta.value.reduce((total, producto) => {
         return total + (producto.preu || 0) * producto.cantidad;
       }, 0);
     }
-
+    
     // Finalizar compra y pago
     function finalizarCompraDeCarrito() {
       divActivo.value = "finalizarCompraDeCarrito";
       cestaActiva.value = false;
     }
-
+    
     function procesarCompra() {
       const comandaData = {
         idUser: 1,
         estat: "Preparando",
         total: precioTotal.value,
       };
-
+      
       createComanda(comandaData)
-        .then((response) => {
-          if (response && response.IdComanda) {
-            const idComanda = response.IdComanda;
-
-            // Mostrar productos en cesta en la consola
-            console.log("Productos en la cesta:", productosEnCesta.value);
-
-            // Crear JSON para enviar al servidor sin idStock
-            const productosParaComanda = productosEnCesta.value.map(
-              (producto) => ({
+      .then((response) => {
+        if (response && response.IdComanda) {
+          const idComanda = response.IdComanda;
+          
+          // Mostrar productos en cesta en la consola
+          console.log("Productos en la cesta:", productosEnCesta.value);
+          
+          // Crear JSON para enviar al servidor sin idStock
+          const productosParaComanda = productosEnCesta.value.map(
+            (producto) => ({
                 idProducto: producto.id,
                 idComanda: idComanda,
                 idStock: producto.idStock,
@@ -253,12 +275,12 @@ createApp({
                 preu: producto.preu,
               })
             );
-
+            
             console.log(
               "JSON a enviar al servidor:",
               JSON.stringify(productosParaComanda, null, 2)
             );
-
+            
             return checkoutProductos(productosParaComanda);
           } else {
             console.log("Error!! No se puede obtener el ID de la comanda.");
@@ -279,33 +301,29 @@ createApp({
         .catch((error) => {
           console.error("Error en el proceso de compra:", error);
         });
-    }
+      }
 
     function volverACarrito() {
       divActivo.value = "carrito";
       cestaActiva.value = false;
     }
-
+    
     function irABotiga() {
+      productos2.value = productos.value;
       divActivo.value = "paginaPrincipal";
       cestaActiva.value = false;
     }
-
-    function filtrarPorCategoria(categoria) {
-      categoriaFiltrada.value = categoria;
-      divActivo.value = "paginaPrincipal";
-    }
-
+    
     function cambiarACarrito() {
       divActivo.value = "carrito";
       cestaActiva.value = false;
     }
-
+    
     function irPantallaInicio() {
       divActivo.value = "paginaDeInicio";
       cestaActiva.value = false;
     }
-
+    
     function botonCesta() {
       if (cestaActiva.value) {
         cestaActiva.value = false;
@@ -321,41 +339,93 @@ createApp({
       divActivo.value = "paginaPrincipal";
       cestaActiva.value = false;
     }
-
+    
     onMounted(() => {
-      getProductos();
+      //getProductos();
       cargarCarrito();
+      cargar();
     });
+    function filtrar() {
+      productos2.value = productos.value.filter((producto) => {
+        const cumpleCategoria =
+          filtros.categoria === "todo" ||
+          (producto.category && producto.category.nom === filtros.categoria);
 
-    function filtrarPorCategoria(){
-      productos2.value = [];
-      
-      let categoria = document.querySelector(".categoria").value;
-      console.log("te has metido en el filtro de categorias");
-      console.log(productos2.value)
-      if(categoria != "todo"){
-        for (let i = 0; i < productos.value.length; i++) {
-          console.log("hola")
-          if(productos.value[i].category.nom === categoria){
-            productos2.value.push(productos.value[i]);
-            }
-          }
-      }else{
-        productos2.value = productos.value;
-      }
-    }
-    function filtrarPorMarca(){
-      productos2 = [];
-      if(productos.marca.nom == marca){
-        for (let i = 0; i < productos.length; i++) {
-          productos2.push(productos[i]);
-            
+        const cumpleMarca =
+          filtros.marca === "todo" ||
+          (producto.marca && producto.marca.nom === filtros.marca);
+
+        //const cumpleColor = 
+        let cumplePrecio = true;
+        const precioProducto = producto.preu || 0;
+
+        switch (filtros.precio) {
+          case "<=50":
+            cumplePrecio = precioProducto <= 50;
+            break;
+          case "<=100":
+            cumplePrecio = precioProducto <= 100;
+            break;
+          case "<=125":
+            cumplePrecio = precioProducto <= 125;
+            break;
+          case "<=150":
+            cumplePrecio = precioProducto <= 150;
+            break;
+            case "<=175":
+              cumplePrecio = precioProducto <= 125;
+              break;
+          case "<=200":
+            cumplePrecio = precioProducto <= 200;
+            break;
+          default:
+            cumplePrecio = true;
         }
-      }
+        return cumpleCategoria && cumpleMarca && cumplePrecio;
+      });
     }
+    function cambioFiltros(){
+      filtros.categoria = document.querySelector(".categoria").value;
+      filtros.marca = document.querySelector(".marca").value;
+      filtros.precio = document.querySelector(".precio").value;
+      filtrar();
+    }
+    
+    // function filtrarPorCategoria(){
+      //   productos2.value = [];
+      
+    //   let categoria = document.querySelector(".categoria").value;
+    //   console.log("te has metido en el filtro de categorias");
+    //   console.log(productos2.value)
+    //   if(categoria != "todo"){
+    //     for (let i = 0; i < productos.value.length; i++) {
+    //       console.log("hola")
+    //       if(productos.value[i].category.nom === categoria){
+    //         productos2.value.push(productos.value[i]);
+    //         }
+    //       }
+    //   }else{
+    //     productos2.value = productos.value;
+    //   }
+    // }
+    // function filtrarPorMarca(){
+    //   productos2.value = [];
+
+    //   let marca = document.querySelector(".marca").value;
+
+    //   if(marca != "todo"){
+    //     for (let i = 0; i < productos.value.length; i++) {
+    //       if(productos.value[i].marca.nom === marca){
+    //         productos2.value.push(productos.value[i]);
+    //       }
+    //     }
+    //   }else{
+    //     productos2.value = productos.value;
+    //   }
+    //}
     async function submitLogin() {
       try {
-        await fetch("http://localhost:8000/api/login", {
+        await fetch("http://localhost:8000/api/loginUser", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -397,7 +467,6 @@ createApp({
       volverALaPaginaPrincipal,
       irPantallaInicio,
       irABotiga,
-      filtrarPorCategoria,
       categorias,
       categoriaFiltrada,
       IrLogin,
@@ -405,10 +474,12 @@ createApp({
       getProducte,
       veureProd,
       stockProdctuId,
-      filtrarPorMarca,
+      filtrar,
       submitLogin,
       password,
       email,
+      filtros,
+      cambioFiltros,
     };
   },
 }).mount("#app");
