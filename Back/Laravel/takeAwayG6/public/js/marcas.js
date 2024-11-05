@@ -42,7 +42,7 @@ function deleteMarca() {
             console.log("Id producto eliminada: " + idMarca);
             Swal.fire({
                 title: 'Advertencia!',
-                html: 'Estas seguro de eliminar esta categoria',
+                html: 'Estas seguro de eliminar esta marca',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Aceptar',

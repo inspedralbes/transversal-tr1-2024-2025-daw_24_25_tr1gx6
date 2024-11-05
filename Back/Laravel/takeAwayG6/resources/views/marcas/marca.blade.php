@@ -24,15 +24,16 @@
         </div>
         <div class="items" style="border: 3px solid blue; display: flex; flex-wrap: wrap; gap: 1rem;">
             @foreach ($marcas as $marca)
-                <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row g-0">
+                <div class="card mb-3" style="width: 24rem; flex: 1 1 calc(33.333% - 1rem);">
+                        <div class="row g-0">
                         <div class="col-md-4">
                             <img src="{{ asset(str_replace('./', '', $marca->imagen)) }}" class="img-fluid rounded-start"
-                                alt="...">
+                                alt="..." style="width: 20rem; height: 10rem;">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $marca->nom }}</h5>
+                                <br>
                                 <div class="buttons">
                                     <button class="btn btn-primary btnsUpdateMarca" data-id-marca="{{ $marca->id }}"
                                         data-nom="{{ $marca->nom }}" data-imagen="{{ $marca->imagen }}">Editar</button>
