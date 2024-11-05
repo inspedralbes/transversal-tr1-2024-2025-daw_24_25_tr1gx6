@@ -44,13 +44,15 @@ class ComandasController extends Controller
         if(!auth()->check()){
             return redirect()->route('login')->with('error', 'Debes iniciar sesión para acceder a esta página.');
         }
+
+        $comandas = Comanda::all();
         
-        return view('comandas.comanda');
+        return view('comandas.comanda', compact('comandas'));
     }
     // Traer todas las comandas
     public function getComandas()
     {
-        $comanda = Comanda::all();
+        $comanda = Comanda::with('user')->get();
         return response()->json(['status' => 'success', 'comandas' => $comanda]);
     }
 
@@ -79,7 +81,8 @@ class ComandasController extends Controller
             // Luego eliminamos la comanda
             $comanda->delete();
 
-            return response()->json(['status' => 'success', 'message' => 'Comanda eliminada']);
+            //return response()->json(['status' => 'success', 'message' => 'Comanda eliminada']);
+            return redirect()->route('screen.comanda');
         } catch (\Exception $e) {
             Log::error("Error al eliminar la comanda:" . $e->getMessage());
             return response()->json(['status' => 'error', 'message' => 'Error al eliminar la comanda'], 500);

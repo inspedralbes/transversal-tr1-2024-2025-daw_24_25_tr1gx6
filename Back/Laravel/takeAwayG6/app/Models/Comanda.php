@@ -15,8 +15,8 @@ class Comanda extends Model
     {
         return $this->hasMany(ComandaArticulo::class, 'idComanda');
     }
-    /*
+    
     public function user(){
-        return $this->hasMany(User::class, 'id');
-    }*/
+        return $this->belongsTo(User::class, 'idUser');
+    }
 }

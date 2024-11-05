@@ -25,9 +25,28 @@
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>User</th>
                     <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
+                @foreach ($comandas as $comanda)
+                    <tr>
+                        <th>{{ $comanda->id }}</th>
+                        <th>{{ $comanda->user->name }}</th>
+                        <th id="estadoComanda{{ $comanda->id }}">{{ $comanda->estat }}</th>
+                        <th>
+                            <button class="btn btn-primary" id="btnSiguiente{{ $comanda->id }}"
+                                onclick="cambiarSiguienteEstado({{ $comanda->id }})">Siguiente</button>
+                            <button class="btn btn-secondary btnsDeleteComanda"
+                                style="background-color: red;" data-id-comanda="{{$comanda->id}}">Eliminar</button>
+                            <form method="POST" action="{{ route('delete.comandas', ['id' => $comanda->id]) }}"
+                                class="form-delete-{{ $comanda->id }}">
+                                @csrf
+                                @method('DELETE')
+                            </form>
+                        </th>
+                    </tr>
+                @endforeach
             </thead>
             <tbody id="comandasTabla"></tbody>
         </table>
@@ -128,27 +147,24 @@
             }
         }
         async function eliminarComanda(id) {
-            if (confirm("¿Estás seguro de que deseas eliminar esta comanda?")) {
-                const response = await fetch(`/comanda/delete/${id}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            btnDeleteStock.addEventListener('click', function() {
+                let idComanda = this.dataset.idComanda;
+                console.log("Id producto eliminada: " + idComanda);
+                Swal.fire({
+                    title: 'Advertencia!',
+                    html: 'Estas seguro de eliminar esta comanda',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Aceptar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Aquí puedes ejecutar la lógica de eliminación
+                        console.log("Categoria eliminada: " + idComanda);
+                        document.querySelector('.form-delete-' + idComanda).submit();
                     }
                 });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    if (data.status === 'success') {
-                        console.log('Comanda eliminada');
-                        fetchComandas();
-                    } else {
-                        console.error('Error al eliminar la comanda');
-                    }
-                } else {
-                    console.error('Error al hacer la solicitud de eliminación');
-                }
-            }
+            });
         }
 
         window.onload = fetchComandas;
