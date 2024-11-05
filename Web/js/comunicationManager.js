@@ -11,8 +11,6 @@ export async function getProductoss() {
             throw new Error(`Error: ${response.status} - ${response.statusText}`);
         }
         const data = await response.json();
-        console.log('server',data);
-        
         return data;
     } catch (error) {
         console.error('Error al obtener productos:', error);
@@ -128,7 +126,7 @@ export async function productobyID(json) {
 
         console.log("Conexion correcta A");
         
-        console.log(data);
+        console.log('stock de productos y tallas',data);
         
         return data;
 
@@ -136,3 +134,26 @@ export async function productobyID(json) {
         console.log(error);
     }
 }
+
+export async function confirmarCompra(type) {
+    try {        
+        const response = await fetch(`${HOST}/mail/send`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ type }),
+        });
+
+        const data = await response.json();
+        
+        console.log("Conexión correcta A");
+        console.log(data);
+
+        return data;
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+

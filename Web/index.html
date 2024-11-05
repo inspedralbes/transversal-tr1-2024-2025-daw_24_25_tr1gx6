@@ -209,16 +209,16 @@
                 </div>
             </div>
 
-            <div id="producte-item" v-if="divActivo === 'producte-item' && productos[veureProd]">
+            <div id="producte-item" v-if="divActivo === 'producte-item' && producto1">
                 <div class="item">
-                    <img :src="productos[veureProd].img" alt="">
+                    <img :src="producto1.img" alt="">
                     <div class="desc">
-                        <h1>{{ productos[veureProd].nom }}</h1>
-                        <h4>{{ productos[veureProd].preu }}€</h4>
-                        <h4>{{ productos[veureProd].valoracion }}⭐</h4>
-                        <h5 class="outOfStock" v-if="productos[veureProd].stock === 0">Out of stock</h5>
+                        <h1>{{ producto1.nom }}</h1>
+                        <h4>{{ producto1.preu }}€</h4>
+                        <h4>{{ producto1.valoracion }}⭐</h4>
+                        <h5 class="outOfStock" v-if="producto1.stock === 0">Out of stock</h5>
                         <h5 class="inStock" v-else>On stock</h5>
-                        <p>{{ productos[veureProd].desc }}</p>
+                        <p>{{ producto1.desc }}</p>
 
                         <!-- Select para color y talla -->
                         <div class="form">
@@ -232,7 +232,7 @@
                         </div>
 
                     </div>
-                    <button @click="añadirALaCesta(veureProd)" id="form-btn">Añadir a la cesta</button>
+                    <button @click="añadirALaCesta(producto1.id)" id="form-btn">Añadir a la cesta</button>
                 </div>
             </div>
 

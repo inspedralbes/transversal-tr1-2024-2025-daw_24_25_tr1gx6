@@ -119,61 +119,65 @@ createApp({
         finalitzaCompraActiva.value = false;
       }
     }
-    function añadirALaCesta(index) {
-      const productoSeleccionado = productos.value[index];
-      const total = productosEnCesta.value.reduce((sum, producto) => {
-        return sum + (producto.precio * producto.cantidad);
-      }, 0);
-      
-      // Obtener la talla seleccionada
-    const tallaSeleccionada = stockProdctuId.value.find(combinacion => combinacion.id === selectedCombinacion.value);
+    function añadirALaCesta() {
+      cestaActiva.value = true;
+      if (!producto1.value || !stockProdctuId.value) {
+        console.log("Producto o stock no disponible");
+        return;
+      }
     
-    console.log("Selected Combination:", selectedCombinacion.value);
-    console.log("Talla Seleccionada:", tallaSeleccionada); // Para verificar si se obtuvo correctamente
-
+      // Ya tenemos el producto directamente desde producto1
+      const productoSeleccionado = producto1.value;
+      const tallaSeleccionada = stockProdctuId.value.find(
+        combinacion => combinacion.id === selectedCombinacion.value
+      );
+    
+      // Log para verificar la combinación seleccionada
+      console.log("Selected Combination:", selectedCombinacion.value);
+      console.log("Talla Seleccionada:", tallaSeleccionada);
+    
       // Crear un nuevo objeto del producto
       const nuevoProducto = {
         id: productoSeleccionado.id,
         nom: productoSeleccionado.nom,
         img: productoSeleccionado.img,
         preu: productoSeleccionado.preu,
-        // valoracion: productoSeleccionado.valoracion,
         stock: productoSeleccionado.stock,
         category: productoSeleccionado.category,
         marca: productoSeleccionado.marca,
         desc: productoSeleccionado.desc,
         cantidad: 1,
-        talla: tallaSeleccionada ? (tallaSeleccionada.TallaCamisa || tallaSeleccionada.TallaZapato) : 'Sin talla', 
-        color: tallaSeleccionada ? tallaSeleccionada.Color : 'Sin color', 
+        talla: tallaSeleccionada ? (tallaSeleccionada.TallaCamisa || tallaSeleccionada.TallaZapato) : 'Sin talla',
+        color: tallaSeleccionada ? tallaSeleccionada.Color : 'Sin color',
         idStock: selectedCombinacion.value,
       };
-
+    
       console.log("Nuevo producto:", nuevoProducto);
-      
-
+    
+      // Buscar si el producto ya existe en la cesta con la misma combinación
       const productoEnCesta = productosEnCesta.value.find(
-        (producto) =>
-          producto.id === productoSeleccionado.id &&
-          producto.color === nuevoProducto.color &&
+        producto => 
+          producto.id === productoSeleccionado.id && 
+          producto.color === nuevoProducto.color && 
           producto.talla === nuevoProducto.talla
       );
-
+    
       if (productoEnCesta) {
         productoEnCesta.cantidad++;
       } else {
         productosEnCesta.value.push(nuevoProducto);
       }
-
+    
       guardarCarrito();
       cestaActiva.value = true;
       finalitzaCompraActiva.value = true;
-      precioTotal.value = total;
       actualizarPrecioTotal();
-
+    
       setTimeout(() => {
         cestaActiva.value = false;
       }, 3000);
     }
+    
 
     const cantidadTotalProductos = computed(() => {
       return calcularCantidadTotalProductos();
@@ -196,35 +200,36 @@ createApp({
       actualizarPrecioTotal();
       // cestaActiva.value = false;
     }
-    
-    function getProducte(index) {
-      if (index >= 0 && index < productos.value.length) {
-        veureProd.value = index;
+    let producto1 = ref({});
+    function getProducte(id) {
+      producto1.value = productos.value.find(producto => producto.id === id);
+      
+      if (producto1) {
+        veureProd.value = id; 
         divActivo.value = "producte-item";
-        const idProducto = productos.value[index].id;
         
-        productobyID({ idProducto })
+        productobyID({ id })
         .then((detallesProducto) => {
           console.log("Antes del if:", detallesProducto);
           stockProdctuId.value = detallesProducto;
-          if (detallesProducto && Array.isArray(detallesProducto)) {
-            console.log("index:", index);
+          console.log(stockProdctuId.value)
+          if (detallesProducto && typeof detallesProducto === 'object') {
+            producto1.category = producto1.category || { nom: "" };
+            producto1.marca = producto1.marca || { nom: "" };
             
-            productos.value[index].category = productos.value[index].category || { nom: "" };
-            productos.value[index].marca = productos.value[index].marca || {nom: "",};
-            
-            console.log("Detalles del producto con idStock:",productos.value[index]);
-            } else {
-              console.error("No se encontraron detalles para el producto.");
-            }
-          })
-          .catch((error) => {
-            console.error("Error al obtener detalles del producto:", error);
-          });
+            console.log("Detalles del producto:", producto1);
+          } else {
+            console.error("No se encontraron detalles para el producto.");
+          }
+        })
+        .catch((error) => {
+          console.error("Error al obtener detalles del producto:", error);
+        });
       } else {
-        console.log("El índice del producto no es válido", index);
+        console.log("El ID del producto no es válido:", id);
       }
     }
+    
     
     function sumaCantidad(index) {
       const producto = productosEnCesta.value[index];
@@ -487,6 +492,7 @@ createApp({
       email,
       filtros,
       cambioFiltros,
+      producto1,
     };
   },
 }).mount("#app");
