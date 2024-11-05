@@ -9,6 +9,7 @@ import {
   productobyID,
   checkoutProductos,
   createComanda,
+  confirmarCompra
 } from "./comunicationManager.js";
 
 createApp({
@@ -225,7 +226,7 @@ createApp({
 
     function procesarCompra() {
       const comandaData = {
-        idUser: 1,
+        idUser: 1,  
         estat: "Preparando",
         total: precioTotal.value,
       };
@@ -265,6 +266,8 @@ createApp({
           if (response && response.status === "success") {
             console.log("Compra finalizada correctamente");
             productosEnCesta.value = [];
+            const tipo = 'confirm';
+            confirmarCompra(tipo);
             guardarCarrito();
             actualizarPrecioTotal();
             finalitzaCompraActiva.value = false;

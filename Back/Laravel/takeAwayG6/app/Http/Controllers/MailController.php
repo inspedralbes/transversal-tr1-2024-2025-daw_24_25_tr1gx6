@@ -14,8 +14,8 @@ use App\Mail\estadoEntregado;
 
 class MailController extends Controller
 {
-    public function sendMail($type)
-    {
+    public function sendMail(Request $request) {
+        $type = $request->input('type');
         $email = 'a19pabmatpav@inspedralbes.cat'; 
 
         switch ($type) {

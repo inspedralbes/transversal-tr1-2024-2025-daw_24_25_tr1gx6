@@ -135,26 +135,25 @@ export async function productobyID(json) {
     }
 }
 
-export async function confirmarCompra(json) {
-    try {
-        console.log(json);
-        
-        const response = await fetch(HOST + '/mail/confirm', {
-            method:'POST',
+export async function confirmarCompra(type) {
+    try {        
+        const response = await fetch(`${HOST}/mail/send`, {
+            method: 'POST',
             headers: {
-                'Content-Type':'application/json'
+                'Content-Type': 'application/json'
             },
-            body:JSON.stringify(json),
-        })
-        const data = await response.json();
+            body: JSON.stringify({ type }),
+        });
 
-        console.log("Conexion correcta A");
+        const data = await response.json();
         
+        console.log("Conexión correcta A");
         console.log(data);
-        
+
         return data;
 
     } catch (error) {
         console.log(error);
     }
 }
+

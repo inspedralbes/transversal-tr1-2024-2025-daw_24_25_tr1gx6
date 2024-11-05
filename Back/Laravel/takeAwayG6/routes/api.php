@@ -47,4 +47,4 @@ Route::prefix('/productos')->group(callback: function () {
 
 //RUTAS PARA EMAILS
 
-Route::get('/mail/{type}', [MailController::class, 'sendMail']);
+Route::post('/mail/send', [MailController::class, 'sendMail']);
