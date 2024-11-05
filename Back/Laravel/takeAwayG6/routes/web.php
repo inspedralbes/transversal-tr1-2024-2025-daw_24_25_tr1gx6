@@ -72,6 +72,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('/comanda')->group(function () {
         Route::post('/pedidoUser', [ComandasController::class, 'pedidoUser'])->name('comanda.pedidoUser');
         Route::post('/update/{id}', [ComandasController::class, 'updateEstadoComanda'])->name('update.comanda');
-        Route::post('/delete/{id}', [ComandasController::class, 'eliminarComanda'])->name('delete.comandas');
+        Route::post('/cancel/{id}', [ComandasController::class, 'cancelComanda'])->name('cancel.comanda');
+        Route::delete('/delete/{id}', [ComandasController::class, 'eliminarComanda'])->name('delete.comandas');
     });
 });
