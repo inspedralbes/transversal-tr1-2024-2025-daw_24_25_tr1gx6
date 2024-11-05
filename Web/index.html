@@ -10,7 +10,7 @@
 
 <body>
     <div id="app">
-        <nav>
+        <nav id="navbar">
             <img @click="irPantallaInicio" id="logo" src="./Img/Logo.png" alt="Logo">
             <a @click="irABotiga">Botiga</a>
             <a @click="cambiarACarrito">Checkout</a>
@@ -19,18 +19,6 @@
                     <input type="text" id="search-input" placeholder="Buscar" />
                 </form>
             </div>
-            <form id="categoria">
-                <select class="categoria" name="usuario" id="lang" @change="filtrarPorCategoria">
-                    <option value="todo">Todo</option>
-                    <option value="camiseta">Camiseta</option>
-                    <option value="sudadera">Sudadera</option>
-                    <option value="pantalon">Pantalon</option>
-                    <option value="chaqueta">Chaqueta</option>
-                    <option value="camiseta">Camiseta</option>
-                    <option value="chandal">Chandal</option>
-                    <option value="chaleco">Chaleco</option>
-                </select>
-            </form>
 
             <div class="carrito-contenedor">
                 <img src="./Img/cesta.png" alt="cesta" class="cesta" @click="botonCesta">
@@ -40,13 +28,12 @@
 
             <img @click="IrLogin" id="loginIcono" src="Img/iconoLogin.png" alt="loginIcono">
         </nav>
-        <div id="paginaInicial">
-                
+        <div id="paginaInicial">  
             <div v-if="divActivo=='paginaDeInicio'">
                 <h2>Productes millor valorats</h2>
                 <div class="productos-container-inici">
                     <div v-for="(producto, index) in productos.sort((a, b) => b.valoracion - a.valoracion).slice(0, 4)"
-                        :key="index" class="product-card-inici" @click="getProducte(index)">
+                        :key="index" class="product-card-inici" @click="getProducte(producto.id)">
                         <img :src="producto.img" :alt="producto.nombre" class="imagenProducto">
                         <h4>{{ producto.nom }}</h4>
                         <h4>{{ productos[index].valoracion }}⭐</h4>
