@@ -51,49 +51,82 @@
                     </div>
                 </div>
 
+                <div id="cesta" v-if="cestaActiva" class="cesta-container">
+                    <h2>Carrito</h2>
+                    <div class="productos-container">
+                        <div v-for="(producto, index) in productosEnCesta" :key="index" class="product-card">
+                            <img :src="producto.img" :alt="producto.nom" class="imagenProducto">
+                            <h4>{{ producto.nom }}</h4>
+                            <p class="price">{{ producto.preu }}€</p>
+                        </div>
+                    </div>
+                    <h3>preu: {{precioTotal.toFixed(2)}}€</h3>
+                    <h4 v-if="!finalitzaCompraActiva">Esta es la cesta, aqui podras ver los productos que has añadido a la
+                        cesta y podras pasar a finalizar la compra</h4>
+                </div>
+            </div>
+            <div v-if="divActivo=='paginaPrincipal'">
+                 <div class="navbarFiltros">
+                    <select class="marca" name="marca" id="desplegable" @change="cambioFiltros">
+                        <option value="todo">Marcas</option>
+                        <option value="The North Face">The North Face</option>
+                        <option value="Puma">Puma</option>
+                        <option value="Nike">Nike</option>
+                        <option value="Adidas">Adidas</option>
+                        <option value="Fila">Fila</option>
+                        <option value="Vans">Vans</option>
+                        <option value="Converse">Converse</option>
+                        <option value="Jordan">Jordan</option>
+                    </select>
+                    <select class="categoria" name="categoria" id="desplegable" @change="cambioFiltros">
+                        <option value="todo">Categorias</option>
+                        <option value="camiseta">Camiseta</option>
+                        <option value="sudadera">Sudadera</option>
+                        <option value="pantalon">Pantalon</option>
+                        <option value="chaqueta">Chaqueta</option>
+                        <option value="camiseta">Camiseta</option>
+                        <option value="chandal">Chandal</option>
+                        <option value="chaleco">Chaleco</option>
+                        <option value="zapatillas">Zapatillas</option>
+                    </select>
+                    <select class="precio" name="precio" id="desplegable" @change="cambioFiltros">
+                        <option value="todo">Precio</option>
+                        <option value="<=50">Hasta 50€</option>
+                        <option value="<=100">Hasta 100€</option>
+                        <option value="<=125">Hasta 125€</option>
+                        <option value="<=150">Hasta 150€</option>
+                        <option value="<=175">Hasta 175€</option>
+                        <option value="<=200">Hasta 200€</option>
+                      </select>
+                </div> 
+                <h2>Productos</h2>
+                <div id="productos-container-1" class="productos-container">
+                    <div v-for="(producto, index) in productos2" :key="index" class="product-card"
+                        @click="getProducte(producto.id)">
+                        <img :src="producto.img" :alt="producto.nom" class="imagenProducto">
+                        <h4>{{ producto.nom }}</h4>
+                        <h4>{{ productos[index].valoracion }}⭐</h4>
+                        <h5 class="outOfStock" v-if="producto.stock === 0">Out of stock</h5>
+                        <h5 class="inStock" v-else>On stock</h5>
+                        <p class="price">{{ producto.preu }}€</p>
+                    </div>
+                </div>
+            </div>
+            <!-- plantilla  -->
             <div id="cesta" v-if="cestaActiva" class="cesta-container">
                 <h2>Carrito</h2>
                 <div class="productos-container">
                     <div v-for="(producto, index) in productosEnCesta" :key="index" class="product-card">
                         <img :src="producto.img" :alt="producto.nom" class="imagenProducto">
                         <h4>{{ producto.nom }}</h4>
+                        <span>{{producto.cantidad}}</span>
                         <p class="price">{{ producto.preu }}€</p>
                     </div>
                 </div>
-                <h3>preu: {{precioTotal.toFixed(2)}}€</h3>
-                <h4 v-if="!finalitzaCompraActiva">Esta es la cesta, aqui podras ver los productos que has añadido a la
-                    cesta y podras pasar a finalizar la compra</h4>
-            </div>
-        </div>
-        <div v-if="divActivo=='paginaPrincipal'">
-            <h2>Productos</h2>
-            <div id="productos-container-1" class="productos-container">
-                <div v-for="(producto, index) in productos2" :key="index" class="product-card"
-                    @click="getProducte(index)">
-                    <img :src="producto.img" :alt="producto.nom" class="imagenProducto">
-                    <h4>{{ producto.nom }}</h4>
-                    <h4>{{ productos[index].valoracion }}⭐</h4>
-                    <h5 class="outOfStock" v-if="producto.stock === 0">Out of stock</h5>
-                    <h5 class="inStock" v-else>On stock</h5>
-                    <p class="price">{{ producto.preu }}€</p>
-                </div>
-            </div>
-        </div>
-        <!-- plantilla  -->
-        <div id="cesta" v-if="cestaActiva" class="cesta-container">
-            <h2>Carrito</h2>
-            <div class="productos-container">
-                <div v-for="(producto, index) in productosEnCesta" :key="index" class="product-card">
-                    <img :src="producto.img" :alt="producto.nom" class="imagenProducto">
-                    <h4>{{ producto.nom }}</h4>
-                    <span>{{producto.cantidad}}</span>
-                    <p class="price">{{ producto.preu }}€</p>
-                </div>
-            </div>
-            <h3 v-if="finalitzaCompraActiva">Preu: {{precioTotal.toFixed(2)}}€</h3>
-            <button @click="cambiarACarrito" v-if="finalitzaCompraActiva" id="finalizarCompra" class="btn">Ir al
-                carrito</button>
-            <h4 v-if="!finalitzaCompraActiva">No hay nada en la cesta</h4>
+                <h3 v-if="finalitzaCompraActiva">Preu: {{precioTotal.toFixed(2)}}€</h3>
+                <button @click="cambiarACarrito" v-if="finalitzaCompraActiva" id="finalizarCompra" class="btn">Ir al
+                    carrito</button>
+                <h4 v-if="!finalitzaCompraActiva">No hay nada en la cesta</h4>
 
             </div>
 
@@ -130,33 +163,33 @@
                         <!-- <p><strong>Categoria:</strong> {{producto.category.nom}}</p> -->
 
 
-                    <div class="producto-controls">
-                        <button @click="eliminarDesdeCarrito(index)" class="elininarDeCarrito">
-                            <img src="https://img.icons8.com/pastel-glyph/20/trash.png" alt="Eliminar producto">
-                        </button>
-                        <div class="quantity-controls">
-                            <button @click="restarCantidad(index)" class="restarCantidad">
-                                <img src="https://img.icons8.com/ios/20/minus.png" alt="Restar cantidad" />
+                        <div class="producto-controls">
+                            <button @click="eliminarDesdeCarrito(index)" class="elininarDeCarrito">
+                                <img src="https://img.icons8.com/pastel-glyph/20/trash.png" alt="Eliminar producto">
                             </button>
-                            <span>{{producto.cantidad}}</span>
-                            <button @click="sumaCantidad(index)" class="sumaCantidad">
-                                <img src="https://img.icons8.com/ios/20/plus--v1.png" alta="Sumar cantidad" />
-                            </button>
+                            <div class="quantity-controls">
+                                <button @click="restarCantidad(index)" class="restarCantidad">
+                                    <img src="https://img.icons8.com/ios/20/minus.png" alt="Restar cantidad" />
+                                </button>
+                                <span>{{producto.cantidad}}</span>
+                                <button @click="sumaCantidad(index)" class="sumaCantidad">
+                                    <img src="https://img.icons8.com/ios/20/plus--v1.png" alta="Sumar cantidad" />
+                                </button>
+                            </div>
                         </div>
+                        <p class="precioDeCarrito">{{(producto.preu * producto.cantidad).toFixed(2)}}€</p>
                     </div>
-                    <p class="precioDeCarrito">{{(producto.preu * producto.cantidad).toFixed(2)}}€</p>
                 </div>
+                <h3 v-if="finalitzaCompraActiva" class="precioTotalDeCarrito">preu: {{precioTotal.toFixed(2)}}€</h3>
+                <button @click="volverALaPaginaPrincipal" v-if="finalitzaCompraActiva" id="volverALaPaginaCarrito"
+                    class="btn">Volver a la
+                    pagina principal</button>
+                <br><br>
+                <button @click="finalizarCompraDeCarrito" v-if="productosEnCesta.length > 0" id="finalizarCompra"
+                    class="btn">Finalizar compra</button><br><br>
+                <!-- <button @click="enviarDatosABackEnd" v-if="finalitzaCompraActiva" id="EnviarDatos" class="btn">Enviar Datos A BackEnd</button> -->
+                <h4 v-if="!finalitzaCompraActiva">No hay nada en la cesta</h4>
             </div>
-            <h3 v-if="finalitzaCompraActiva" class="precioTotalDeCarrito">preu: {{precioTotal.toFixed(2)}}€</h3>
-            <button @click="volverALaPaginaPrincipal" v-if="finalitzaCompraActiva" id="volverALaPaginaCarrito"
-                class="btn">Volver a la
-                pagina principal</button>
-            <br><br>
-            <button @click="finalizarCompraDeCarrito" v-if="productosEnCesta.length > 0" id="finalizarCompra"
-                class="btn">Finalizar compra</button><br><br>
-            <!-- <button @click="enviarDatosABackEnd" v-if="finalitzaCompraActiva" id="EnviarDatos" class="btn">Enviar Datos A BackEnd</button> -->
-            <h4 v-if="!finalitzaCompraActiva">No hay nada en la cesta</h4>
-        </div>
 
 
             <!-- Login -->
