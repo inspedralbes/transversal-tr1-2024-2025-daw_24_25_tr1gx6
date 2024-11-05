@@ -20,9 +20,9 @@
                 </form>
             </div>
             <form id="categoria">
-                <select name="usuario" id="lang" @change="filtrarPorCategoria">
+                <select class="categoria" name="usuario" id="lang" @change="filtrarPorCategoria">
                     <option value="todo">Todo</option>
-                    <option value="zapatillas">Zapatillas</option>
+                    <option value="camiseta">Camiseta</option>
                     <option value="sudadera">Sudadera</option>
                     <option value="pantalon">Pantalon</option>
                     <option value="chaqueta">Chaqueta</option>
@@ -79,7 +79,7 @@
         <div v-if="divActivo=='paginaPrincipal'">
             <h2>Productos</h2>
             <div id="productos-container-1" class="productos-container">
-                <div v-for="(producto, index) in productos" :key="index" class="product-card"
+                <div v-for="(producto, index) in productos2" :key="index" class="product-card"
                     @click="getProducte(index)">
                     <img :src="producto.img" :alt="producto.nom" class="imagenProducto">
                     <h4>{{ producto.nom }}</h4>
@@ -104,7 +104,8 @@
             <h3 v-if="finalitzaCompraActiva">Preu: {{precioTotal.toFixed(2)}}€</h3>
             <button @click="cambiarACarrito" v-if="finalitzaCompraActiva" id="finalizarCompra" class="btn">Ir al
                 carrito</button>
-            <h4 v-if="!finalitzaCompraActiva">No hay nada en la cesta</h4>
+                <h4 v-if="productosEnCesta.length === 0">No hay nada en la cesta</h4>
+                <h4 v-else>total: {{precioTotal.toFixed(2)}}€</h4></h4>
 
         </div>
 
@@ -166,7 +167,8 @@
             <button @click="finalizarCompraDeCarrito" v-if="productosEnCesta.length > 0" id="finalizarCompra"
                 class="btn">Finalizar compra</button><br><br>
             <!-- <button @click="enviarDatosABackEnd" v-if="finalitzaCompraActiva" id="EnviarDatos" class="btn">Enviar Datos A BackEnd</button> -->
-            <h4 v-if="!finalitzaCompraActiva">No hay nada en la cesta</h4>
+            <h4 v-if="productosEnCesta.length === 0">No hay nada en la cesta</h4>
+            <h4 v-else>total: {{precioTotal.toFixed(2)}}€</h4></h4>
         </div>
 
 
