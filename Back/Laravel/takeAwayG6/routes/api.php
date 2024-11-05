@@ -10,6 +10,7 @@ use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\ComandaArticuloController;
 use App\Http\Controllers\AutorizacionController;
+use App\Http\Controllers\MailController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -43,3 +44,7 @@ Route::prefix('/productos')->group(callback: function () {
     Route::delete('/delete/{id}', [ProductoController::class, 'deleteProducto'])->name('delete.product');
 
 });
+
+//RUTAS PARA EMAILS
+
+Route::get('/mail/{type}', [MailController::class, 'sendMail']);

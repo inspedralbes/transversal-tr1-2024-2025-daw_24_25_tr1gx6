@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MarcaController;
 use App\Mail\Notification;
+use App\Http\Controllers\MailController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -38,6 +39,5 @@ Route::get('/getMarcas',[MarcaController::class, 'getMarcas'])->name('get.marcas
 //Route::post('/createProduct', [ProductoController::class, 'createProducto'])->name('create.product');
 
 //Rutes de gestió d'emails
-use App\Http\Controllers\MailController;
 
 Route::get('/mail/{type}', [MailController::class, 'sendMail']);
