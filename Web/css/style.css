@@ -8,7 +8,7 @@ body {
     margin: 10px;
 }
 
-nav {
+#navbar {
     background-color: rgb(50, 50, 50);
     padding: 10px 0;
     display: flex;
@@ -60,7 +60,7 @@ a:hover {
     border-color: rgb(0, 0, 0);
 }
 
-#lang {
+#desplegable {
     border-radius: 15px;
     padding: 10px;
     font-size: 16px;
@@ -222,9 +222,9 @@ a:hover {
     grid-template-columns: 1fr 1fr 2fr;
     grid-template-rows: auto auto 1fr;
     grid-template-areas:
-        "img img desc"
-        "img img desc"
-        "form form btn";
+    "img img desc"
+    "img img desc"
+    "form form btn";
     gap: 20px;
     padding: 20px;
 }
@@ -506,9 +506,9 @@ a:hover {
     grid-template-columns: 1fr 1fr 2fr;
     grid-template-rows: auto auto 1fr;
     grid-template-areas:
-        "img img desc"
-        "img img desc"
-        "form form btn";
+    "img img desc"
+    "img img desc"
+    "form form btn";
     gap: 20px;
     padding: 20px;
 }
@@ -569,9 +569,9 @@ a:hover {
     font-size: 18px;
 }
 
- .mostrarInfo .nomProducte{
+.mostrarInfo .nomProducte{
     padding-left: 120px;
-
+    
 }  
 
 .mostrarInfo .infoProducte{
@@ -581,7 +581,7 @@ a:hover {
 
 .mostrarInfo .cantidadProducte{
     position: absolute;
-   padding-left: 1090px;
+    padding-left: 1090px;
 }
 .mostrarInfo .preProducte{
     padding-right: 120px;
@@ -624,7 +624,7 @@ a:hover {
     display: flex;
     align-items: center;
     gap: 15px;
-   
+    
 }
 
 .eliminarDeCarrito {
@@ -703,7 +703,7 @@ a:hover {
     border-radius: 30px;
     width: 100%;
     box-sizing: border-box;
-
+    
 }
 
 
@@ -714,7 +714,7 @@ a:hover {
     border-radius: 30px;
     cursor: pointer;
     margin-top: 10px;
-
+    
 }
 
 .carritoFinal button:hover {
@@ -737,7 +737,7 @@ a:hover {
     padding: 2px 6px;
     font-size: 12px;
     font-weight: bold;
-
+    
 }
 
 .btn {
@@ -755,10 +755,14 @@ a:hover {
 .btn:hover {
     background-color: rgba(0, 0, 0, 0.901);
     color: white;
-   
+    
 }
 
 .btn:active {
     transform: scale(0.98);
-   
+    
+}
+.navbarFiltros{
+    align-items: center !important;
+    /* border: 2px solid; */
 }

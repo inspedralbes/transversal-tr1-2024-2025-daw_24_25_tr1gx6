@@ -113,7 +113,7 @@ export async function pedidoUser(json) {
 
 export async function productobyID(json) {
     try {
-        console.log(json);
+        console.log("id pro: ",json);
         
         const response = await fetch(HOST + '/productoById', {
             method:'POST',
@@ -126,8 +126,30 @@ export async function productobyID(json) {
 
         console.log("Conexion correcta A");
         
-        console.log(data);
+        console.log('stock de productos y tallas',data);
         
+        return data;
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function confirmarCompra(type) {
+    try {        
+        const response = await fetch(`${HOST}/mail/send`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ type }),
+        });
+
+        const data = await response.json();
+        
+        console.log("Conexión correcta A");
+        console.log(data);
+
         return data;
 
     } catch (error) {

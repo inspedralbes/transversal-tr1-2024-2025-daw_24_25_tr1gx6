@@ -19,7 +19,7 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" style="color: white" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" style="color: white" href="{{route('screen.home')}}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" style="color: white">Categorias</a>
@@ -28,13 +28,16 @@
                         <a class="nav-link" href="#" style="color: white">Marcas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" style="color: white">Tallas</a>
+                        <a class="nav-link" href="#" style="color: white">Productos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" style="color: white">Comandas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" style="color: white">Comanda Articulos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('screen.stocks') }}" style="color: white">Stocks</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" style="color: white">Users</a>
@@ -88,6 +91,7 @@
                             <p class="card-text mb-1"><b>Descripción: </b> {{ $producto->desc }}</p>
 
                             <p class="card-text mb-1">
+                                <b>Preu: </b>{{ $producto->preu }} €
                                 <b>Categoria: </b>{{ $producto->category->nom }}
                                 <b>Marca: </b>{{ $producto->marca->nom }}
                             </p>
@@ -104,6 +108,7 @@
 
                                 <form method="POST" action="{{ route('delete.product', ['id' => $producto->id]) }}"
                                     class="form-delete-{{ $producto->id }}">
+                                    @csrf
                                     @method('DELETE')
                                 </form>
                             </div>
@@ -192,5 +197,8 @@
 @endsection
 
 @section('scripts')
+    {{-- <script>
+        localStorage.setItem('auth-token', "{{ session('auth-token') }}");
+    </script> --}}
     <script src="{{ asset('js/productos.js') }}"></script>
 @endsection

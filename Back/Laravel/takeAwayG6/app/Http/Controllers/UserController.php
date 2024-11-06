@@ -32,7 +32,7 @@ class UserController extends Controller
     public function getUsers(){
         $users = User::all();
 
-        return response()->json([$users]);
+        return view('users.user', compact('users'));
     }
     
     public function createUser(Request $request){
@@ -51,10 +51,10 @@ class UserController extends Controller
 
         $user->save();
 
-        return response()->json(['status' => 'success', 'message' => 'Usuario creado', 'register' => true]);
+        return redirect()->back()->with('success', 'Usuario Registrado exitosamente');
     }
 
-    public function updateUser(Request $request){
+    public function updateUser(Request $request, $id){
         $data = $request->validate([
             'name'=> 'required',
             'email'=> ['required', 'email'],
@@ -62,7 +62,7 @@ class UserController extends Controller
             'rol'=> 'required'
         ]);
 
-        $user = User::findOrFail(Auth::user()->id);
+        $user = User::findOrFail($id);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = $request->password;
@@ -70,14 +70,13 @@ class UserController extends Controller
 
         $user->save();
 
-        return response()->json(['status'=>'success', 'message'=>'Usuario actualizado']);
+        return redirect()->back()->with('success', 'Usuario actualizado exitosamente');
     }
 
-    public function deleteUser(){
-        
-        $user = User::findOrFail(Auth::user()->id);
-
-        $user->delete();
+    public function deleteUser($id) {
+        $user = User::findOrFail($id); 
+        $user->delete(); 
+        return redirect()->back()->with('success', 'Usuario eliminado exitosamente');
     }
 
 }
