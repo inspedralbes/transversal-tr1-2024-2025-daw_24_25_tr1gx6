@@ -30,6 +30,8 @@ function init() {
 
         if (estadoActual === "Entregado" || estadoActual === "Cancelado") {
             document.getElementById(`btnSiguiente${idComanda}`).disabled = true;
+            document.getElementById(`btnCancel${idComanda}`).disabled = true;
+
         }
     });
 }
@@ -70,7 +72,10 @@ async function cambiarSiguienteEstado() {
                         // Desactivar el botoón si el estado es 'Entregado'
                         if (newEstado === 'Entregado') {
                             document.getElementById(`btnSiguiente${idComanda}`).disabled = true;
+                            document.getElementById(`btnCancel${idComanda}`).disabled = true;
+
                         }
+
                     } else {
                         console.error('Error al actualizar el estado');
                     }
@@ -92,36 +97,52 @@ async function cancelarComanda() {
             console.log("ID COMANDA: ", idComanda);
             console.log("Estado: ", estat);
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            // Actualiza el estado en la base de datos
-            const response = await fetch(`/comanda/cancel/${idComanda}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken
-                },
-                body: JSON.stringify({
-                    estat: estat
-                })
+            Swal.fire({
+                title: 'Advertencia!',
+                html: 'Estas seguro de cancelar esta comanda',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Aceptar',
+                cancelButtonText: 'Cancelar'
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    // Aquí puedes ejecutar la lógica de eliminación
+                    console.log("Categoria eliminada: " + idComanda);
+
+                    // Actualiza el estado en la base de datos
+                    const response = await fetch(`/comanda/cancel/${idComanda}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                        body: JSON.stringify({
+                            estat: estat
+                        })
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+
+                        if (data.status === 'success') {
+                            //Actualizar el estado en la tabla
+                            document.getElementById(`estadoComanda${idComanda}`).innerText = estat;
+                            console.log('Estado actualizado a:', estat);
+
+                            // Desactivar el botoón si el estado es 'Cancelado'
+                            if (estat === 'Cancelado') {
+                                document.getElementById(`btnSiguiente${idComanda}`).disabled = true;
+                                document.getElementById(`btnCancel${idComanda}`).disabled = true;
+                            }
+                        } else {
+                            console.error('Error al actualizar el estado');
+                        }
+                    } else {
+                        console.error('Error al hacer la solicitud');
+                    }
+                }
             });
 
-            if (response.ok) {
-                const data = await response.json();
-
-                if (data.status === 'success') {
-                    //Actualizar el estado en la tabla
-                    document.getElementById(`estadoComanda${idComanda}`).innerText = estat;
-                    console.log('Estado actualizado a:', estat);
-
-                    // Desactivar el botoón si el estado es 'Entregado'
-                    if (estat === 'Cancelado') {
-                        document.getElementById(`btnSiguiente${idComanda}`).disabled = true;
-                    }
-                } else {
-                    console.error('Error al actualizar el estado');
-                }
-            } else {
-                console.error('Error al hacer la solicitud');
-            }
 
         })
     });
@@ -179,14 +200,13 @@ function infoComanda() {
             const modalBody = document.querySelector('#modal-comanda-info-body');
             modalBody.innerHTML = ''; // Limpiar el contenido anterior
 
-             // Contador de artículos
-             let articuloCount = 1;
+            // Contador de artículos
+            let articuloCount = 1;
 
             comandaArticulos.forEach(articulo => {
                 const articuloDiv = document.createElement('div');
                 articuloDiv.classList.add('mb-3');
                 articuloDiv.innerHTML = `
-                    <h4>Comanda: ${idComanda}</h4>
                     <p><b>Numero Articulo: </b>${articuloCount}</p>
                     <ul>
                         <li>

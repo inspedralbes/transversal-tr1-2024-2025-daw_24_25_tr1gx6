@@ -44,13 +44,14 @@
 
                             <button class="btn btn-secondary btnsDeleteComanda" style="background-color: red;"
                                 data-id-comanda="{{ $comanda->id }}" data-estat="{{ $comanda->estat }}">Eliminar</button>
-                            <button class="btn btn-secondary btnsCancelComanda" data-id-comanda="{{ $comanda->id }}"
+
+                            <button class="btn btn-secondary btnsCancelComanda" id="btnCancel{{$comanda->id}}" data-id-comanda="{{ $comanda->id }}"
                                 data-estat="Cancelado">Cancelar</button>
 
                             <button class="btn btn-info btnsInfoComanda" style="background-color: blue;"
                                 data-id-comanda="{{ $comanda->id }}"
                                 data-comanda-articulos="{{ json_encode($comanda->comandaArticulo) }}">
-                                <i class="bi bi-info-circle"></i>
+                                <i class="bi bi-info-circle" style="color: white;"></i>
                             </button>
 
                             <form method="POST" action="{{ route('delete.comandas', ['id' => $comanda->id]) }}"
