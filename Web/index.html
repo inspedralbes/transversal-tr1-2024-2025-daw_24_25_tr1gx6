@@ -36,9 +36,7 @@
                         :key="index" class="product-card-inici" @click="getProducte(producto.id)">
                         <img :src="producto.img" :alt="producto.nombre" class="imagenProducto">
                         <h4>{{ producto.nom }}</h4>
-                        <h4>{{ productos[index].valoracion }}⭐</h4>
-                        <h5 class="outOfStock" v-if="producto.stock === 0">Out of stock</h5>
-                        <h5 class="inStock" v-else>On stock</h5>
+                        <h4>{{ producto.valoracion }}⭐</h4>
                         <p class="price">{{ producto.preu }}€</p>
                     </div>
                 </div>
@@ -104,9 +102,7 @@
                         @click="getProducte(producto.id)">
                         <img :src="producto.img" :alt="producto.nom" class="imagenProducto">
                         <h4>{{ producto.nom }}</h4>
-                        <h4>{{ productos[index].valoracion }}⭐</h4>
-                        <h5 class="outOfStock" v-if="producto.stock === 0">Out of stock</h5>
-                        <h5 class="inStock" v-else>On stock</h5>
+                        <h4>{{ producto.valoracion }}⭐</h4>
                         <p class="price">{{ producto.preu }}€</p>
                     </div>
                 </div>
@@ -215,7 +211,7 @@
                         <h1>{{ producto1.nom }}</h1>
                         <h4>{{ producto1.preu }}€</h4>
                         <h4>{{ producto1.valoracion }}⭐</h4>
-                        <h5 class="outOfStock" v-if="producto1.stock === 0">Out of stock</h5>
+                        <h5 class="outOfStock" v-if="stockProdctuId.length === 0">Out of stock</h5>
                         <h5 class="inStock" v-else>On stock</h5>
                         <p>{{ producto1.desc }}</p>
 

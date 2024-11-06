@@ -120,12 +120,16 @@ createApp({
       }
     }
     function añadirALaCesta() {
-      cestaActiva.value = true;
       if (!producto1.value || !stockProdctuId.value) {
         console.log("Producto o stock no disponible");
         return;
       }
-    
+      if(stockProdctuId.value.length == 0){
+        console.log("No hay stock de este producto");
+        window.alert('No hay stock');
+        return;
+      }
+      cestaActiva.value = true;
       // Ya tenemos el producto directamente desde producto1
       const productoSeleccionado = producto1.value;
       const tallaSeleccionada = stockProdctuId.value.find(
