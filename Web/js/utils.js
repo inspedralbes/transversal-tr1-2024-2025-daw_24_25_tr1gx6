@@ -310,7 +310,7 @@ createApp({
             guardarCarrito();
             actualizarPrecioTotal();
             finalitzaCompraActiva.value = false;
-            divActivo.value = "carrito";
+            divActivo.value = "paginaDeInicio";
           } else {
             console.log("Error!! al procesar los productos en la comanda");
           }
