@@ -442,7 +442,7 @@ createApp({
     //}
     async function submitLogin() {
       try {
-        await fetch("http://localhost:8000/api/loginUser", {
+        const response = await fetch("http://localhost:8000/api/loginUser", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -452,6 +452,17 @@ createApp({
             password: password.value,
           }),
         });
+        const data = await response.json();
+        console.log('respuesta data',data)
+        if(data.login==true){
+          alert('Sesion iniciada');
+            
+          divActivo.value='paginaDeInicio';
+        }else{
+          window.alert('Contraseña incorrecta')
+          document.querySelector(".email").value='';
+          document.querySelector(".pass").value='';
+        }
       } catch (error) {
         console.error("Network error during login:", error);
       }
