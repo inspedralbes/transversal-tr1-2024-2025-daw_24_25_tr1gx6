@@ -157,25 +157,3 @@ export async function confirmarCompra(type) {
     }
 }
 
-export async function confirmarCompra(type) {
-    try {        
-        const response = await fetch(`${HOST}/mail/send`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ type }),
-        });
-
-        const data = await response.json();
-        
-        console.log("Conexión correcta A");
-        console.log(data);
-
-        return data;
-
-    } catch (error) {
-        console.log(error);
-    }
-}
-
