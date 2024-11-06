@@ -70,7 +70,9 @@ Route::get('/comanda', function () {
 
 //Rutes de gestió d'emails
 
-Route::get('/mail/{type}', [MailController::class, 'sendMail']);
+Route::post('/mail/{type}', [MailController::class, 'sendMail']);
+
+
 Route::get('/comanda', [ComandasController::class, 'comanda'])->name('comandas.view');
 Route::post('/pedidoUser', [ComandasController::class, 'pedidoUser'])->name('comanda.pedidoUser');
 Route::post('/updateEstadoComanda/{id}', [ComandasController::class, 'updateEstadoComanda'])->name('comanda.updateEstado');

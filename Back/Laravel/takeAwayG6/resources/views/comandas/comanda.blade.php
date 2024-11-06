@@ -168,6 +168,7 @@
                         document.getElementById(`btnSiguiente${id}`).disabled = true;
                     }
                     //switch de rutas hacia el router web.php con la ruta de mailController
+                    console.log('LlamaFndo a la funcion enviarCorreoEsatado con el nuevo estado');
                     enviarCorreoEstado(newEstado);
                 } else {
                     console.error('Error al actualizar el estado');
@@ -182,6 +183,7 @@
 
     async function enviarCorreoEstado(estado) {
         // Mapear el estado a un tipo de correo específico
+        console.log('Mapeando estado del correo mediante el estado del pedido');
         let tipoCorreo;
         switch (estado) {
             case 'Por Confirmar':
@@ -211,6 +213,7 @@
         }
 
         // Enviar solicitud para el correo
+        console.log('Enviando solicitud');
         const response = await fetch('/mail/send', {
             method: 'POST',
             headers: {
@@ -226,6 +229,7 @@
             const data = await response.json();
             if (data.message) {
                 console.log(data.message);
+                console.log('Estado cambiado correctamente');
             }
         } else {
             console.error('Error al enviar el correo');
