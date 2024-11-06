@@ -1,15 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\estadoPreparando;
 use App\Mail\estadoConfirm;
 use App\Mail\estadoConfirmed;
+use App\Mail\estadoPreparando;
 use App\Mail\estadoPreparado;
 use App\Mail\estadoEnviado;
 use App\Mail\estadoReparto;
 use App\Mail\estadoEntregado;
+
 
 
 class MailController extends Controller
