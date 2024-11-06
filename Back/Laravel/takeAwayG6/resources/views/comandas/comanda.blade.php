@@ -181,56 +181,56 @@
     }
 
     async function enviarCorreoEstado(estado) {
-    // Mapear el estado a un tipo de correo específico
-    let tipoCorreo;
-    switch (estado) {
-        case 'Por Confirmar':
-            tipoCorreo = 'confirm';
-            break;
-        case 'Confirmado':
-            tipoCorreo = 'confirmed';
-            break;
-        case 'Preparando':
-            tipoCorreo = 'preparando';
-            break;
-        case 'Preparado':
-            tipoCorreo = 'preparado';
-            break;
-        case 'Enviado':
-            tipoCorreo = 'enviado';
-            break;
-        case 'En Reparto':
-            tipoCorreo = 'reparto';
-            break;
-        case 'Entregado':
-            tipoCorreo = 'entregado';
-            break;
-        default:
-            console.log('Estado no reconocido para el envío de correo');
-            return;
-    }
-
-    // Enviar solicitud para el correo
-    const response = await fetch('/mail/send', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        },
-        body: JSON.stringify({
-            type: tipoCorreo
-        })
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        if (data.message) {
-            console.log(data.message);
+        // Mapear el estado a un tipo de correo específico
+        let tipoCorreo;
+        switch (estado) {
+            case 'Por Confirmar':
+                tipoCorreo = 'confirm';
+                break;
+            case 'Confirmado':
+                tipoCorreo = 'confirmed';
+                break;
+            case 'Preparando':
+                tipoCorreo = 'preparando';
+                break;
+            case 'Preparado':
+                tipoCorreo = 'preparado';
+                break;
+            case 'Enviado':
+                tipoCorreo = 'enviado';
+                break;
+            case 'En Reparto':
+                tipoCorreo = 'reparto';
+                break;
+            case 'Entregado':
+                tipoCorreo = 'entregado';
+                break;
+            default:
+                console.log('Estado no reconocido para el envío de correo');
+                return;
         }
-    } else {
-        console.error('Error al enviar el correo');
+
+        // Enviar solicitud para el correo
+        const response = await fetch('/mail/send', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({
+                type: tipoCorreo
+            })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            if (data.message) {
+                console.log(data.message);
+            }
+        } else {
+            console.error('Error al enviar el correo');
+        }
     }
-}
 
 
 
