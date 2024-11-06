@@ -113,7 +113,7 @@ export async function pedidoUser(json) {
 
 export async function productobyID(json) {
     try {
-        console.log(json);
+        console.log("id pro: ",json);
         
         const response = await fetch(HOST + '/productoById', {
             method:'POST',

@@ -207,8 +207,13 @@ createApp({
       if (producto1) {
         veureProd.value = id; 
         divActivo.value = "producte-item";
+
+        console.log("Front id: ",id);
+
+        const idProducto = id;
         
-        productobyID({ id })
+        
+        productobyID({ idProducto })
         .then((detallesProducto) => {
           console.log("Antes del if:", detallesProducto);
           stockProdctuId.value = detallesProducto;
