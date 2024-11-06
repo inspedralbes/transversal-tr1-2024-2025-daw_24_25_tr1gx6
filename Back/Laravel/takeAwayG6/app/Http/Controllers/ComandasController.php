@@ -41,11 +41,35 @@ class ComandasController extends Controller
     // Vista de comandas de CRUD
     public function getScreenComanda()
     {
-        if (!auth()->check()) {
-            return redirect()->route('login')->with('error', 'Debes iniciar sesión para acceder a esta página.');
-        }
+         if (!auth()->check()) {
+             return redirect()->route('login')->with('error', 'Debes iniciar sesión para acceder a esta página.');
+         }
 
-        $comandas = Comanda::with(['user','comandaArticulo'])->get();
+        $comandas = Comanda::with(['user', 'comandaArticulo', 'ComandaArticulo.producto'])->get();
+
+        //dd($comandas);
+
+        $comandasResponse = $comandas->map(function ($comanda) {
+            return [
+                'id' => $comanda->id,
+                'user' => [
+                    'id' => $comanda->user->id,
+                    'name' => $comanda->user->name,
+                ],
+                'estado' => $comanda->estado,
+                'articulos' => $comanda->comandaArticulo->map(function ($articulo) {
+                    return [
+                        'idComArt' => $articulo->id,
+                        'nomPro' => $articulo->producto->nom ?? 'No disponible', // Usar 'No disponible' si no hay producto
+                        'talla' => $articulo->talla,
+                        'color' => $articulo->color,
+                        'quantitat' => $articulo->quantitat,
+                        'preu' => $articulo->preu,
+                    ];
+                }),
+            ];
+        });
+        //dd($comandasResponse);
 
         return view('comandas.comanda', compact('comandas'));
     }

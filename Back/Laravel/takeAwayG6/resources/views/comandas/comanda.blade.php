@@ -32,7 +32,8 @@
                     <th>Acciones</th>
                 </tr>
                 @foreach ($comandas as $comanda)
-                    <p>{{ $comanda }}</p>
+                    {{-- <p>{{ $comandas }}</p> --}}
+                    {{-- <p>{{$comanda->coman}}</p> --}}
                     <tr>
                         <th>{{ $comanda->id }}</th>
                         <th>{{ $comanda->user->name }}</th>
@@ -43,12 +44,12 @@
 
                             <button class="btn btn-secondary btnsDeleteComanda" style="background-color: red;"
                                 data-id-comanda="{{ $comanda->id }}" data-estat="{{ $comanda->estat }}">Eliminar</button>
-
-
                             <button class="btn btn-secondary btnsCancelComanda" data-id-comanda="{{ $comanda->id }}"
                                 data-estat="Cancelado">Cancelar</button>
 
-                            <button class="btn btn-secondary" style="background-color: blue; border-radius: 60%">
+                            <button class="btn btn-info btnsInfoComanda" style="background-color: blue;"
+                                data-id-comanda="{{ $comanda->id }}"
+                                data-comanda-articulos="{{ json_encode($comanda->comandaArticulo) }}">
                                 <i class="bi bi-info-circle"></i>
                             </button>
 
@@ -67,6 +68,21 @@
 @endsection
 
 @section('forms-cruds')
+    <!-- Vertically centered scrollable modal -->
+    <div class="modal fade" id="modal-comanda-info" tabindex="-1" aria-labelledby="modal-comanda-info-label"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-comanda-info-label">Detalles de la Comanda</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modal-comanda-info-body">
+                    <!-- Aquí se cargarán los artículos dinámicamente -->
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')

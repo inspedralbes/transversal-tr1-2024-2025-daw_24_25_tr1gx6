@@ -1,6 +1,7 @@
 let btnsSiguienteComanda;
 let btnsDeleteComanda;
 let btnsCancelComanda;
+let btnsInfoComanda;
 
 const estados = [
     "Por Confirmar",
@@ -18,6 +19,19 @@ function init() {
     btnsSiguienteComanda = document.querySelectorAll('.btnsSiguienteComanda');
     btnsDeleteComanda = document.querySelectorAll('.btnsDeleteComanda');
     btnsCancelComanda = document.querySelectorAll('.btnsCancelComanda');
+    btnsInfoComanda = document.querySelectorAll('.btnsInfoComanda');
+
+    // Desactivar el botón "Siguiente" si el estado es "Entregado"
+    btnsSiguienteComanda.forEach(btnSiguienteComanda => {
+        const idComanda = btnSiguienteComanda.dataset.idComanda;
+        const estadoActual = document.getElementById(`estadoComanda${idComanda}`).innerText;
+        console.log("Id comanda: ", idComanda);
+        console.log("Estado: ", estadoActual);
+
+        if (estadoActual === "Entregado" || estadoActual === "Cancelado") {
+            document.getElementById(`btnSiguiente${idComanda}`).disabled = true;
+        }
+    });
 }
 
 
@@ -126,7 +140,7 @@ async function eliminarComanda() {
             console.log("Estado actual de la comanda: " + estatActual);
 
             // Verificar si el estado es "Entregado"
-            if (estatActual === "Entregado" && estatActual === "Cancelado") {
+            if (estatActual === "Entregado" || estatActual === "Cancelado") {
                 Swal.fire({
                     title: 'Advertencia!',
                     html: 'Estas seguro de eliminar esta comanda',
@@ -156,9 +170,59 @@ async function eliminarComanda() {
     })
 }
 
+function infoComanda() {
+    btnsInfoComanda.forEach(btnInfoComanda => {
+        btnInfoComanda.addEventListener('click', function () {
+            const idComanda = this.dataset.idComanda;
+            const comandaArticulos = JSON.parse(this.dataset.comandaArticulos);
+
+            const modalBody = document.querySelector('#modal-comanda-info-body');
+            modalBody.innerHTML = ''; // Limpiar el contenido anterior
+
+             // Contador de artículos
+             let articuloCount = 1;
+
+            comandaArticulos.forEach(articulo => {
+                const articuloDiv = document.createElement('div');
+                articuloDiv.classList.add('mb-3');
+                articuloDiv.innerHTML = `
+                    <h4>Comanda: ${idComanda}</h4>
+                    <p><b>Numero Articulo: </b>${articuloCount}</p>
+                    <ul>
+                        <li>
+                            <strong>Producto:</strong> ${articulo.producto.nom}
+                        </li>
+                        <li>
+                            <strong>Talla:</strong> ${articulo.talla}
+                        </li>
+                        
+                        <li>
+                            <strong>Color:</strong> ${articulo.color}
+                        </li>
+
+                        <li>
+                            <strong>Unidades:</strong> ${articulo.quantitat}
+                        </li>
+                        <li>
+                            <strong>Precio:</strong> ${articulo.preu} €
+                        </li>
+                    </ul>
+                `;
+                modalBody.appendChild(articuloDiv);
+                articuloCount++;
+            });
+
+            // Mostrar el modal
+            const modal = new bootstrap.Modal(document.querySelector('#modal-comanda-info'));
+            modal.show();
+        })
+    })
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     init();
     cambiarSiguienteEstado();
     eliminarComanda();
     cancelarComanda();
+    infoComanda();
 });
