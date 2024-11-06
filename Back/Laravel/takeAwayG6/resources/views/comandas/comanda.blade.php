@@ -179,31 +179,6 @@
     }
 
 
-
-            //     if (response.ok) {
-            //         const data = await response.json();
-
-            //         if (data.status === 'success') {
-            //             console.log('Estado actualizado a:', newEstado);
-            //             alert('Estado actualizado a:', newEstado);
-
-            //             // Deshabilitar el select y el botón si el nuevo estado es 'Entregado'
-            //             if (newEstado === 'Entregado') {
-            //                 const select = document.getElementById(`estadoComanda${id}`);
-            //                 const boton = document.getElementById(`btnSiguiente${id}`);
-
-            //                 if (select) select.disabled = true;
-            //                 if (boton) boton.disabled = true;
-            //             }
-            //         } else {
-            //             console.error('Error al actualizar el estado');
-            //         }
-            //     } else {
-            //         console.error('Error al hacer la solicitud');
-            //     }
-            // }
-
-
             async function eliminarComanda(id) {
                 if (confirm("¿Estás seguro de que deseas eliminar esta comanda?")) {
                     const response = await fetch(`/deleteComanda/${id}`, {

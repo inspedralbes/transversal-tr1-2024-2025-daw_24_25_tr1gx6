@@ -10,10 +10,10 @@
 
 <body>
     <div id="app">
-        <nav>
+        <!-- Navbar -->
+        <nav id="navbar">
             <img @click="irPantallaInicio" id="logo" src="./Img/Logo.png" alt="Logo">
             <a @click="irABotiga">Botiga</a>
-            <a @click="cambiarACarrito">Checkout</a>
             <div class="search-box">
                 <form method="get" id="search-form">
                     <input type="text" id="search-input" placeholder="Buscar" />
@@ -102,16 +102,15 @@
                 </div>
             </div>
             <h3 v-if="finalitzaCompraActiva">Preu: {{precioTotal.toFixed(2)}}€</h3>
-            <button @click="cambiarACarrito" v-if="finalitzaCompraActiva" id="finalizarCompra" class="btn">Ir al
-                carrito</button>
-                <h4 v-if="productosEnCesta.length === 0">No hay nada en la cesta</h4>
-                <h4 v-else>total: {{precioTotal.toFixed(2)}}€</h4></h4>
+            <button @click="cambiarACarrito" v-if="finalitzaCompraActiva" id="finalizarCompra" class="btn">Anar a la cistella</button>
+                <h4 v-if="productosEnCesta.length === 0">No hi ha res a la cistella</h4>
+                <a @click="cambiarACarrito" class="btn_pagament" >Pagament</a>
 
         </div>
 
         <!-- Carrito -->
         <div v-if="divActivo=='carrito'" id="cestaCompleta">
-            <h2 style="text-align: center; font-size: 40px">Carrito</h2>
+            <h2 style="text-align: center; font-size: 40px">Cistella</h2>
             <div class="carrito-header" style="display: flex; justify-content: space-between;"></div>
             <div class="mostrarInfo">
                 <h3 class="nomProducte">Productos</h3>
