@@ -305,6 +305,7 @@ createApp({
         })
         .then((response) => {
           if (response && response.status === "success") {
+            window.alert('Comprar realizada correctamente')
             console.log("Compra finalizada correctamente");
             productosEnCesta.value = [];
             guardarCarrito();
