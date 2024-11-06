@@ -175,7 +175,7 @@ createApp({
     
       setTimeout(() => {
         cestaActiva.value = false;
-      }, 3000);
+      }, 2000);
     }
     
 
