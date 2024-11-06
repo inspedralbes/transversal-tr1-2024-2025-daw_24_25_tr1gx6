@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ComandasController;
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,8 @@ Route::post('/createComanda', [ComandasController::class, 'createComanda'])->nam
 
 Route::post('/registerUser', [UserController::class, 'createUser'])->name('register.user');
 Route::post('/loginUser', [UserController::class, 'loginUser'])->name('login.user');
+
+Route::post('/compraStripe',[StripeController::class, 'compra'])->name('compra.stripe');
 
 //Route::post('/loginAdmin',[AutorizacionController::class,'login'])->name('login.creendentials');
 
