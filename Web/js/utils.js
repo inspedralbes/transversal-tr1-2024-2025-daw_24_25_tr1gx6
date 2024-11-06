@@ -468,7 +468,34 @@ createApp({
         console.error("Network error during login:", error);
       }
     }
-
+    function filtroCategoriasPulsar(idCategoria){
+      console.log(idCategoria)
+      switch(idCategoria){
+        case 0:
+          filtros.categoria = 'zapatillas'
+          break;
+        case 1:
+          filtros.categoria = 'sudadera'
+          break;
+        case 2:
+          filtros.categoria = 'pantalon'
+          break;
+        case 3:
+          filtros.categoria = 'chaqueta'
+          break;
+        case 4:
+          filtros.categoria = 'camiseta'
+          break;
+        case 5:
+          filtros.categoria = 'chandal'
+          break;
+        case 6:
+          filtros.categoria = 'chaleco'
+          break;
+      }
+      filtrar();
+      divActivo.value = 'paginaPrincipal';
+    }
     return {
       productos2,
       nombre,
@@ -510,6 +537,7 @@ createApp({
       filtros,
       cambioFiltros,
       producto1,
+      filtroCategoriasPulsar,
     };
   },
 }).mount("#app");

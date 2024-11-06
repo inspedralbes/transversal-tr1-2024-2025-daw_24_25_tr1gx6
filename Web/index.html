@@ -44,8 +44,7 @@
                 </div>
                 <h2>Explora les nostres categories</h2>
                 <div id="categorias-container" class="categorias-container">
-                    <div v-for="(categoria, index) in categorias" :key="index" class="categoria-card"
-                        @click="filtrarPorCategoria(categoria.nom)">
+                    <div v-for="(categoria, index) in categorias" :key="index" class="categoria-card" @click="filtroCategoriasPulsar(index)">
                         <img :src="categoria.imagen" :alt="" class="imagenCategoria" />
                         <h4>{{ categoria.nom }}</h4>
                     </div>
