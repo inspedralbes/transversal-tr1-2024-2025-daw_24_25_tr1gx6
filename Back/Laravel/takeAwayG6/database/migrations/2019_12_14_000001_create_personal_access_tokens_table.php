@@ -20,6 +20,7 @@ class CreatePersonalAccessTokensTable extends Migration
             $table->string('token', 64)->unique();
             $table->text('abilities')->nullable();
             $table->timestamp('expires_at')->nullable();
+            $table->timestamp('last_used_at')->nullable();
             $table->timestamps();
         });
     }
@@ -32,5 +33,8 @@ class CreatePersonalAccessTokensTable extends Migration
     public function down()
     {
         Schema::dropIfExists('personal_access_tokens');
+        Schema::table('personal_access_tokens', function (Blueprint $table) {
+            $table->dropColumn('last_used_at');
+        });
     }
 }

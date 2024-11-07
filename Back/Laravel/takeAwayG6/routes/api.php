@@ -26,9 +26,7 @@ Route::post('/productoById', [StockController::class, 'getProducteID'])->name('g
 
 
 //RUTA PARA DEVOLVER UN JSON CON LA COMANDA DEL USUARIO FILTRADA
-Route::post('/pedidoUser', [ComandasController::class, 'pedidoUser'])->name('pedido.user');
-Route::post('/createComandaArt', [ComandaArticuloController::class, 'createComandaArt'])->name('create.comandaArt');
-Route::post('/createComanda', [ComandasController::class, 'createComanda'])->name('create.comanda');
+
 
 Route::post('/registerUser', [UserController::class, 'createUser'])->name('register.user');
 Route::post('/loginUser', [UserController::class, 'loginUser'])->name('login.user');
@@ -38,6 +36,7 @@ Route::post('/compraStripe',[StripeController::class, 'compra'])->name('compra.s
 //Route::post('/loginAdmin',[AutorizacionController::class,'login'])->name('login.creendentials');
 
 Route::middleware('auth:sanctum')->group(callback: function () {
-
-
+    Route::post('/createComanda', [ComandasController::class, 'createComanda'])->name('create.comanda');
+    Route::post('/createComandaArt', [ComandaArticuloController::class, 'createComandaArt'])->name('create.comandaArt');
+    Route::post('/pedidoUser', [ComandasController::class, 'pedidoUser'])->name('pedido.user');
 });
