@@ -53,6 +53,23 @@ class UserController extends Controller
 
         return redirect()->back()->with('success', 'Usuario Registrado exitosamente');
     }
+    public function createUserRegister(Request $request){
+        $data = $request->validate([
+            'name'=> 'required',
+            'email'=> ['required', 'email'],
+            'password'=> 'required'
+        ]);
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
+
+        $user->save();
+
+        return response()->json(['success' => 'Usuario creado correctamente']);
+    }
+
 
     public function updateUser(Request $request, $id){
         $data = $request->validate([

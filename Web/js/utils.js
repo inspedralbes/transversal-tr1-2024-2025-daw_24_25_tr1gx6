@@ -47,6 +47,10 @@ createApp({
     const selectedCombinacion = ref("");
     const email = ref("");
     const password = ref("");
+    const passwordRegister = ref("");
+    const emailRegister = ref("");
+    const UserName = ref("");
+    const rol = ref("");
 
     async function getProductos() {
       await fetch("http://localhost:8000/api/getProductos")
@@ -395,7 +399,7 @@ createApp({
             cumplePrecio = precioProducto <= 150;
             break;
             case "<=175":
-              cumplePrecio = precioProducto <= 125;
+              cumplePrecio = precioProducto <= 175;
               break;
           case "<=200":
             cumplePrecio = precioProducto <= 200;
@@ -412,7 +416,9 @@ createApp({
       filtros.precio = document.querySelector(".precio").value;
       filtrar();
     }
-    
+    function IrRegistro(){
+      divActivo.value = 'registrarse';
+    }
     // function filtrarPorCategoria(){
       //   productos2.value = [];
       
@@ -470,6 +476,29 @@ createApp({
         }
       } catch (error) {
         console.error("Network error during login:", error);
+      }
+    }
+    async function submitRegister (){
+      const request ={
+        name: UserName.value,               
+        email: emailRegister.value,         
+        password: passwordRegister.value,
+      }
+
+    console.log(request);
+
+      const response = await fetch("http://localhost:8000/api/createUser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(request),
+      });
+      const data = await response.json();
+      console.log('respuesta data Registro',data)
+      if(data.success){
+        window.alert('Usuario registrado correctamente');
+        divActivo.value = 'paginaDeInicio';
       }
     }
     function filtroCategoriasPulsar(idCategoria){
@@ -542,6 +571,12 @@ createApp({
       cambioFiltros,
       producto1,
       filtroCategoriasPulsar,
+      IrRegistro,
+      submitRegister,
+      passwordRegister,
+      emailRegister,
+      UserName,
+      rol,
     };
   },
 }).mount("#app");

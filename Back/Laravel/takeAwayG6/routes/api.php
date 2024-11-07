@@ -14,6 +14,7 @@ use App\Http\Controllers\AutorizacionController;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+Route::post('/createUser', [UserController::class, 'createUserRegister'])->name('create.user');
 
 Route::get('/getProductos', [ProductoController::class, 'getProductos'])->name('get.productos');
 Route::get('/getCategory', [CategoriaController::class, 'getCategory'])->name('get.category');
