@@ -44,12 +44,14 @@ export async function getMarcas() {
 /*----------------------------------------POST--------------------------------------*/
 
 export async function checkoutProductos(json) {
+    const token  = localStorage.getItem('token');
+
     try {
         const response = await fetch(HOST + '/createComandaArt', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                // 'Accept': 'application/json'
+                'Authorization': `Bearer ${token}`,  // Add the Authorization header with Bearer token
 
             },
             body: JSON.stringify(json),
@@ -67,11 +69,16 @@ export async function checkoutProductos(json) {
 }
 
 export async function createComanda(json) {
+    console.log(json);
+    
+    const token  = localStorage.getItem('token');
+    console.log('token', token);
     try {
         const response = await fetch(HOST + '/createComanda', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,  // Add the Authorization header with Bearer token
             },
             body: JSON.stringify(json),
         });
@@ -114,7 +121,7 @@ export async function pedidoUser(json) {
 export async function productobyID(json) {
     try {
         console.log(json);
-        
+
         const response = await fetch(HOST + '/productoById', {
             method: 'POST',
             headers: {
@@ -125,9 +132,9 @@ export async function productobyID(json) {
         const data = await response.json();
 
         console.log("Conexion correcta A");
-        
-        console.log('stock de productos y tallas',data);
-        
+
+        console.log('stock de productos y tallas', data);
+
         return data;
 
     } catch (error) {
@@ -136,7 +143,7 @@ export async function productobyID(json) {
 }
 
 export async function confirmarCompra(type) {
-    try {        
+    try {
         const response = await fetch(`${HOST}/mail/send`, {
             method: 'POST',
             headers: {
@@ -146,7 +153,7 @@ export async function confirmarCompra(type) {
         });
 
         const data = await response.json();
-        
+
         console.log("Conexión correcta A");
         console.log(data);
 
@@ -160,11 +167,11 @@ export async function confirmarCompra(type) {
 export async function compraStripe(json) {
     try {
         const response = await fetch(HOST + '/api/compraStripe', {
-            method:'POST',
+            method: 'POST',
             headers: {
-                'Content-Type':'application/json'
+                'Content-Type': 'application/json'
             },
-            body:JSON.stringify(json),
+            body: JSON.stringify(json),
         })
         const data = await response.json();
 
@@ -172,5 +179,27 @@ export async function compraStripe(json) {
 
     } catch (error) {
         console.log(error);
+    }
+}
+
+export async function login(json) {
+    console.log(json);
+    
+    try {
+        const response = await fetch(HOST+'/loginUser', {
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify(json),
+        })
+        const data = await response.json();
+
+        console.log(data);
+
+        return data;
+        
+    } catch (error) {
+
     }
 }

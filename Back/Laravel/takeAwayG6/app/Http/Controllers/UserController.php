@@ -19,7 +19,7 @@ class UserController extends Controller
         ]);
 
         if (Auth::attempt($credenciales)) {
-            $request->session()->regenerate();
+            //$request->session()->regenerate();
             $user = Auth::user();
 
             $token = $user->createToken('auth-token')->plainTextToken;
@@ -27,7 +27,7 @@ class UserController extends Controller
 
             //dd($token);
 
-            return redirect()->json(['status'=> 'success', 'token', $token]);
+            return response()->json(['status'=> 'success', 'token' => $token ,'user'=> $user ]);
 
         }
 

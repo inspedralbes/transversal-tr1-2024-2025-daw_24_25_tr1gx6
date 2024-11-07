@@ -17,6 +17,12 @@ class ComandasController extends Controller
             'total' => 'required',
         ]);
 
+        $user = auth()->user();
+
+        if (!$user) {
+            return response()->json(['status' => 'error', 'message' => 'No autenticado'], 401);
+        }
+
         $comanda = new Comanda();
         $comanda->idUser = $request->idUser;
         $comanda->estat = $request->estat;
@@ -41,9 +47,9 @@ class ComandasController extends Controller
     // Vista de comandas de CRUD
     public function getScreenComanda()
     {
-         if (!auth()->check()) {
-             return redirect()->route('login')->with('error', 'Debes iniciar sesión para acceder a esta página.');
-         }
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para acceder a esta página.');
+        }
 
         $comandas = Comanda::with(['user', 'comandaArticulo', 'ComandaArticulo.producto'])->get();
 
