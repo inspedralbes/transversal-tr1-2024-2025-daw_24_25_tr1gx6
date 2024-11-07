@@ -2,11 +2,51 @@
 
 namespace App\Http\Controllers;
 
+use Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
 
 class UserController extends Controller
 {
+
+    public function loginUser(Request $request) {
+        
+        $credenciales = $request->validate([
+            "email" => ["required", "email"],
+            "password" => "required",
+        ]);
+
+        if (Auth::attempt($credenciales)) {
+            //$request->session()->regenerate();
+            $user = Auth::user();
+
+            $token = $user->createToken('auth-token')->plainTextToken;
+            //session(['auth-token', $token]);
+
+            //dd($token);
+
+            return response()->json(['status'=> 'success', 'token' => $token ,'user'=> $user ]);
+
+        }
+
+        //return back()->withErrors(['email'=> 'Correo o contraseña no son correctas'])->onlyInput('email');
+        return response()->json(['status' => 'error', 'message' => 'Usuario no encontrado']);
+    }
+
+    public function getUsers(){
+
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para acceder a esta página.');
+        }
+
+        $users = User::all();
+        $rols = User::getEnumValues('users', 'rol');
+
+        return view('users.user', compact('users', 'rols'));
+    }
+    
     public function createUser(Request $request){
         $data = $request->validate([
             'name'=> 'required',
@@ -16,23 +56,34 @@ class UserController extends Controller
         ]);
 
         $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        $user->rol = $request->rol;
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->password = $data['password'];
+        $user->rol = $data['rol'];
 
         $user->save();
 
-        // $token = $user->createToken('auth-token')->plainTextToken;
-        // session(['auth-token', $token]);
+        return redirect()->back()->with('success', 'Usuario Registrado exitosamente');
+    }
+    public function createUserRegister(Request $request){
+        $data = $request->validate([
+            'name'=> 'required',
+            'email'=> ['required', 'email'],
+            'password'=> 'required'
+        ]);
 
-        // Log the user in
-        //Auth::login($user);
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
 
-        return response()->json(['status' => 'success', 'message'=>'Usuario creado correctamente']);
+        $user->save();
+
+        return response()->json(['success' => 'Usuario creado correctamente']);
     }
 
-    public function updateUser(Request $request){
+
+    public function updateUser(Request $request, $id){
         $data = $request->validate([
             'name'=> 'required',
             'email'=> ['required', 'email'],
@@ -40,22 +91,21 @@ class UserController extends Controller
             'rol'=> 'required'
         ]);
 
-        $user = User::findOrFail(Auth::user()->id);
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        $user->rol = $request->rol;
+        $user = User::findOrFail($id);
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->password = $data['password'];
+        $user->rol = $data['rol'];
 
         $user->save();
 
-        return response()->json(['status'=>'success', 'message'=>'Usuario actualizado']);
+        return redirect()->back()->with('success', 'Usuario actualizado exitosamente');
     }
 
-    public function deleteUser(){
-        
-        $user = User::findOrFail(Auth::user()->id);
-
-        $user->delete();
+    public function deleteUser($id) {
+        $user = User::findOrFail($id); 
+        $user->delete(); 
+        return redirect()->back()->with('success', 'Usuario eliminado exitosamente');
     }
 
 }

@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ComandaArticulo extends Model
 {
-    /*
-    public function comanda(){
-        return $this->belongsTo(Comanda::class, 'idComanda');
-    }*/
+    
+    public function producto(){
+        return $this->belongsTo(Producto::class, 'idProducto');
+    }
 }

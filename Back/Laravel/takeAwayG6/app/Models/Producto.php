@@ -10,7 +10,7 @@ class Producto extends Model
 {
     use HasFactory;
 
-    protected $hidden = ['idCategory', 'idMarca', 'idColor', 'idTalla']; // Esto oculta los campos al serializar
+    protected $hidden = ['idCategory', 'idMarca']; // Esto oculta los campos al serializar
 
 
     public function category(){
@@ -19,13 +19,5 @@ class Producto extends Model
 
     public function marca(){
         return $this->belongsTo(Marca::class, 'idMarca');
-    }
-
-    public function talla(){
-        return $this->belongsTo(Talla::class, 'idTalla');
-    }
-
-    public function color(){
-        return $this->belongsTo(Color::class, 'idColor');
     }
 }

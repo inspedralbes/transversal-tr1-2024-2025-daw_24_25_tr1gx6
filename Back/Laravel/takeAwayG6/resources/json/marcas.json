@@ -1,34 +1,34 @@
 [
     {
         "nom":"Nike",
-        "imagen":"ruta"
+        "imagen":"./Img/nike.jpg"
     },
     {
         "nom":"Adidas",
-        "imagen":"ruta"
+        "imagen":"./Img/adidas.png"
     },
     {
         "nom":"Puma",
-        "imagen":"ruta"
+        "imagen":"./Img/puma.png"
     },
     {
         "nom":"The North Face",
-        "imagen":"ruta"
+        "imagen":"./Img/the_north_face.png"
     },
     {
         "nom":"Jordan",
-        "imagen":"ruta"
+        "imagen":"./Img/jordan.jpg"
     },
     {
         "nom":"Vans",
-        "imagen":"ruta"
+        "imagen":"./Img/vans.jpg"
     },
     {
         "nom":"Fila",
-        "imagen":"ruta"
+        "imagen":"./Img/fila.png"
     },
     {
         "nom":"Converse",
-        "imagen":"ruta"
+        "imagen":"converse.png"
     }
 ]

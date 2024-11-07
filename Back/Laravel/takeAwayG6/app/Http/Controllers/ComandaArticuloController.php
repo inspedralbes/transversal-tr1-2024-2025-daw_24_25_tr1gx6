@@ -4,34 +4,55 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ComandaArticulo;
+use App\Models\Stock;
 
 class ComandaArticuloController extends Controller
 {
-    public function createComandaArt(Request $request){
+    public function createComandaArt(Request $request)
+    {
 
         $data = $request->validate([
-            'json.*.idProducto'=> 'required',
-            'json.*.talla'=> 'required',
-            'json.*.color'=> 'required',
-            'json.*.quantitat'=> 'required',
-            'json.*.preu'=> 'required',
+            '*.idProducto' => 'required',
+            '*.idComanda' => 'required',
+            '*.idStock' => 'required',
+            '*.talla' => 'required',
+            '*.color' => 'required',
+            '*.quantitat' => 'required',
+            '*.preu' => 'required',
         ]);
 
-        foreach($data['json'] as $comandaArt){
+        // Group quantities by idStock
+        $stockUpdates = [];
+
+        foreach ($data as $jsonItem) {
             $comandaArt = new ComandaArticulo();
-            $comandaArt->idPrducto = $json['idPrducto'];
-            $comandaArt->talla = $json['talla'];
-            $comandaArt->color = $json['color'];
-            $comandaArt->quantitat = $json['quantitat'];
-            $comandaArt->preu = $json['preu'];
+            $comandaArt->idProducto = $jsonItem['idProducto'];
+            $comandaArt->idComanda = $jsonItem['idComanda'];
+            $comandaArt->talla = $jsonItem['talla'];
+            $comandaArt->color = $jsonItem['color'];
+            $comandaArt->quantitat = $jsonItem['quantitat'];
+            $comandaArt->preu = $jsonItem['preu'];
             $comandaArt->save();
         }
 
-        return response()->json(['status'=>'success', 'message' => 'Comanda aritulo creada']);
+        foreach ($data as $jsonItem) {
+            $stocks = Stock::findOrFail($jsonItem['idStock']);
+
+            $cant = $jsonItem['quantitat'];
+
+            $resultado = $stocks->Nstock - $cant;
+
+            $stocks->Nstock = $resultado;
+
+            $stocks->save();
+        }
+
+        return response()->json(['status' => 'success', 'message' => 'Articulos metidos en la comanda exitosamente']);
     }
 
-    public function updateComandaArt(){
-        
+    public function updateComandaArt()
+    {
+
     }
 
 }

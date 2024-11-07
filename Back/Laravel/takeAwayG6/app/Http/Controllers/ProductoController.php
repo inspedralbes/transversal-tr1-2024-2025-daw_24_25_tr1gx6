@@ -2,17 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Stock;
 use Illuminate\Http\Request;
 use App\Models\Producto;
+use App\Models\Categoria;
+use App\Models\Marca;
+use App\Models\Talla;
+use App\Models\Color;
 
 class ProductoController extends Controller
 {
 
     public function getProductos()
     {
-        $productos = Producto::with(['category', 'marca', 'talla', 'color'])->get();
+        $productos = Producto::with(['category', 'marca'])->get();
 
-        
+
         // Mapeamos los productos para cambiar la estructura
         /*
         $productosResponse = $productos->map(function ($producto) {
@@ -35,33 +40,44 @@ class ProductoController extends Controller
         return response()->json($productos);
     }
 
-    public function createProducto(Request $request, $id)
+    public function getScreenProducto()
+    {
+
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para acceder a esta página.');
+        }
+
+        $productos = Producto::with(relations: ['category', 'marca'])->get();
+        $categorias = Categoria::all();
+        $marcas = Marca::all();
+
+        return view('productos.producto', compact('productos', 'categorias', 'marcas'));
+    }
+
+    public function createProducto(Request $request)
     {
 
         $data = $request->validate([
             'nom' => 'required',
             'desc' => 'required',
-            'stock' => 'required',
             'preu' => 'required',
             'img' => 'required',
-            'talla' => 'required',
-            'color' => 'required',
-            'idCategory' => 'required'
+            'idCategory' => 'required',
+            'idMarca' => 'required'
         ]);
 
         $producto = new Producto();
         $producto->nom = $request->nom;
         $producto->desc = $request->desc;
-        $producto->stock = $request->stock;
         $producto->preu = $request->preu;
         $producto->img = $request->img;
-        $producto->talla = $request->talla;
-        $producto->color = $request->color;
+        $producto->valoracion = 0;
         $producto->idCategory = $request->idCategory; // o $id
-
+        $producto->idMarca = $request->idMarca; // o $id
         $producto->save();
 
-        return response()->json(['status' => 'success', 'message' => 'Producto creado correctamente']);
+        //return response()->json(['status'=>'success', 'message'=>'Producto Creado']);
+        return redirect()->route(route: 'screen.productos');
     }
 
     public function updateProducto(Request $request, $id)
@@ -70,34 +86,35 @@ class ProductoController extends Controller
         $data = $request->validate([
             'nom' => 'required',
             'desc' => 'required',
-            'stock' => 'required',
             'preu' => 'required',
             'img' => 'required',
-            'talla' => 'required',
-            'color' => 'required',
-            'idCategory' => 'required'
+            'idCategory' => 'required',
+            'idMarca' => 'required',
+
         ]);
 
-        $producto = Producto::findOrFail($request->idCategory); //o $id
+        $producto = Producto::findOrFail($id); //o $id
         $producto->nom = $request->nom;
         $producto->desc = $request->desc;
-        $producto->stock = $request->stock;
         $producto->preu = $request->preu;
         $producto->img = $request->img;
-        $producto->talla = $request->talla;
-        $producto->color = $request->color;
+        $producto->valoracion = 0;
         $producto->idCategory = $request->idCategory; // o $id
+        $producto->idMarca = $request->idMarca; // o $id
 
         $producto->save();
 
-        return response()->json(['status' => 'success', 'message' => 'Producto creado correctamente']);
+        //return response()->json(['status' => 'success', 'message' => 'Producto creado correctamente']);
+        return redirect()->route(route: 'screen.productos');
+
     }
 
     public function deleteProducto($id)
     {
-
         $producto = Producto::findOrFail($id);
         $producto->delete();
+
+        return redirect()->route(route: 'screen.productos');
 
     }
 

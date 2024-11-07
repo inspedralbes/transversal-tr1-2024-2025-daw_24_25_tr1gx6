@@ -1,7 +1,7 @@
 const HOST = 'http://localhost:8000/api';
 
 
-
+/*-----------------------------------GET---------------------*/
 export async function getProductoss() {
     try {
         const response = await fetch(`${HOST}/getProductos`);
@@ -16,12 +16,42 @@ export async function getProductoss() {
     }
 }
 
+
+export async function getCategorias() {
+    try {
+        const response = await fetch(HOST + '/getCategory');
+        const data = await response.json();
+        return data;
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function getMarcas() {
+    try {
+        const response = await fetch(HOST + '/getMarcas');
+        const data = await response.json();
+        return data;
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+/*----------------------------------------POST--------------------------------------*/
+
 export async function checkoutProductos(json) {
+    const token  = localStorage.getItem('token');
+
     try {
         const response = await fetch(HOST + '/createComandaArt', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,  // Add the Authorization header with Bearer token
+
             },
             body: JSON.stringify(json),
         });
@@ -37,35 +67,42 @@ export async function checkoutProductos(json) {
 
 }
 
-export async function checkout(json) {
+export async function createComanda(json) {
+    console.log(json);
+    
+    const token  = localStorage.getItem('token');
+    console.log('token', token);
     try {
-        const response = await fetch(HOST + '/checkout', {
+        const response = await fetch(HOST + '/createComanda', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,  // Add the Authorization header with Bearer token
             },
             body: JSON.stringify(json),
         });
-
+        //CONSULTAR SI LA CONEXION ES BUENA
         if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+            throw new Error(`Error: ${response.status} - ${response.statusText}`);
         }
-
         const data = await response.json();
+        console.log(data);
+        console.log(data.IdComanda);
         return data;
     } catch (error) {
-        console.log(console.error());
+        console.log(error);
     }
+
 }
 
 export async function pedidoUser(json) {
     try {
         const response = await fetch(HOST + '/pedidoUser', {
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json'
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
             },
-            body:JSON.stringify(json),
+            body: JSON.stringify(json),
         });
         //CONSULTAR SI LA CONEXION ES BUENA
         if (!response.ok) {
@@ -80,24 +117,88 @@ export async function pedidoUser(json) {
 
 }
 
-export async function getCategorias() {
-    try{
-        const response = await fetch(HOST + '/getCategory');
+export async function productobyID(json) {
+    try {
+        console.log(json);
+
+        const response = await fetch(HOST + '/productoById', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(json),
+        })
         const data = await response.json();
+
+        console.log("Conexion correcta A");
+
+        console.log('stock de productos y tallas', data);
+
         return data;
 
-    }catch(error){
+    } catch (error) {
         console.log(error);
-    }   
+    }
 }
 
-export async function getMarcas() {
-    try{
-        const response = await fetch(HOST + '/getMarcas');
+export async function confirmarCompra(type) {
+    try {
+        const response = await fetch(`${HOST}/mail/send`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ type }),
+        });
+
         const data = await response.json();
+
+        console.log("Conexión correcta A");
+        console.log(data);
+
         return data;
 
-    }catch(error){
+    } catch (error) {
         console.log(error);
-    }   
+    }
+}
+
+export async function compraStripe(json) {
+    try {
+        const response = await fetch(HOST + '/api/compraStripe', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(json),
+        })
+        const data = await response.json();
+
+        console.log(data);
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function login(json) {
+    console.log(json);
+    
+    try {
+        const response = await fetch(HOST+'/loginUser', {
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify(json),
+        })
+        const data = await response.json();
+
+        console.log(data);
+
+        return data;
+        
+    } catch (error) {
+
+    }
 }

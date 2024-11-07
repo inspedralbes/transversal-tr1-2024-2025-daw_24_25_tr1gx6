@@ -7,21 +7,7 @@
         "img": "./Img/airMax.png",
         "valoracion": 2,
         "idCategory": 1,
-        "idMarca": 1,
-        "idColor": 4,
-        "idTalla": 9
-    },
-    {
-        "nom": "Nike Air Max 270",
-        "desc": "Zapatillas Nike Air Max 270 en idColor blanco y negro con unidad Air visible para una mayor comodidad.",
-        "stock": 10,
-        "preu": 149.99,
-        "img": "./Img/air_max_blanca.png",
-        "valoracion": 5,
-        "idCategory": 1,
-        "idMarca": 1,
-        "idColor": 5,
-        "idTalla": 10
+        "idMarca": 1
     },
     {
         "nom": "adidas Originals Superstar",
@@ -31,9 +17,7 @@
         "img": "./Img/adidasOriginalsSuperstar.png",
         "valoracion": 5,
         "idCategory": 1,
-        "idMarca": 2,
-        "idColor": 5,
-        "idTalla": 11
+        "idMarca": 2
     },
     {
         "nom": "PUMA Cali Dream",
@@ -43,9 +27,7 @@
         "img": "./Img/PUMACaliDream.webp",
         "valoracion": 7,
         "idCategory": 1,
-        "idMarca": 3,
-        "idColor": 5,
-        "idTalla": 10
+        "idMarca": 3
     },
     {
         "nom": "Nike Tech Fleece Hoodie",
@@ -55,10 +37,7 @@
         "img": "./Img/techChandal.webp",
         "valoracion": 4,
         "idCategory": 2,
-        "idMarca": 1,
-        "idColor": 9,
-        "idTalla": 3
-        
+        "idMarca": 1
     },
     {
         "nom": "adidas 3-Stripes Joggers",
@@ -68,10 +47,7 @@
         "img": "./Img/pantalonesJogerAdidas.webp",
         "valoracion": 8,
         "idCategory": 6,
-        "idMarca": 2,
-        "idColor": 9,
-        "idTalla": 3
-        
+        "idMarca": 2
     },
     {
         "nom": "The North Face Himalayan Jacket",
@@ -81,10 +57,7 @@
         "img": "./Img/chaquetaNorthFace.webp",
         "valoracion": 9,
         "idCategory": 4,
-        "idMarca": 4,
-        "idColor": 1,
-        "idTalla": 5
-        
+        "idMarca": 4
     },
     {
         "nom": "Jordan Jumpman T-Shirt",
@@ -94,9 +67,7 @@
         "img": "./Img/camisetaJordan.webp",
         "valoracion": 10,
         "idCategory": 5,
-        "idMarca": 5,
-        "idColor": 11,
-        "idTalla": 2
+        "idMarca": 5
     },
     {
         "nom": "Nike Air Jordan 1 Mid",
@@ -106,9 +77,7 @@
         "img": "./Img/airJordan1.webp",
         "valoracion": 2,
         "idCategory": 1,
-        "idMarca": 1,
-        "idColor": 1,
-        "idTalla": 14
+        "idMarca": 1
     },
     {
         "nom": "Nike Club Fleece Pants",
@@ -118,9 +87,7 @@
         "img": "./Img/nikeFleecePants.webp",
         "valoracion": 4,
         "idCategory": 3,
-        "idMarca": 1,
-        "idColor": 4,
-        "idTalla": 3
+        "idMarca": 1
     },
     {
         "nom": "adidas Tiro 21 Track Jacket",
@@ -130,9 +97,7 @@
         "img": "./Img/chaquetaAdidasTiro.webp",
         "valoracion": 8,
         "idCategory": 4,
-        "idMarca": 2,
-        "idColor": 4,
-        "idTalla": 6
+        "idMarca": 2
     },
     {
         "nom": "Nike Dri-FIT T-Shirt",
@@ -142,9 +107,7 @@
         "img": "./Img/nikeCamisetaDriFit.webp",
         "valoracion": 9,
         "idCategory": 5,
-        "idMarca": 1,
-        "idColor": 2,
-        "idTalla": 5
+        "idMarca": 1
     },
     {
         "nom": "PUMA Essentials Hoodie",
@@ -154,9 +117,7 @@
         "img": "./Img/sudaderaPuma.png",
         "valoracion": 1,
         "idCategory": 2,
-        "idMarca": 3,
-        "idColor": 9,
-        "idTalla": 4
+        "idMarca": 3
     },
     {
         "nom": "New Balance 574 Classic",
@@ -165,10 +126,8 @@
         "preu": 89.99,
         "img": "./Img/newBalance574.webp",
         "valoracion": 0,
-        "idCategory": 3,
-        "idMarca": 4,
-        "idColor": 9,
-        "idTalla": 13
+        "idCategory": 1,
+        "idMarca": 4
     },
     {
         "nom": "Vans Old Skool",
@@ -178,9 +137,7 @@
         "img": "./Img/zapatillasVans.png",
         "valoracion": 7,
         "idCategory": 1,
-        "idMarca": 6,
-        "idColor": 4,
-        "idTalla": 12
+        "idMarca": 6
     },
     {
         "nom": "Champion Reverse Weave Hoodie",
@@ -190,9 +147,7 @@
         "img": "./Img/ChampionReverseWeaveHoodie.png",
         "valoracion": 1,
         "idCategory": 2,
-        "idMarca": 4,
-        "idColor": 1,
-        "idTalla": 3
+        "idMarca": 4
     },
     {
         "nom": "Fila Disruptor II",
@@ -202,9 +157,7 @@
         "img": "./Img/Fila Disruptor II.png",
         "valoracion": 6,
         "idCategory": 1,
-        "idMarca": 7,
-        "idColor": 5,
-        "idTalla": 7
+        "idMarca": 7
     },
     {
         "nom": "adidas Essentials 3-Stripes T-Shirt",
@@ -214,9 +167,7 @@
         "img": "./Img/adidas Essentials 3-Stripes T-Shirt.webp",
         "valoracion": 3,
         "idCategory": 5,
-        "idMarca": 2,
-        "idColor": 4,
-        "idTalla": 1
+        "idMarca": 2
     },
     {
         "nom": "Converse Chuck Taylor All Star",
@@ -226,9 +177,7 @@
         "img": "./Img/Converse Chuck Taylor All Star.webp",
         "valoracion": 9,
         "idCategory": 1,
-        "idMarca": 8,
-        "idColor": 5,
-        "idTalla": 8
+        "idMarca": 8
     },
     {
         "nom": "The North Face 1996 Retro Nuptse Vest",
@@ -238,9 +187,7 @@
         "img": "./Img/The North Face 1996 Retro Nuptse Vest.webp",
         "valoracion": 6,
         "idCategory": 7,
-        "idMarca": 4,
-        "idColor": 4,
-        "idTalla": 3
+        "idMarca": 4
     },
     {
         "nom": "Under Armour HeatGear T-Shirt",
@@ -250,8 +197,6 @@
         "img": "./Img/Under Armour HeatGear T-Shirt.webp",
         "valoracion": 1,
         "idCategory": 5,
-        "idMarca": 4,
-        "idColor": 4,
-        "idTalla": 1
+        "idMarca": 4
     }
 ]
