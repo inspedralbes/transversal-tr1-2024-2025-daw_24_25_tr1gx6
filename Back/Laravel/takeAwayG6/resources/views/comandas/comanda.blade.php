@@ -212,7 +212,7 @@
                 return;
         }
 
-        // Enviar solicitud para el correo
+        // Enviar solicitud para el mail
         console.log('Enviando solicitud');
         const response = await fetch('/mail/send', {
             method: 'POST',
