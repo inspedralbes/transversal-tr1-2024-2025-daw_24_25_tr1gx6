@@ -62,6 +62,9 @@
                         cesta y podras pasar a finalizar la compra</h4>
                 </div>
             </div>
+            <div v-if="divActivo=='perfil'" class="perfil">
+                <button class="cerrarSesion" @click="cerrarSesion">Cerrar sesion</button>
+            </div>
             <div v-if="divActivo=='paginaPrincipal'">
                  <div class="navbarFiltros">
                     <select class="marca" name="marca" id="desplegable" @change="cambioFiltros">

@@ -358,8 +358,19 @@ createApp({
       }
     }
     function IrLogin() {
-      divActivo.value = "divLogin";
-      cestaActiva.value = false;
+      const user = localStorage.getItem('user');
+      
+      if (user) {
+        divActivo.value = 'perfil';
+      } else {
+        divActivo.value = 'divLogin';
+        cestaActiva.value = false;
+      }
+    }
+    function cerrarSesion(){
+      localStorage.removeItem('user');
+      window.alert('Sesion cerrada correctamente.')
+      divActivo.value = 'paginaDeInicio';
     }
     function volverALaPaginaPrincipal() {
       divActivo.value = "paginaPrincipal";
@@ -467,7 +478,10 @@ createApp({
         console.log('respuesta data',data)
         if(data.login==true){
           alert('Sesion iniciada');
-            
+          localStorage.setItem('user', JSON.stringify({
+            name: UserName.value,
+            email: emailRegister.value,         
+          }));
           divActivo.value='paginaDeInicio';
         }else{
           window.alert('Contraseña incorrecta')
@@ -498,7 +512,7 @@ createApp({
       console.log('respuesta data Registro',data)
       if(data.success){
         window.alert('Usuario registrado correctamente');
-        divActivo.value = 'paginaDeInicio';
+        divActivo.value = 'divLogin';
       }
     }
     function filtroCategoriasPulsar(idCategoria){
@@ -577,6 +591,7 @@ createApp({
       emailRegister,
       UserName,
       rol,
+      cerrarSesion,
     };
   },
 }).mount("#app");
