@@ -777,8 +777,31 @@ a:hover {
     transition: background-color 0.3s;
     align-items: center;
 }
-.perfil{
+.perfil {
     display: flex;
-    justify-content: center; /* Centra los elementos horizontalmente */
+    justify-content: space-between;
     align-items: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.informacion-usuario {
+    flex: 1;
+}
+
+.cerrarSesion {
+    background-color: #ff5c5c;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.cerrarSesion:hover {
+    background-color: #ff4040;
 }

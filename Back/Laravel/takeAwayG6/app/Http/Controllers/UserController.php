@@ -11,8 +11,9 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
 
-    public function loginUser(Request $request) {
-        
+    public function loginUser(Request $request)
+    {
+
         $credenciales = $request->validate([
             "email" => ["required", "email"],
             "password" => "required",
@@ -27,7 +28,7 @@ class UserController extends Controller
 
             //dd($token);
 
-            return response()->json(['status'=> 'success', 'token' => $token ,'user'=> $user ]);
+            return response()->json(['status' => 'success', 'token' => $token, 'user' => $user]);
 
         }
 
@@ -35,7 +36,30 @@ class UserController extends Controller
         return response()->json(['status' => 'error', 'message' => 'Usuario no encontrado']);
     }
 
-    public function getUsers(){
+    public function registerUser(Request $request)
+    {
+        $credenciales = $request->validate([
+            "name" => "required",
+            "email" => ["required", "email", "unique:users,email"],
+            "password" => "required",
+        ]);
+
+        $user = new User();
+        $user->name = $credenciales['name'];
+        $user->email = $credenciales['email'];
+        $user->password = $credenciales['password'];
+
+        $user->save();
+
+        $token = $user->createToken('auth-token')->plainTextToken;
+        Auth::login($user);
+
+        return response()->json(['status' => 'success', 'token' => $token, 'user' => $user]);
+
+    }
+
+    public function getUsers()
+    {
 
         if (!auth()->check()) {
             return redirect()->route('login')->with('error', 'Debes iniciar sesión para acceder a esta página.');
@@ -46,13 +70,14 @@ class UserController extends Controller
 
         return view('users.user', compact('users', 'rols'));
     }
-    
-    public function createUser(Request $request){
+
+    public function createUser(Request $request)
+    {
         $data = $request->validate([
-            'name'=> 'required',
-            'email'=> ['required', 'email'],
-            'password'=> 'required',
-            'rol'=> 'required'
+            'name' => 'required',
+            'email' => ['required', 'email'],
+            'password' => 'required',
+            'rol' => 'required'
         ]);
 
         $user = new User();
@@ -65,30 +90,14 @@ class UserController extends Controller
 
         return redirect()->back()->with('success', 'Usuario Registrado exitosamente');
     }
-    public function createUserRegister(Request $request){
+
+    public function updateUser(Request $request, $id)
+    {
         $data = $request->validate([
-            'name'=> 'required',
-            'email'=> ['required', 'email'],
-            'password'=> 'required'
-        ]);
-
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
-
-        $user->save();
-
-        return response()->json(['success' => 'Usuario creado correctamente']);
-    }
-
-
-    public function updateUser(Request $request, $id){
-        $data = $request->validate([
-            'name'=> 'required',
-            'email'=> ['required', 'email'],
-            'password'=> 'required',
-            'rol'=> 'required'
+            'name' => 'required',
+            'email' => ['required', 'email'],
+            'password' => 'required',
+            'rol' => 'required'
         ]);
 
         $user = User::findOrFail($id);
@@ -102,9 +111,10 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'Usuario actualizado exitosamente');
     }
 
-    public function deleteUser($id) {
-        $user = User::findOrFail($id); 
-        $user->delete(); 
+    public function deleteUser($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
         return redirect()->back()->with('success', 'Usuario eliminado exitosamente');
     }
 

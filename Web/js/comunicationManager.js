@@ -44,7 +44,7 @@ export async function getMarcas() {
 /*----------------------------------------POST--------------------------------------*/
 
 export async function checkoutProductos(json) {
-    const token  = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
 
     try {
         const response = await fetch(HOST + '/createComandaArt', {
@@ -70,8 +70,8 @@ export async function checkoutProductos(json) {
 
 export async function createComanda(json) {
     console.log(json);
-    
-    const token  = localStorage.getItem('token');
+
+    const token = localStorage.getItem('token');
     console.log('token', token);
     try {
         const response = await fetch(HOST + '/createComanda', {
@@ -184,12 +184,12 @@ export async function compraStripe(json) {
 
 export async function login(json) {
     console.log(json);
-    
+
     try {
-        const response = await fetch(HOST+'/loginUser', {
+        const response = await fetch(HOST + '/loginUser', {
             method: 'POST',
             headers: {
-                'Content-Type':'application/json'
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(json),
         })
@@ -198,8 +198,33 @@ export async function login(json) {
         console.log(data);
 
         return data;
-        
+
     } catch (error) {
 
     }
+}
+
+export async function register(json) {
+
+    console.log("JSON REGISTER: ", json);
+
+    try {
+        const response = await fetch(HOST + '/registerUser', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(json)
+        })
+        const data = await response.json();
+
+        console.log(data);
+
+        return data;
+
+    } catch (error) {
+        console.log(error);
+
+    }
+
 }

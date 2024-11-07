@@ -10,7 +10,8 @@ import {
   productobyID,
   checkoutProductos,
   createComanda,
-  login
+  login,
+  register
 } from "./comunicationManager.js";
 
 createApp({
@@ -52,6 +53,7 @@ createApp({
     const emailRegister = ref("");
     const UserName = ref("");
     const rol = ref("");
+    const infoUser = ref([]);
 
     async function getProductos() {
       await fetch("http://localhost:8000/api/getProductos")
@@ -283,8 +285,8 @@ createApp({
         total: precioTotal.value,
       };
 
-      console.log("JSON COMPRA: ",comandaData);
-      
+      console.log("JSON COMPRA: ", comandaData);
+
 
       await createComanda(comandaData)
         .then((response) => {
@@ -333,6 +335,27 @@ createApp({
         .catch((error) => {
           console.error("Error en el proceso de compra:", error);
         });
+    }
+
+    function infoUsuario() {
+      const user = {
+        user: JSON.parse(localStorage.getItem('user')) || {
+          name: '',
+          email: '',
+          direccion: '',
+          metodoPago: ''
+        }, // Cargar los datos del usuario desde localStorage
+      }
+
+      console.log("Usuario: ", user);
+
+      infoUser.value = user;
+
+      console.log("JSON HECHO: ", infoUser.value);
+      
+      
+
+      return infoUser;
     }
 
     function volverACarrito() {
@@ -389,6 +412,7 @@ createApp({
       //getProductos();
       cargarCarrito();
       cargar();
+      infoUsuario();
     });
     function filtrar() {
       productos2.value = productos.value.filter((producto) => {
@@ -515,13 +539,38 @@ createApp({
       if (response.status == "success") {
         localStorage.setItem('token', response.token)
         localStorage.setItem('user', JSON.stringify(response.user));
-
         divActivo.value = 'paginaDeInicio';
       } else {
         window.alert('Contraseña incorrecta')
         document.querySelector("#email").value = '';
         document.querySelector("#password").value = '';
       }
+
+    }
+
+    async function registerToken() {
+
+      const jsonUser = {
+        "name": document.querySelector('#name').value,
+        "email": document.querySelector('#email').value,
+        "password": document.querySelector('#password').value
+      }
+
+      let response = await register(jsonUser);
+
+      console.log(response);
+
+      if (response.status == "success") {
+        localStorage.setItem('token', response.token)
+        localStorage.setItem('user', JSON.stringify(response.user));
+        divActivo.value = 'paginaDeInicio';
+      } else {
+        window.alert('Contraseña incorrecta')
+        document.querySelector("#name").value = '';
+        document.querySelector("#email").value = '';
+        document.querySelector("#password").value = '';
+      }
+
 
     }
     async function submitRegister() {
@@ -624,7 +673,9 @@ createApp({
       UserName,
       rol,
       cerrarSesion,
-      loginToken
+      loginToken,
+      registerToken,
+      infoUser
     };
   },
 }).mount("#app");
