@@ -190,20 +190,32 @@
             <!-- Login -->
             <div class="login-container" v-if="divActivo=='divLogin'">
                 <div class="card">
-                    <h2>Login Form</h2>
-                    <form class="form" @submit.prevent="submitLogin">
+                    <h2>Login</h2>
+                    <form class="form">
                         <input type="email" v-model="email" placeholder="Email Address" class="email" required />
                         <input type="password" v-model="password" placeholder="Password" class="pass" required />
                         <button type="button" class="login_btn" @click="submitLogin">Login</button>
-                        <a class="fp">Has olvidado la contraseña?</a>
                     </form>
                     <div class="footer_card">
-                        <p>No eres miembro?</p>
-                        <a>Registrate ya</a>
+                        <p @click="IrRegistro">No eres miembro? Click aqui para registrarte</p>
                     </div>
                 </div>
             </div>
-
+            <div class="login-container" v-if="divActivo=='registrarse'">
+                <div class="card">
+                    <h2>Registro</h2>
+                    <form class="form">
+                        <input type="text" placeholder="Name" v-model="UserName" required>
+                        <input type="email" placeholder="Email Address" v-model="emailRegister" required />
+                        <input type="password" placeholder="Password" v-model="passwordRegister" required />
+                
+                        <button type="button" class="login_btn" @click="submitRegister">Registrate</button>
+                    </form>
+                    <div class="footer_card">
+                        <p @click="IrLogin">Ya eres miembro? Click aqui para iniciar sesion</p>
+                    </div>
+                </div>
+            </div>
             <div id="producte-item" v-if="divActivo === 'producte-item' && producto1">
                 <div class="item">
                     <img :src="producto1.img" alt="">
