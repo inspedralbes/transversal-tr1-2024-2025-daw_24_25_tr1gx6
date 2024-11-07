@@ -8,6 +8,10 @@ use App\Models\Categoria;
 class CategoriaController extends Controller
 {
     public function getCategory(){
+
+        if(!auth()->check()){
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para acceder a esta página.');
+        }
         
         $categorias = Categoria::all();
 

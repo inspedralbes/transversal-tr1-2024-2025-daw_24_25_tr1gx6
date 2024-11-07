@@ -17,6 +17,12 @@ class ComandasController extends Controller
             'total' => 'required',
         ]);
 
+        $user = auth()->user();
+
+        if (!$user) {
+            return response()->json(['status' => 'error', 'message' => 'No autenticado'], 401);
+        }
+
         $comanda = new Comanda();
         $comanda->idUser = $request->idUser;
         $comanda->estat = $request->estat;
@@ -39,18 +45,49 @@ class ComandasController extends Controller
     }
 
     // Vista de comandas de CRUD
-    public function comanda()
+    public function getScreenComanda()
     {
-        return view('comandas.comanda');
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para acceder a esta página.');
+        }
+
+        $comandas = Comanda::with(['user', 'comandaArticulo', 'ComandaArticulo.producto'])->get();
+
+        //dd($comandas);
+
+        $comandasResponse = $comandas->map(function ($comanda) {
+            return [
+                'id' => $comanda->id,
+                'user' => [
+                    'id' => $comanda->user->id,
+                    'name' => $comanda->user->name,
+                ],
+                'estado' => $comanda->estado,
+                'articulos' => $comanda->comandaArticulo->map(function ($articulo) {
+                    return [
+                        'idComArt' => $articulo->id,
+                        'nomPro' => $articulo->producto->nom ?? 'No disponible', // Usar 'No disponible' si no hay producto
+                        'talla' => $articulo->talla,
+                        'color' => $articulo->color,
+                        'quantitat' => $articulo->quantitat,
+                        'preu' => $articulo->preu,
+                    ];
+                }),
+            ];
+        });
+        //dd($comandasResponse);
+
+        return view('comandas.comanda', compact('comandas'));
     }
     // Traer todas las comandas
     public function getComandas()
     {
-        $comanda = Comanda::all();
+        $comanda = Comanda::with('user')->get();
         return response()->json(['status' => 'success', 'comandas' => $comanda]);
     }
 
-    public function updateEstadoComanda(Request $request, $id) {
+    public function updateEstadoComanda(Request $request, $id)
+    {
         try {
             $comanda = Comanda::findOrFail($id);
             $comanda->estat = $request->estat;
@@ -61,8 +98,19 @@ class ComandasController extends Controller
             return response()->json(['status' => 'error', 'message' => 'Error al actualizar el estado de la comanda'], 500);
         }
     }
-    
-    
+
+    public function cancelComanda(Request $request, $id)
+    {
+        try {
+            $comanda = Comanda::findOrFail($id);
+            $comanda->estat = $request->estat;
+            $comanda->save();
+            return response()->json(['status' => 'success']);
+        } catch (\Exception $e) {
+            Log::error("Error en updateEstadoComanda: " . $e->getMessage());
+            return response()->json(['status' => 'error', 'message' => 'Error al actualizar el estado de la comanda'], 500);
+        }
+    }
 
     public function eliminarComanda($id)
     {
@@ -75,7 +123,8 @@ class ComandasController extends Controller
             // Luego eliminamos la comanda
             $comanda->delete();
 
-            return response()->json(['status' => 'success', 'message' => 'Comanda eliminada']);
+            //return response()->json(['status' => 'success', 'message' => 'Comanda eliminada']);
+            return redirect()->route('screen.comanda');
         } catch (\Exception $e) {
             Log::error("Error al eliminar la comanda:" . $e->getMessage());
             return response()->json(['status' => 'error', 'message' => 'Error al eliminar la comanda'], 500);

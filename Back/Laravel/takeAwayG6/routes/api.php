@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ComandasController;
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +16,7 @@ use App\Http\Controllers\MailController;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+Route::post('/createUser', [UserController::class, 'createUserRegister'])->name('create.user');
 
 Route::get('/getProductos', [ProductoController::class, 'getProductos'])->name('get.productos');
 Route::get('/getCategory', [CategoriaController::class, 'getCategory'])->name('get.category');
@@ -25,38 +27,18 @@ Route::post('/productoById', [StockController::class, 'getProducteID'])->name('g
 
 
 //RUTA PARA DEVOLVER UN JSON CON LA COMANDA DEL USUARIO FILTRADA
-Route::post('/pedidoUser', [ComandasController::class, 'pedidoUser'])->name('pedido.user');
-Route::post('/createComandaArt', [ComandaArticuloController::class, 'createComandaArt'])->name('create.comandaArt');
-Route::post('/createComanda', [ComandasController::class, 'createComanda'])->name('create.comanda');
+
 
 Route::post('/registerUser', [UserController::class, 'createUser'])->name('register.user');
 Route::post('/loginUser', [UserController::class, 'loginUser'])->name('login.user');
 
+Route::post('/compraStripe',[StripeController::class, 'compra'])->name('compra.stripe');
+
 //Route::post('/loginAdmin',[AutorizacionController::class,'login'])->name('login.creendentials');
 
-// Route::middleware(['auth', 'role:admin'])->group(function () {
-
-//     Route::prefix('/stock')->group(function () {
-//         Route::post('/create', [StockController::class, 'createStock'])->name('create.stock');
-//         Route::post('/update/{id}', [StockController::class, 'updateStock'])->name('update.stock');
-//         Route::delete('/delete/{id}', [StockController::class, 'deleteStock'])->name('delete.stock');
-//     });
-
-
-//     Route::prefix('/productos')->group(callback: function () {
-//         Route::post('/create', [ProductoController::class, 'createProducto'])->name('create.product');
-//         Route::post('/update/{id}', [ProductoController::class, 'updateProducto'])->name('update.product');
-//         Route::delete('/delete/{id}', [ProductoController::class, 'deleteProducto'])->name('delete.product');
-
-//     });
-// });
-
-//RUTA PARA EMAILS
-
 Route::post('/mail/send', [MailController::class, 'sendMail']);
-
-
 Route::middleware('auth:sanctum')->group(callback: function () {
-
-
+    Route::post('/createComanda', [ComandasController::class, 'createComanda'])->name('create.comanda');
+    Route::post('/createComandaArt', [ComandaArticuloController::class, 'createComandaArt'])->name('create.comandaArt');
+    Route::post('/pedidoUser', [ComandasController::class, 'pedidoUser'])->name('pedido.user');
 });

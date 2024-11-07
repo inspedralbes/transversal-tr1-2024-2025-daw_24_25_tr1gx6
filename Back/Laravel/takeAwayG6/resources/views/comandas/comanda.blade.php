@@ -1,292 +1,91 @@
 @extends('Layout.master')
 
 @section('page-style')
-<style>
-    nav {
-        background-color: black;
-    }
+    <style>
+        nav {
+            background-color: black;
+        }
 
-    h1 {
-        text-align: center;
-        background-color: lightgray;
-        border-radius: 7px;
-        margin-top: 10px;
-    }
-</style>
+        h1 {
+            text-align: center;
+            background-color: lightgray;
+            border-radius: 7px;
+            margin-top: 10px;
+        }
+    </style>
 @endsection
 
 @section('content')
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-        <img src="http://takeawayg6.daw.inspedralbes.cat/Web/Img/Logo.png" class="rounded" style="width: 100px">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item me-auto">
-                    <a class="nav-link active" aria-current="page" style="color: white" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: white">Categorias</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: white">Marcas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: white">Tallas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('comandas.view') }}" style="color: white">Comandas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: white">Comanda Articulos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: white">Users</a>
-                </li>
-            </ul>
-
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown ms-auto">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false" style="color: white">
-                        <i class="bi bi-list fs-5"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-
 @endsection
 
 @section('pages')
-<div class="container">
-    <h1>Comandas</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody id="comandasTabla"></tbody>
-    </table>
-</div>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <div class="container">
+        <h1>Comandas</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Comanda</th>
+                    <th>User</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+                @foreach ($comandas as $comanda)
+                    {{-- <p>{{ $comandas }}</p> --}}
+                    {{-- <p>{{$comanda->coman}}</p> --}}
+                    <tr>
+                        <th>{{ $comanda->id }}</th>
+                        <th>{{ $comanda->user->name }}</th>
+                        <th id="estadoComanda{{ $comanda->id }}">{{ $comanda->estat }}</th>
+                        <th>
+                            <button class="btn btn-primary btnsSiguienteComanda"id="btnSiguiente{{ $comanda->id }}"
+                                data-id-comanda="{{ $comanda->id }}">Siguiente</button>
+
+                            <button class="btn btn-secondary btnsDeleteComanda" style="background-color: red;"
+                                data-id-comanda="{{ $comanda->id }}" data-estat="{{ $comanda->estat }}">Eliminar</button>
+
+                            <button class="btn btn-secondary btnsCancelComanda" id="btnCancel{{$comanda->id}}" data-id-comanda="{{ $comanda->id }}"
+                                data-estat="Cancelado">Cancelar</button>
+
+                            <button class="btn btn-info btnsInfoComanda" style="background-color: blue;"
+                                data-id-comanda="{{ $comanda->id }}"
+                                data-comanda-articulos="{{ json_encode($comanda->comandaArticulo) }}">
+                                <i class="bi bi-info-circle" style="color: white;"></i>
+                            </button>
+
+                            <form method="POST" action="{{ route('delete.comandas', ['id' => $comanda->id]) }}"
+                                class="form-delete-{{ $comanda->id }}">
+                                @csrf
+                                @method('DELETE')
+                            </form>
+                        </th>
+                    </tr>
+                @endforeach
+            </thead>
+            <tbody id="comandasTabla"></tbody>
+        </table>
+    </div>
 @endsection
 
 @section('forms-cruds')
+    <!-- Vertically centered scrollable modal -->
+    <div class="modal fade" id="modal-comanda-info" tabindex="-1" aria-labelledby="modal-comanda-info-label"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-comanda-info-label">Detalles de la Comanda</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modal-comanda-info-body">
+                    <!-- Aquí se cargarán los artículos dinámicamente -->
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
-<script>
-    const estados = [
-        "Por Confirmar",
-        "Confirmado",
-        "Preparando",
-        "Preparado",
-        "Enviado",
-        "En Reparto",
-        "Entregado"
-    ];
-
-    async function fetchComandas() {
-        const response = await fetch('/pedidoUser', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({
-                idUser: 1
-            }) // Cambiar por el ID del usuario actual
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            if (data.status === 'success') {
-                const comandasTabla = document.getElementById('comandasTabla');
-                comandasTabla.innerHTML = '';
-
-                data.comandaUser.forEach(comanda => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${comanda.id}</td>
-                        <td id="estadoComanda${comanda.id}">${comanda.estat}</td>
-                        <td>
-                            <button id="btnSiguiente${comanda.id}" class="btn btn-primary" onclick="cambiarSiguienteEstado(${comanda.id})" ${comanda.estat === 'Entregado' ? 'disabled' : ''}>Siguiente</button>
-                            <button class="btn btn-danger" onclick="eliminarComanda(${comanda.id})">Eliminar</button>
-                        </td>
-                    `;
-                    comandasTabla.appendChild(row);
-                });
-            } else {
-                console.error('Error al cargar las comandas');
-            }
-        } else {
-            console.error('Error al cargar las comandas');
-        }
-    }
-
-    async function cambiarSiguienteEstado(id) {
-        const estadoActual = document.getElementById(`estadoComanda${id}`).innerText;
-        const currentIndex = estados.indexOf(estadoActual);
-        if (currentIndex < estados.length - 1) {
-            const newEstado = estados[currentIndex + 1];
-            
-            // Actualiza el estado en la base de datos
-            const response = await fetch(`/updateEstadoComanda/${id}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({
-                    estat: newEstado
-                })
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                
-                if (data.status === 'success') {
-                    //Actualizar el estado en la tabla
-                    document.getElementById(`estadoComanda${id}`).innerText = newEstado;
-                    console.log('Estado actualizado a:', newEstado);
-
-                    // Desactivar el botoón si el estado es 'Entregado'
-                    if (newEstado === 'Entregado') {
-                        document.getElementById(`btnSiguiente${id}`).disabled = true;
-                    }
-                    //switch de rutas hacia el router web.php con la ruta de mailController
-                    console.log('LlamaFndo a la funcion enviarCorreoEsatado con el nuevo estado');
-                    enviarCorreoEstado(newEstado);
-                } else {
-                    console.error('Error al actualizar el estado');
-                }
-            } else {
-                console.error('Error al hacer la solicitud');
-            }
-        } else {
-            console.log('La comanda ya está en el último estado.');
-        }
-    }
-
-    async function enviarCorreoEstado(estado) {
-        // Mapear el estado a un tipo de correo específico
-        console.log('Mapeando estado del correo mediante el estado del pedido');
-        let tipoCorreo;
-        switch (estado) {
-            case 'Por Confirmar':
-                tipoCorreo = 'confirm';
-                break;
-            case 'Confirmado':
-                tipoCorreo = 'confirmed';
-                break;
-            case 'Preparando':
-                tipoCorreo = 'preparando';
-                break;
-            case 'Preparado':
-                tipoCorreo = 'preparado';
-                break;
-            case 'Enviado':
-                tipoCorreo = 'enviado';
-                break;
-            case 'En Reparto':
-                tipoCorreo = 'reparto';
-                break;
-            case 'Entregado':
-                tipoCorreo = 'entregado';
-                break;
-            default:
-                console.log('Estado no reconocido para el envío de correo');
-                return;
-        }
-
-        // Enviar solicitud para el mail
-        console.log('Enviando solicitud');
-        const response = await fetch('/mail/send', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({
-                type: tipoCorreo
-            })
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            if (data.message) {
-                console.log(data.message);
-                console.log('Estado cambiado correctamente');
-            }
-        } else {
-            console.error('Error al enviar el correo');
-        }
-    }
-
-
-
-
-            //     if (response.ok) {
-            //         const data = await response.json();
-
-            //         if (data.status === 'success') {
-            //             console.log('Estado actualizado a:', newEstado);
-            //             alert('Estado actualizado a:', newEstado);
-
-            //             // Deshabilitar el select y el botón si el nuevo estado es 'Entregado'
-            //             if (newEstado === 'Entregado') {
-            //                 const select = document.getElementById(`estadoComanda${id}`);
-            //                 const boton = document.getElementById(`btnSiguiente${id}`);
-
-            //                 if (select) select.disabled = true;
-            //                 if (boton) boton.disabled = true;
-            //             }
-            //         } else {
-            //             console.error('Error al actualizar el estado');
-            //         }
-            //     } else {
-            //         console.error('Error al hacer la solicitud');
-            //     }
-            // }
-
-
-            async function eliminarComanda(id) {
-                if (confirm("¿Estás seguro de que deseas eliminar esta comanda?")) {
-                    const response = await fetch(`/deleteComanda/${id}`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        }
-                    });
-
-                    if (response.ok) {
-                        const data = await response.json();
-                        if (data.status === 'success') {
-                            console.log('Comanda eliminada');
-                            fetchComandas();
-                        } else {
-                            console.error('Error al eliminar la comanda');
-                        }
-                    } else {
-                        console.error('Error al hacer la solicitud de eliminación');
-                    }
-                }
-            }
-
-            window.onload = fetchComandas;
-</script>
+    <script src="{{ asset('js/comanda.js') }}"></script>
 @endsection

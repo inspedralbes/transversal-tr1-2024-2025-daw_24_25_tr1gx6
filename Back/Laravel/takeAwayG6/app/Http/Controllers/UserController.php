@@ -18,21 +18,33 @@ class UserController extends Controller
             "password" => "required",
         ]);
 
-        $user = User::where('email', $credenciales['email'])->first();
+        if (Auth::attempt($credenciales)) {
+            //$request->session()->regenerate();
+            $user = Auth::user();
 
-        if ($user && Hash::check($credenciales['password'], $user->password)) {
+            $token = $user->createToken('auth-token')->plainTextToken;
+            //session(['auth-token', $token]);
 
-            return response()->json(['status' => 'success', 'message' => 'Usuario encontrado', 'login' => true]);
+            //dd($token);
+
+            return response()->json(['status'=> 'success', 'token' => $token ,'user'=> $user ]);
+
         }
 
         //return back()->withErrors(['email'=> 'Correo o contraseña no son correctas'])->onlyInput('email');
-        return response()->json(['status' => 'success', 'message' => 'Usuario no encontrado', 'login' => false]);
+        return response()->json(['status' => 'error', 'message' => 'Usuario no encontrado']);
     }
 
     public function getUsers(){
-        $users = User::all();
 
-        return view('users.user', compact('users'));
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para acceder a esta página.');
+        }
+
+        $users = User::all();
+        $rols = User::getEnumValues('users', 'rol');
+
+        return view('users.user', compact('users', 'rols'));
     }
     
     public function createUser(Request $request){
@@ -44,15 +56,32 @@ class UserController extends Controller
         ]);
 
         $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        $user->rol = $request->rol;
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->password = $data['password'];
+        $user->rol = $data['rol'];
 
         $user->save();
 
         return redirect()->back()->with('success', 'Usuario Registrado exitosamente');
     }
+    public function createUserRegister(Request $request){
+        $data = $request->validate([
+            'name'=> 'required',
+            'email'=> ['required', 'email'],
+            'password'=> 'required'
+        ]);
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
+
+        $user->save();
+
+        return response()->json(['success' => 'Usuario creado correctamente']);
+    }
+
 
     public function updateUser(Request $request, $id){
         $data = $request->validate([
@@ -63,10 +92,10 @@ class UserController extends Controller
         ]);
 
         $user = User::findOrFail($id);
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        $user->rol = $request->rol;
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->password = $data['password'];
+        $user->rol = $data['rol'];
 
         $user->save();
 
