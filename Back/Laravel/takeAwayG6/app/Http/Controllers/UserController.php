@@ -18,15 +18,21 @@ class UserController extends Controller
             "password" => "required",
         ]);
 
-        $user = User::where('email', $credenciales['email'])->first();
+        if (Auth::attempt($credenciales)) {
+            $request->session()->regenerate();
+            $user = Auth::user();
 
-        if ($user && Hash::check($credenciales['password'], $user->password)) {
+            $token = $user->createToken('auth-token')->plainTextToken;
+            //session(['auth-token', $token]);
 
-            return response()->json(['status' => 'success', 'message' => 'Usuario encontrado', 'login' => true]);
+            //dd($token);
+
+            return redirect()->json(['status'=> 'success', 'token', $token]);
+
         }
 
         //return back()->withErrors(['email'=> 'Correo o contraseña no son correctas'])->onlyInput('email');
-        return response()->json(['status' => 'success', 'message' => 'Usuario no encontrado', 'login' => false]);
+        return response()->json(['status' => 'error', 'message' => 'Usuario no encontrado']);
     }
 
     public function getUsers(){

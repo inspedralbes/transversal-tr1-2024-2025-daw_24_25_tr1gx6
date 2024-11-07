@@ -114,8 +114,30 @@ export async function pedidoUser(json) {
 export async function productobyID(json) {
     try {
         console.log(json);
-        
+
         const response = await fetch(HOST + '/productoById', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(json),
+        })
+        const data = await response.json();
+
+        console.log("Conexion correcta A");
+
+        console.log(data);
+
+        return data;
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function compraStripe(json) {
+    try {
+        const response = await fetch(HOST + '/api/compraStripe', {
             method:'POST',
             headers: {
                 'Content-Type':'application/json'
@@ -124,11 +146,7 @@ export async function productobyID(json) {
         })
         const data = await response.json();
 
-        console.log("Conexion correcta A");
-        
         console.log(data);
-        
-        return data;
 
     } catch (error) {
         console.log(error);
