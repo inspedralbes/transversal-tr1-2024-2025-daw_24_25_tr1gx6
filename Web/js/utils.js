@@ -61,10 +61,7 @@ createApp({
 
     // funcion para guardar en local storage
     function guardarCarrito() {
-      localStorage.setItem(
-        "productosEnCesta",
-        JSON.stringify(productosEnCesta.value)
-      );
+      localStorage.setItem("productosEnCesta",JSON.stringify(productosEnCesta.value));
       actualizarPrecioTotal();
     }
 

@@ -82,8 +82,8 @@
                 <div v-for="(producto, index) in productos" :key="index" class="product-card"
                     @click="getProducte(index)">
                     <img :src="producto.img" :alt="producto.nom" class="imagenProducto">
-                    <h4>{{ producto.nom }}</h4>
-                    <h4>{{ productos[index].valoracion }}⭐</h4>
+                    <h4 class="nomProducte">{{ producto.nom }}</h4>
+                    <h4 class="valoracionDeProducte">{{ productos[index].valoracion }}⭐</h4>
                     <h5 class="outOfStock" v-if="producto.stock === 0">Out of stock</h5>
                     <h5 class="inStock" v-else>On stock</h5>
                     <p class="price">{{ producto.preu }}€</p>
@@ -96,16 +96,17 @@
             <div class="productos-container">
                 <div v-for="(producto, index) in productosEnCesta" :key="index" class="product-card">
                     <img :src="producto.img" :alt="producto.nom" class="imagenProducto">
-                    <h4>{{ producto.nom }}</h4>
-                    <span>{{producto.cantidad}}</span>
+                    <h4 class="nomProducte">{{ producto.nom }}</h4>
+                    <span class="quantitatDeProducte">{{producto.cantidad}}</span>
                     <p class="price">{{ producto.preu }}€</p>
                 </div>
             </div>
             <h3 v-if="finalitzaCompraActiva">Preu: {{precioTotal.toFixed(2)}}€</h3>
-            <button @click="cambiarACarrito" v-if="finalitzaCompraActiva" id="finalizarCompra" class="btn">Anar a la cistella</button>
-                <h4 v-if="productosEnCesta.length === 0">No hi ha res a la cistella</h4>
-                <a @click="cambiarACarrito" class="btn_pagament" >Pagament</a>
-
+            <button v-if="productosEnCesta.length > 0" @click="cambiarACarrito" class="btn" id="finalizarCompra">Anar a
+                la cistella</button>
+            <h4 v-if="productosEnCesta.length === 0">No hi ha res a la cistella</h4>
+            <button v-if="productosEnCesta.length === 0" @click="cambiarACarrito" class="btn"
+                id="volverACarrito">Pagament</button>
         </div>
 
         <!-- Carrito -->
@@ -130,9 +131,9 @@
 
                             <h4>{{ producto.nom }}</h4>
                             <p><strong>Categoria:</strong> {{ producto.category.nom }}</p>
-                            <p><strong>Marca:</strong> {{ producto.marca.nom }}</p> 
+                            <p><strong>Marca:</strong> {{ producto.marca.nom }}</p>
                             <p><strong>Color:</strong> {{ producto.color }}</p>
-                            <p><strong>Descripción:</strong> {{ producto.desc }}</p>  
+                            <p><strong>Descripción:</strong> {{ producto.desc }}</p>
                         </div>
                     </div>
 
@@ -167,23 +168,29 @@
                 class="btn">Finalizar compra</button><br><br>
             <!-- <button @click="enviarDatosABackEnd" v-if="finalitzaCompraActiva" id="EnviarDatos" class="btn">Enviar Datos A BackEnd</button> -->
             <h4 v-if="productosEnCesta.length === 0">No hay nada en la cesta</h4>
-            <h4 v-else>total: {{precioTotal.toFixed(2)}}€</h4></h4>
-        </div>
 
+            </h4>
+        </div>
 
         <!-- Login -->
         <div class="login-container" v-if="divActivo=='divLogin'">
-            <div class="card">
-                <h2>Login Form</h2>
-                <form class="form" @submit.prevent="submitLogin">
-                    <input type="email" v-model="email" placeholder="Email Address" class="email" required />
-                    <input type="password" v-model="password" placeholder="Password" class="pass" required />
-                    <button type="button" class="login_btn" @click="submitLogin">Login</button>
-                    <a class="fp">Has olvidado la contraseña?</a>
+            <div class="login-card">
+                <h2>Iniciar sesión</h2>
+                <form @submit.prevent="submitLogin">
+                    <div class="input-group">
+                        <input type="email" v-model="email" placeholder="Email" required />
+                    </div>
+                    <div class="input-group">
+                        <input type="password" v-model="password" placeholder="Contraseña" required />
+                    </div>
+                    <button type="submit" class="login-btn">
+                        Login
+                    </button>
+                    <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
                 </form>
-                <div class="footer_card">
-                    <p>No eres miembro?</p>
-                    <a>Registrate ya</a>
+                <div class="login-footer">
+                    <span>¿No tienes cuenta?</span>
+                    <a href="#" class="register-link">Regístrate aquí</a>
                 </div>
             </div>
         </div>
@@ -203,10 +210,10 @@
                     <div class="form">
                         <label for="combinaciones">Selecciona Color y Talla:</label>
                         <select id="combinaciones" v-model="selectedCombinacion" required>
-                            <option v-for="(combinacion, index) in stockProdctuId" :key="index"
-                                :value="combinacion.id">
-                                {{ combinacion.Color }} 
-                                {{ combinacion.TallaCamisa ? combinacion.TallaCamisa : combinacion.TallaZapato ? combinacion.TallaZapato : 'Sin talla' }}                            </option>
+                            <option v-for="(combinacion, index) in stockProdctuId" :key="index" :value="combinacion.id">
+                                {{ combinacion.Color }}
+                                {{ combinacion.TallaCamisa ? combinacion.TallaCamisa : combinacion.TallaZapato ?
+                                combinacion.TallaZapato : 'Sin talla' }} </option>
                         </select>
                     </div>
 
