@@ -30,6 +30,7 @@ createApp({
       { nombre: "camiseta", imagen: "Img/camiseta.jpeg" },
       { nombre: "chandal", imagen: "Img/chandal.jpeg" },
       { nombre: "chaleco", imagen: "Img/chaleco.jpeg" },
+      { nombre: "accesorio", imagen: ""}
     ]);
     const filtros = reactive({
       categoria: "todo",
@@ -38,6 +39,8 @@ createApp({
     });
     const productos = ref([]);
     let productos2 = ref([]);
+    const prodMostrados = ref([]);
+    const categMostradas = ref([]);
     const stockProdctuId = ref([]);
     const categoriaFiltrada = ref("");
     const productosEnCesta = ref([]);
@@ -76,6 +79,10 @@ createApp({
       const data = await getProductoss();
       console.log('front', data);
       productos.value = data;
+      mostrarProds();
+      setTimeout(() => {
+        mostrarCategs(); 
+      }, 1000);
       console.log(productos.value);
 
       // if (Array.isArray(data) && data.length > 0) {
@@ -89,6 +96,39 @@ createApp({
       // }
 
     }
+
+    //Funciones para el movimiento del LandPage
+    // Función para alternar entre productos más valorados
+    function mostrarProds() {
+      const millorsProds = productos.value
+          .sort((a, b) => b.valoracion - a.valoracion)
+          .slice(0, 12);
+
+      let index = 0;
+
+      setInterval(() => {
+          prodMostrados.value = [...millorsProds.slice(index, index + 4)];
+          index = (index + 4) % millorsProds.length;
+      }, 3000);
+  }
+
+  // Función para alternar entre las mitades de las categorías 
+  function mostrarCategs() {
+      const mitad = Math.ceil(categorias.value.length / 2); // Encontrar la mitad
+      const primeraMitad = categorias.value.slice(0, mitad);
+      const segundaMitad = categorias.value.slice(mitad); 
+
+      let index = 0;
+
+      setInterval(() => {
+          if (index === 0) {
+              categMostradas.value = primeraMitad;
+          } else {
+              categMostradas.value = segundaMitad;
+          }
+          index = (index + 1) % 2;
+      }, 3000);
+  }
 
     // funcion para guardar en local storage
     function guardarCarrito() {
@@ -284,8 +324,8 @@ createApp({
         total: precioTotal.value,
       };
 
-      console.log("JSON COMPRA: ",comandaData);
-      
+      console.log("JSON COMPRA: ", comandaData);
+
 
       await createComanda(comandaData)
         .then((response) => {
@@ -585,8 +625,8 @@ createApp({
       direccion,
       datosUsuario,
       productos,
-      productosMostrados,
-      categoriasMostradas,
+      prodMostrados,
+      categMostradas,
       cantidadTotalProductos,
       productosEnCesta,
       añadirALaCesta,

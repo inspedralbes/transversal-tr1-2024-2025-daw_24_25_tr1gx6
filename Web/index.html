@@ -31,22 +31,22 @@
         <div id="paginaInicial">  
             <div v-if="divActivo=='paginaDeInicio'">
                 <h2>Productes millor valorats</h2>
-                <div class="productos-container-inici">
-                    <div v-for="(producto, index) in productos.sort((a, b) => b.valoracion - a.valoracion).slice(0, 4)"
+                <transition-group tag="div" class="productos-container-inici">
+                    <div v-for="(producto, index) in prodMostrados.sort((a, b) => b.valoracion - a.valoracion).slice(0, 4)"
                         :key="index" class="product-card-inici" @click="getProducte(producto.id)">
                         <img :src="producto.img" :alt="producto.nombre" class="imagenProducto">
                         <h4>{{ producto.nom }}</h4>
                         <h4>{{ producto.valoracion }}⭐</h4>
                         <p class="price">{{ producto.preu }}€</p>
                     </div>
-                </div>
+                </transition-group>
                 <h2>Explora les nostres categories</h2>
-                <div id="categorias-container" class="categorias-container">
-                    <div v-for="(categoria, index) in categorias" :key="index" class="categoria-card" @click="filtroCategoriasPulsar(index)">
-                        <img :src="categoria.imagen" :alt="" class="imagenCategoria" />
+                <transition-group tag="div" id="categorias-container" class="categorias-container">
+                    <div v-for="(categoria, index) in categMostradas" :key="index" class="categoria-card" @click="filtroCategoriasPulsar(index)">
+                        <img :src="categoria.imagen" :alt="categoria.nombre" class="imagenCategoria" />
                         <h4>{{ categoria.nom }}</h4>
                     </div>
-                </div>
+                </transition-group>
 
                 <div id="cesta" v-if="cestaActiva" class="cesta-container">
                     <h2>Carrito</h2>
