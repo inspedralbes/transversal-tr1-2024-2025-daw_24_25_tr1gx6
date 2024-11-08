@@ -31,34 +31,27 @@
                         }}</span>
                 </div>
 
-                <img @click="IrLogin" id="loginIcono" src="Img/iconoLogin.png"
-                    alt="loginIcono">
-            </nav>
-            <div id="paginaInicial">
-                <div v-if="divActivo=='paginaDeInicio'">
-                    <h2>Productes millor valorats</h2>
-                    <div class="productos-container-inici">
-                        <div
-                            v-for="(producto, index) in productos.sort((a, b) => b.valoracion - a.valoracion).slice(0, 4)"
-                            :key="index" class="product-card-inici"
-                            @click="getProducte(producto.id)">
-                            <img :src="producto.img" :alt="producto.nombre"
-                                class="imagenProducto">
-                            <h4>{{ producto.nom }}</h4>
-                            <h4>{{ producto.valoracion }}⭐</h4>
-                            <p class="price">{{ producto.preu }}€</p>
-                        </div>
+            <img @click="IrLogin" id="loginIcono" src="Img/iconoLogin.png" alt="loginIcono">
+        </nav>
+        <div id="paginaInicial">  
+            <div v-if="divActivo=='paginaDeInicio'">
+                <h2>Productes millor valorats</h2>
+                <transition-group tag="div" class="productos-container-inici">
+                    <div v-for="(producto, index) in prodMostrados.sort((a, b) => b.valoracion - a.valoracion).slice(0, 4)"
+                        :key="index" class="product-card-inici" @click="getProducte(producto.id)">
+                        <img :src="producto.img" :alt="producto.nombre" class="imagenProducto">
+                        <h4>{{ producto.nom }}</h4>
+                        <h4>{{ producto.valoracion }}⭐</h4>
+                        <p class="price">{{ producto.preu }}€</p>
                     </div>
-                    <h2>Explora les nostres categories</h2>
-                    <div id="categorias-container" class="categorias-container">
-                        <div v-for="(categoria, index) in categorias"
-                            :key="index" class="categoria-card"
-                            @click="filtroCategoriasPulsar(index)">
-                            <img :src="categoria.imagen" :alt
-                                class="imagenCategoria" />
-                            <h4>{{ categoria.nom }}</h4>
-                        </div>
+                </transition-group>
+                <h2>Explora les nostres categories</h2>
+                <transition-group tag="div" id="categorias-container" class="categorias-container">
+                    <div v-for="(categoria, index) in categMostradas" :key="index" class="categoria-card" @click="filtroCategoriasPulsar(index)">
+                        <img :src="categoria.imagen" :alt="categoria.nombre" class="imagenCategoria" />
+                        <h4>{{ categoria.nom }}</h4>
                     </div>
+                </transition-group>
 
                     <div id="cesta" v-if="cestaActiva" class="cesta-container">
                         <h2>Carrito</h2>
@@ -349,29 +342,9 @@
                             id="form-btn">Añadir a la cesta</button>
                     </div>
                 </div>
+            </div>
 
-                <!-- <div id="producte-item" v-if="divActivo === 'producte-item' && productoActual">
-                <div class="item">
-                    <img :src="productoActual.img" alt="">
-                    <div class="desc">
-                        <h1>{{ productoActual.nom }}</h1>
-                        <h4>{{ productoActual.preu }}€</h4>
-                        <h4>{{ productoActual.valoracion }}⭐</h4>
-                        <h5 class="outOfStock" v-if="productoActual.stock === 0">Out of stock</h5>
-                        <h5 class="inStock" v-else>On stock</h5>
-                        <p>{{ productoActual.desc }}</p>
-                    </div>
-                    <div class="form">
-                        <label for="combinaciones">Selecciona:</label>
-                        <select id="combinaciones" v-model="selectedCombinacion">
-                            <option v-for="(combinacion, index) in productoActual.colorTallas" :key="index">
-                                {{ combinacion }}
-                            </option>
-                        </select>
-                    </div> 
-                    <button @click="añadirALaCesta(veureProd)" id="form-btn">Añadir a la cesta</button>
-                </div>
-            </div> -->
+  
 
                 <!-- Parte de finalizar la compra y pago -->
                 <div v-if="divActivo == 'finalizarCompraDeCarrito'"

@@ -10,6 +10,8 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\ComandaArticuloController;
+use App\Http\Controllers\AutorizacionController;
+use App\Http\Controllers\MailController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -28,7 +30,8 @@ Route::post('/loginUser', [UserController::class, 'loginUser'])->name('login.use
 Route::post('/compraStripe',[StripeController::class, 'compra'])->name('compra.stripe');
 
 
-Route::middleware('auth:sanctum')->group( function () {
+Route::post('/mail/send', [MailController::class, 'sendMail']);
+Route::middleware('auth:sanctum')->group(callback: function () {
     Route::post('/createComanda', [ComandasController::class, 'createComanda'])->name('create.comanda');
     Route::post('/createComandaArt', [ComandaArticuloController::class, 'createComandaArt'])->name('create.comandaArt');
     Route::post('/pedidoUser', [ComandasController::class, 'pedidoUser'])->name('pedido.user');

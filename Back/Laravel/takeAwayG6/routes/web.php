@@ -2,9 +2,12 @@
 
 use App\Http\Controllers\AutorizacionController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MarcaController;
+use App\Mail\Notification;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ComandasController;
@@ -76,3 +79,6 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/delete/{id}', [ComandasController::class, 'eliminarComanda'])->name('delete.comandas');
     });
 });
+
+//Rutas de emails
+Route::post('/mail/{type}', [MailController::class, 'sendMail']);

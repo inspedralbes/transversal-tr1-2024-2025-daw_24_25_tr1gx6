@@ -4,9 +4,8 @@ const HOST = 'http://localhost:8000/api';
 /*-----------------------------------GET---------------------*/
 export async function getProductoss() {
     try {
-        const response = await fetch(HOST + '/getProductos');
+        const response = await fetch(`${HOST}/getProductos`);
 
-        //CONSULTAR SI LA CONEXION ES BUENA
         if (!response.ok) {
             throw new Error(`Error: ${response.status} - ${response.statusText}`);
         }
