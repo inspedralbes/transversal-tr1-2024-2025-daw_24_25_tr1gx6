@@ -115,6 +115,7 @@ a:hover {
     gap: 7px;
     padding: 20px;
 }
+
 /* 
 .productos-container-1 {
     display: flex;
@@ -359,6 +360,7 @@ a:hover {
     justify-content: center;
     margin-left: -15px;
 }
+
 .card {
     width: 100%;
     max-width: 350px;
@@ -377,6 +379,7 @@ a:hover {
     border-radius: 15px 15px 0 0;
     font-size: 24px;
 }
+
 .form {
     display: flex;
     flex-direction: column;
@@ -807,13 +810,14 @@ a:hover {
 .btn:active {
     transform: scale(0.98);
 }
+
 .btnAnarACestilla {
     margin-top: -20px;
     padding: 5px 15px;
     font-size: 16px;
     font-weight: bold;
     color: white;
-    background-color:  rgb(50, 50, 50);
+    background-color: rgb(50, 50, 50);
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -824,12 +828,23 @@ a:hover {
 }
 
 .btnAnarACestilla:hover {
-    background-color:#999ca0;
+    background-color: #999ca0;
     color: black;
 }
 
-.btnAnarACestilla{
+.btnAnarACestilla {
     transform: scale(0.98);
+}
+
+.cerrarSesion {
+    background-color: #ff0000;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
 }
 
 /*---------- Estilos para portátil ---------- */
@@ -916,6 +931,7 @@ a:hover {
         font-size: 28px;
         margin: -30px -30px 30px -30px;
     }
+
     .categoria-card img {
         width: 375px;
         height: 375px;
@@ -959,7 +975,7 @@ a:hover {
         margin-left: -150px;
     }
 
-    
+
     .form {
         gap: 20px;
     }
@@ -1161,5 +1177,9 @@ a:hover {
         padding: 8px 16px;
         border: none;
         margin-left: 210px;
+    }
+
+    .cerrarSesion {
+        width: auto; 
     }
 }
