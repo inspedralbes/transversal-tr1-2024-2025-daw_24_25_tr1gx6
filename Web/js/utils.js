@@ -396,8 +396,6 @@ createApp({
 
       console.log("JSON HECHO: ", infoUser.value);
       
-      
-
       return infoUser;
     }
 

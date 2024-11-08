@@ -29,11 +29,11 @@ Route::post('/loginUser', [UserController::class, 'loginUser'])->name('login.use
 //STRIPE
 Route::post('/compraStripe',[StripeController::class, 'compra'])->name('compra.stripe');
 
+Route::post('/productoById', [StockController::class, 'getProducteID'])->name('get.productoID');
 
 Route::post('/mail/send', [MailController::class, 'sendMail']);
 Route::middleware('auth:sanctum')->group(callback: function () {
     Route::post('/createComanda', [ComandasController::class, 'createComanda'])->name('create.comanda');
     Route::post('/createComandaArt', [ComandaArticuloController::class, 'createComandaArt'])->name('create.comandaArt');
     Route::post('/pedidoUser', [ComandasController::class, 'pedidoUser'])->name('pedido.user');
-    Route::post('/productoById', [StockController::class, 'getProducteID'])->name('get.productoID');
 });
