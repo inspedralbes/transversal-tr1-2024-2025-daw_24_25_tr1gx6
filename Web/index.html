@@ -13,7 +13,7 @@
         <nav id="navbar">
             <img @click="irPantallaInicio" id="logo" src="./Img/Logo.png" alt="Logo">
             <a @click="irABotiga">Botiga</a>
-            <a @click="cambiarACarrito">Checkout</a>
+            <a @click="misPedidos">Mis Pedidos</a>
             <div class="search-box">
                 <form method="get" id="search-form">
                     <input type="text" id="search-input" placeholder="Buscar" />
@@ -66,6 +66,7 @@
                 <button class="cerrarSesion" @click="cerrarSesion" class="cerrarSesionn" >Cerrar sesion</button>
             </div>
             <div v-if="divActivo=='paginaPrincipal'">
+                <h2>Productos</h2>
                  <div class="navbarFiltros">
                     <select class="marca" name="marca" id="desplegable" @change="cambioFiltros">
                         <option value="todo">Marcas</option>
@@ -99,7 +100,7 @@
                         <option value="<=200">Hasta 200€</option>
                       </select>
                 </div> 
-                <h2>Productos</h2>
+
                 <div id="productos-container-1" class="productos-container">
                     <div v-for="(producto, index) in productos2" :key="index" class="product-card"
                         @click="getProducte(producto.id)">
