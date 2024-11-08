@@ -381,7 +381,7 @@ createApp({
     }
 
     function infoUsuario() {
-      const user = {
+      let user = {
         user: JSON.parse(localStorage.getItem('user')) || {
           name: '',
           email: '',
@@ -396,7 +396,7 @@ createApp({
 
       console.log("JSON HECHO: ", infoUser.value);
       
-      return infoUser;
+      return infoUser.value;
     }
 
     function volverACarrito() {
@@ -430,7 +430,20 @@ createApp({
     function IrLogin() {
       const user = localStorage.getItem('user');
 
+
       if (user) {
+        let user = {
+          user: JSON.parse(localStorage.getItem('user')) || {
+            name: '',
+            email: '',
+            direccion: '',
+            metodoPago: ''
+          }, // Cargar los datos del usuario desde localStorage
+        }
+  
+        console.log("Usuario: ", user);
+  
+        infoUser.value = user;
         divActivo.value = 'perfil';
       } else {
         divActivo.value = 'divLogin';
@@ -439,7 +452,10 @@ createApp({
     }
     function cerrarSesion() {
       localStorage.removeItem('user');
-      localStorage.removeItem('token')
+      localStorage.removeItem('token');
+      infoUser.value = []; // Clear the local infoUser data
+      console.log("Cerrando sesion: ",infoUser.value);
+      
       window.alert('Sesion cerrada correctamente.')
       divActivo.value = 'paginaDeInicio';
     }
@@ -453,8 +469,9 @@ createApp({
       //getProductos();
       cargarCarrito();
       cargar();
-      infoUsuario();
+      
     });
+
     function filtrar() {
       productos2.value = productos.value.filter((producto) => {
         const cumpleCategoria =
