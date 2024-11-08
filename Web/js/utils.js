@@ -21,7 +21,7 @@ createApp({
     const correoElectronico = ref("");
     const direccion = ref("");
     const datosUsuario = ref({ tarjeta: "", expiracion: "", cvv: "" });
-
+    const categorias2 = ref([])
     const categorias = ref([
       { nombre: "zapatillas", imagen: "Img/zapatillas.jpeg" },
       { nombre: "sudadera", imagen: "Img/sudadera.jpeg" },
@@ -29,8 +29,7 @@ createApp({
       { nombre: "chaqueta", imagen: "Img/chaqueta.jpeg" },
       { nombre: "camiseta", imagen: "Img/camiseta.jpeg" },
       { nombre: "chandal", imagen: "Img/chandal.jpeg" },
-      { nombre: "chaleco", imagen: "Img/chaleco.jpeg" },
-      { nombre: "accesorio", imagen: ""}
+      { nombre: "chaleco", imagen: "Img/chaleco.jpeg" }
     ]);
     const filtros = reactive({
       categoria: "todo",
@@ -79,9 +78,12 @@ createApp({
       const data = await getProductoss();
       console.log('front', data);
       productos.value = data;
+      for (let index = 0; index < data.length; index++) {
+        categorias2.value.push(data[i].category);
+      }
       mostrarProds();
       setTimeout(() => {
-        mostrarCategs(); 
+        // mostrarCategs(); 
       }, 1000);
       console.log(productos.value);
 
@@ -113,22 +115,22 @@ createApp({
   }
 
   // Función para alternar entre las mitades de las categorías 
-  function mostrarCategs() {
-      const mitad = Math.ceil(categorias.value.length / 2); // Encontrar la mitad
-      const primeraMitad = categorias.value.slice(0, mitad);
-      const segundaMitad = categorias.value.slice(mitad); 
+  // function mostrarCategs() {
+  //     const mitad = Math.ceil(categorias.value.length / 2); // Encontrar la mitad
+  //     const primeraMitad = categorias.value.slice(0, mitad);
+  //     const segundaMitad = categorias.value.slice(mitad); 
 
-      let index = 0;
+  //     let index = 0;
 
-      setInterval(() => {
-          if (index === 0) {
-              categMostradas.value = primeraMitad;
-          } else {
-              categMostradas.value = segundaMitad;
-          }
-          index = (index + 1) % 2;
-      }, 3000);
-  }
+  //     setInterval(() => {
+  //         if (index === 0) {
+  //             categMostradas.value = primeraMitad;
+  //         } else {
+  //             categMostradas.value = segundaMitad;
+  //         }
+  //         index = (index + 1) % 2;
+  //     }, 3000);
+  // }
 
     // funcion para guardar en local storage
     function guardarCarrito() {

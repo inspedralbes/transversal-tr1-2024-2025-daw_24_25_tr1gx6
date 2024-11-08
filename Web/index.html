@@ -42,7 +42,7 @@
                 </transition-group>
                 <h2>Explora les nostres categories</h2>
                 <transition-group tag="div" id="categorias-container" class="categorias-container">
-                    <div v-for="(categoria, index) in categMostradas" :key="index" class="categoria-card" @click="filtroCategoriasPulsar(index)">
+                    <div v-for="(categoria, index) in categorias" :key="index" class="categoria-card" @click="filtroCategoriasPulsar(index)">
                         <img :src="categoria.imagen" :alt="categoria.nombre" class="imagenCategoria" />
                         <h4>{{ categoria.nom }}</h4>
                     </div>
