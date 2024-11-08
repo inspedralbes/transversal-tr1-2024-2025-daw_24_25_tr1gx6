@@ -63,7 +63,7 @@
                 </div>
             </div>
             <div v-if="divActivo=='perfil'" class="perfil">
-                <button class="cerrarSesion" @click="cerrarSesion">Cerrar sesion</button>
+                <button class="cerrarSesion" @click="cerrarSesion" class="cerrarSesionn" >Cerrar sesion</button>
             </div>
             <div v-if="divActivo=='paginaPrincipal'">
                  <div class="navbarFiltros">
@@ -113,7 +113,7 @@
             <!-- plantilla  -->
             <div id="cesta" v-if="cestaActiva" class="cesta-container">
                 <h2>Carrito</h2>
-                <div class="productos-container">
+                <div class="productos-carrito">
                     <div v-for="(producto, index) in productosEnCesta" :key="index" class="product-card">
                         <img :src="producto.img" :alt="producto.nom" class="imagenProducto">
                         <h4>{{ producto.nom }}</h4>
@@ -121,10 +121,11 @@
                         <p class="price">{{ producto.preu }}€</p>
                     </div>
                 </div>
-                <h3 v-if="finalitzaCompraActiva">Preu: {{precioTotal.toFixed(2)}}€</h3>
-                <button @click="cambiarACarrito" v-if="finalitzaCompraActiva" id="finalizarCompra" class="btn">Ir al
-                    carrito</button>
+                <hr><h3 v-if="finalitzaCompraActiva" class="precioTotalCarrito">Preu: {{precioTotal.toFixed(2)}}€</h3>
+                <button @click="cambiarACarrito" v-if="finalitzaCompraActiva" id="finalizarCompra" class="btnAnarACestilla">Ir al carrito</button>
                 <h4 v-if="!finalitzaCompraActiva">No hay nada en la cesta</h4>
+                <button v-if="productosEnCesta.length === 0" @click="cambiarACarrito" class="btnAnarACestilla"
+                id="volverACarrito">Pagament</button>
 
             </div>
 
