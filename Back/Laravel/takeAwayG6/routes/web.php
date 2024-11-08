@@ -39,6 +39,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/screenMarca', [MarcaController::class, 'getScreenMarca'])->name('screen.marca');
     Route::get('/screenComanda', [ComandasController::class, 'getScreenComanda'])->name('screen.comanda');
 
+    //Rutas de emails
+Route::post('/mail/send', [MailController::class, 'sendMail']);
+
 
     Route::prefix('/stock')->group(function () {
         Route::post('/create', [StockController::class, 'createStock'])->name('create.stock');
@@ -80,5 +83,3 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
-//Rutas de emails
-Route::post('/mail/send', [MailController::class, 'sendMail']);

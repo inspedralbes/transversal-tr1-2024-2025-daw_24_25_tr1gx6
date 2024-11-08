@@ -121,6 +121,9 @@ async function enviarCorreoEstado(estado) {
         case 'Entregado':
             tipoCorreo = 'entregado';
             break;
+        case 'Cancelado':
+            tipoCorreo = 'cancelado';
+            break;
         default:
             console.log('Estado no reconocido para el envío de correo');
             return;
@@ -191,6 +194,8 @@ async function cancelarComanda() {
                             //Actualizar el estado en la tabla
                             document.getElementById(`estadoComanda${idComanda}`).innerText = estat;
                             console.log('Estado actualizado a:', estat);
+                            let newEstado = estat;
+                            await enviarCorreoEstado(estat);
 
                             // Desactivar el botoón si el estado es 'Cancelado'
                             if (estat === 'Cancelado') {
