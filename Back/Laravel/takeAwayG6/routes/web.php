@@ -81,4 +81,4 @@ Route::middleware(['auth'])->group(function () {
 });
 
 //Rutas de emails
-Route::post('/mail/{type}', [MailController::class, 'sendMail']);
+Route::post('/mail/send', [MailController::class, 'sendMail']);
