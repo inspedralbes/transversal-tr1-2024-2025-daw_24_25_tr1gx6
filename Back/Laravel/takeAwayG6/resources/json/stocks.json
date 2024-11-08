@@ -1,72 +1,247 @@
 [
     {
         "idProducto": 1,
-        "Nstock": 5,
+        "Nstock": 3,
         "Color": "Blanco",
         "TallaCamisa": null,
         "TallaZapato": "38"
     },
     {
         "idProducto": 1,
-        "Nstock": 10,
+        "Nstock": 2,
         "Color": "Blanco",
         "TallaCamisa": null,
         "TallaZapato": "39"
     },
     {
         "idProducto": 1,
-        "Nstock": 1,
-        "Color": "Blanco",
+        "Nstock": 2,
+        "Color": "Negro",
         "TallaCamisa": null,
         "TallaZapato": "40"
     },
     {
         "idProducto": 1,
-        "Nstock": 9,
+        "Nstock": 3,
         "Color": "Blanco",
         "TallaCamisa": null,
         "TallaZapato": "41"
     },
     {
-        "idProducto": 1,
-        "Nstock": 9,
-        "Color": "Blanco",
-        "TallaCamisa": null,
-        "TallaZapato": "42"
-    },
-    {
-        "idProducto": 1,
+        "idProducto": 2,
         "Nstock": 5,
-        "Color": "Naranja",
+        "Color": "Negro",
         "TallaCamisa": null,
         "TallaZapato": "38"
+    },
+    {
+        "idProducto": 2,
+        "Nstock": 3,
+        "Color": "Negro",
+        "TallaCamisa": null,
+        "TallaZapato": "39"
     },
     {
         "idProducto": 2,
         "Nstock": 2,
-        "Color": "Negro",
+        "Color": "Blanco",
+        "TallaCamisa": null,
+        "TallaZapato": "40"
+    },
+    {
+        "idProducto": 3,
+        "Nstock": 4,
+        "Color": "Blanco y Dorado",
+        "TallaCamisa": null,
+        "TallaZapato": "37"
+    },
+    {
+        "idProducto": 3,
+        "Nstock": 5,
+        "Color": "Blanco",
+        "TallaCamisa": null,
+        "TallaZapato": "38"
+    },
+    {
+        "idProducto": 3,
+        "Nstock": 7,
+        "Color": "Blanco y Dorado",
         "TallaCamisa": null,
         "TallaZapato": "39"
     },
     {
-        "idProducto": 2,
+        "idProducto": 4,
+        "Nstock": 8,
+        "Color": "Gris",
+        "TallaCamisa": "M",
+        "TallaZapato": null
+    },
+    {
+        "idProducto": 4,
+        "Nstock": 7,
+        "Color": "Negro",
+        "TallaCamisa": "L",
+        "TallaZapato": null
+    },
+    {
+        "idProducto": 5,
+        "Nstock": 10,
+        "Color": "Negro",
+        "TallaCamisa": "S",
+        "TallaZapato": null
+    },
+    {
+        "idProducto": 5,
+        "Nstock": 12,
+        "Color": "Azul",
+        "TallaCamisa": "M",
+        "TallaZapato": null
+    },
+    {
+        "idProducto": 6,
+        "Nstock": 6,
+        "Color": "Negro",
+        "TallaCamisa": "L",
+        "TallaZapato": null
+    },
+    {
+        "idProducto": 6,
+        "Nstock": 6,
+        "Color": "Verde",
+        "TallaCamisa": "XL",
+        "TallaZapato": null
+    },
+    {
+        "idProducto": 7,
+        "Nstock": 9,
+        "Color": "Blanco",
+        "TallaCamisa": "L",
+        "TallaZapato": null
+    },
+    {
+        "idProducto": 8,
+        "Nstock": 5,
+        "Color": "Rojo",
+        "TallaCamisa": null,
+        "TallaZapato": "42"
+    },
+    {
+        "idProducto": 9,
+        "Nstock": 2,
+        "Color": "Gris",
+        "TallaCamisa": null,
+        "TallaZapato": "39"
+    },
+    {
+        "idProducto": 9,
+        "Nstock": 1,
+        "Color": "Gris",
+        "TallaCamisa": null,
+        "TallaZapato": "40"
+    },
+    {
+        "idProducto": 10,
         "Nstock": 4,
+        "Color": "Negro",
+        "TallaCamisa": "S",
+        "TallaZapato": null
+    },
+    {
+        "idProducto": 10,
+        "Nstock": 5,
+        "Color": "Negro",
+        "TallaCamisa": "M",
+        "TallaZapato": null
+    },
+    {
+        "idProducto": 11,
+        "Nstock": 3,
+        "Color": "Blanco",
+        "TallaCamisa": "S",
+        "TallaZapato": null
+    },
+    {
+        "idProducto": 11,
+        "Nstock": 2,
+        "Color": "Azul",
+        "TallaCamisa": "L",
+        "TallaZapato": null
+    },
+    {
+        "idProducto": 12,
+        "Nstock": 8,
+        "Color": "Verde",
+        "TallaCamisa": "M",
+        "TallaZapato": null
+    },
+    {
+        "idProducto": 13,
+        "Nstock": 12,
         "Color": "Negro",
         "TallaCamisa": null,
         "TallaZapato": "40"
     },
     {
-        "idProducto": 2,
-        "Nstock": 6,
+        "idProducto": 14,
+        "Nstock": 15,
         "Color": "Negro",
         "TallaCamisa": null,
         "TallaZapato": "41"
     },
     {
-        "idProducto": 2,
+        "idProducto": 15,
+        "Nstock": 4,
+        "Color": "Blanco",
+        "TallaCamisa": "M",
+        "TallaZapato": null
+    },
+    {
+        "idProducto": 15,
+        "Nstock": 2,
+        "Color": "Blanco",
+        "TallaCamisa": "L",
+        "TallaZapato": null
+    },
+    {
+        "idProducto": 16,
+        "Nstock": 3,
+        "Color": "Rojo",
+        "TallaCamisa": null,
+        "TallaZapato": "39"
+    },
+    {
+        "idProducto": 17,
+        "Nstock": 2,
+        "Color": "Blanco",
+        "TallaCamisa": "S",
+        "TallaZapato": null
+    },
+    {
+        "idProducto": 17,
         "Nstock": 1,
-        "Color": "Beige",
+        "Color": "Azul",
+        "TallaCamisa": "L",
+        "TallaZapato": null
+    },
+    {
+        "idProducto": 18,
+        "Nstock": 4,
+        "Color": "Negro",
         "TallaCamisa": null,
         "TallaZapato": "42"
+    },
+    {
+        "idProducto": 19,
+        "Nstock": 4,
+        "Color": "Negro",
+        "TallaCamisa": "XL",
+        "TallaZapato": null
+    },
+    {
+        "idProducto": 20,
+        "Nstock": 6,
+        "Color": "Blanco",
+        "TallaCamisa": "M",
+        "TallaZapato": null
     }
 ]
