@@ -10,7 +10,9 @@ import {
   productobyID,
   checkoutProductos,
   createComanda,
-  login
+  confirmarCompra,
+  login,
+  pedidoUser,
 } from "./comunicationManager.js";
 
 createApp({
@@ -20,7 +22,7 @@ createApp({
     const correoElectronico = ref("");
     const direccion = ref("");
     const datosUsuario = ref({ tarjeta: "", expiracion: "", cvv: "" });
-
+    const categorias2 = ref([]);
     const categorias = ref([
       { nombre: "zapatillas", imagen: "Img/zapatillas.jpeg" },
       { nombre: "sudadera", imagen: "Img/sudadera.jpeg" },
@@ -37,6 +39,8 @@ createApp({
     });
     const productos = ref([]);
     let productos2 = ref([]);
+    const prodMostrados = ref([]);
+    const categMostradas = ref([]);
     const stockProdctuId = ref([]);
     const categoriaFiltrada = ref("");
     const productosEnCesta = ref([]);
@@ -52,12 +56,18 @@ createApp({
     const emailRegister = ref("");
     const UserName = ref("");
     const rol = ref("");
+    const pedidosID = ref([]);
+    const pedidos = ref([]);
+    const productosDetalles = ref([]);
+    const popupActivo = ref(false);
+    const responseData = ref(null);
+    const productosID = ref([]);
 
     async function getProductos() {
       await fetch("http://localhost:8000/api/getProductos")
         .then((response) => response.json())
         .then((data) => {
-          console.log('Hola', data);
+          console.log("Hola", data);
           if (Array.isArray(data) && data.length > 0) {
             productos.value = data;
             productos2.value = data;
@@ -73,8 +83,15 @@ createApp({
 
     async function cargar() {
       const data = await getProductoss();
-      console.log('front', data);
+      console.log("front", data);
       productos.value = data;
+      // for (let index = 0; index < data.length; index++) {
+      //   categorias2.value.push(data[i].category);
+      // }
+      mostrarProds();
+      setTimeout(() => {
+        // mostrarCategs();
+      }, 1000);
       console.log(productos.value);
 
       // if (Array.isArray(data) && data.length > 0) {
@@ -86,8 +103,40 @@ createApp({
       //     "No se encontraron productos o la respuesta no es válida."
       //   );
       // }
-
     }
+
+    //Funciones para el movimiento del LandPage
+    // Función para alternar entre productos más valorados
+    function mostrarProds() {
+      const millorsProds = productos.value
+        .sort((a, b) => b.valoracion - a.valoracion)
+        .slice(0, 12);
+
+      let index = 0;
+
+      setInterval(() => {
+        prodMostrados.value = [...millorsProds.slice(index, index + 4)];
+        index = (index + 4) % millorsProds.length;
+      }, 3000);
+    }
+
+    // Función para alternar entre las mitades de las categorías
+    // function mostrarCategs() {
+    //     const mitad = Math.ceil(categorias.value.length / 2); // Encontrar la mitad
+    //     const primeraMitad = categorias.value.slice(0, mitad);
+    //     const segundaMitad = categorias.value.slice(mitad);
+
+    //     let index = 0;
+
+    //     setInterval(() => {
+    //         if (index === 0) {
+    //             categMostradas.value = primeraMitad;
+    //         } else {
+    //             categMostradas.value = segundaMitad;
+    //         }
+    //         index = (index + 1) % 2;
+    //     }, 3000);
+    // }
 
     // funcion para guardar en local storage
     function guardarCarrito() {
@@ -131,14 +180,14 @@ createApp({
       }
       if (stockProdctuId.value.length == 0) {
         console.log("No hay stock de este producto");
-        window.alert('No hay stock');
+        window.alert("No hay stock");
         return;
       }
       cestaActiva.value = true;
       // Ya tenemos el producto directamente desde producto1
       const productoSeleccionado = producto1.value;
       const tallaSeleccionada = stockProdctuId.value.find(
-        combinacion => combinacion.id === selectedCombinacion.value
+        (combinacion) => combinacion.id === selectedCombinacion.value
       );
 
       // Log para verificar la combinación seleccionada
@@ -156,8 +205,10 @@ createApp({
         marca: productoSeleccionado.marca,
         desc: productoSeleccionado.desc,
         cantidad: 1,
-        talla: tallaSeleccionada ? (tallaSeleccionada.TallaCamisa || tallaSeleccionada.TallaZapato) : 'Sin talla',
-        color: tallaSeleccionada ? tallaSeleccionada.Color : 'Sin color',
+        talla: tallaSeleccionada
+          ? tallaSeleccionada.TallaCamisa || tallaSeleccionada.TallaZapato
+          : "Sin talla",
+        color: tallaSeleccionada ? tallaSeleccionada.Color : "Sin color",
         idStock: selectedCombinacion.value,
       };
 
@@ -165,7 +216,7 @@ createApp({
 
       // Buscar si el producto ya existe en la cesta con la misma combinación
       const productoEnCesta = productosEnCesta.value.find(
-        producto =>
+        (producto) =>
           producto.id === productoSeleccionado.id &&
           producto.color === nuevoProducto.color &&
           producto.talla === nuevoProducto.talla
@@ -186,7 +237,6 @@ createApp({
         cestaActiva.value = false;
       }, 2000);
     }
-
 
     const cantidadTotalProductos = computed(() => {
       return calcularCantidadTotalProductos();
@@ -211,7 +261,7 @@ createApp({
     }
     let producto1 = ref({});
     function getProducte(id) {
-      producto1.value = productos.value.find(producto => producto.id === id);
+      producto1.value = productos.value.find((producto) => producto.id === id);
 
       if (producto1) {
         veureProd.value = id;
@@ -221,13 +271,12 @@ createApp({
 
         const idProducto = id;
 
-
         productobyID({ idProducto })
           .then((detallesProducto) => {
             console.log("Antes del if:", detallesProducto);
             stockProdctuId.value = detallesProducto;
-            console.log(stockProdctuId.value)
-            if (detallesProducto && typeof detallesProducto === 'object') {
+            console.log(stockProdctuId.value);
+            if (detallesProducto && typeof detallesProducto === "object") {
               producto1.category = producto1.category || { nom: "" };
               producto1.marca = producto1.marca || { nom: "" };
 
@@ -243,7 +292,6 @@ createApp({
         console.log("El ID del producto no es válido:", id);
       }
     }
-
 
     function sumaCantidad(index) {
       const producto = productosEnCesta.value[index];
@@ -275,7 +323,7 @@ createApp({
     }
 
     async function procesarCompra() {
-      let user = JSON.parse(localStorage.getItem('user'));
+      let user = JSON.parse(localStorage.getItem("user"));
 
       const comandaData = {
         idUser: user.id,
@@ -283,8 +331,7 @@ createApp({
         total: precioTotal.value,
       };
 
-      console.log("JSON COMPRA: ",comandaData);
-      
+      console.log("JSON COMPRA: ", comandaData);
 
       await createComanda(comandaData)
         .then((response) => {
@@ -319,9 +366,11 @@ createApp({
         })
         .then((response) => {
           if (response && response.status === "success") {
-            window.alert('Comprar realizada correctamente')
+            window.alert("Comprar realizada correctamente");
             console.log("Compra finalizada correctamente");
             productosEnCesta.value = [];
+            const tipo = "confirm";
+            confirmarCompra(tipo);
             guardarCarrito();
             actualizarPrecioTotal();
             finalitzaCompraActiva.value = false;
@@ -355,6 +404,10 @@ createApp({
       divActivo.value = "paginaDeInicio";
       cestaActiva.value = false;
     }
+    function irAPaginaPedidos() {
+      divActivo.value = "pedidos";
+      cestaActiva.value = false;
+    }
 
     function botonCesta() {
       if (cestaActiva.value) {
@@ -364,20 +417,20 @@ createApp({
       }
     }
     function IrLogin() {
-      const user = localStorage.getItem('user');
+      const user = localStorage.getItem("user");
 
       if (user) {
-        divActivo.value = 'perfil';
+        divActivo.value = "perfil";
       } else {
-        divActivo.value = 'divLogin';
+        divActivo.value = "divLogin";
         cestaActiva.value = false;
       }
     }
     function cerrarSesion() {
-      localStorage.removeItem('user');
-      localStorage.removeItem('token')
-      window.alert('Sesion cerrada correctamente.')
-      divActivo.value = 'paginaDeInicio';
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      window.alert("Sesion cerrada correctamente.");
+      divActivo.value = "paginaDeInicio";
     }
 
     function volverALaPaginaPrincipal() {
@@ -400,7 +453,7 @@ createApp({
           filtros.marca === "todo" ||
           (producto.marca && producto.marca.nom === filtros.marca);
 
-        //const cumpleColor = 
+        //const cumpleColor =
         let cumplePrecio = true;
         const precioProducto = producto.preu || 0;
 
@@ -436,7 +489,7 @@ createApp({
       filtrar();
     }
     function IrRegistro() {
-      divActivo.value = 'registrarse';
+      divActivo.value = "registrarse";
     }
     // function filtrarPorCategoria(){
     //   productos2.value = [];
@@ -483,18 +536,21 @@ createApp({
           }),
         });
         const data = await response.json();
-        console.log('respuesta data', data)
+        console.log("respuesta data", data);
         if (data.login == true) {
-          alert('Sesion iniciada');
-          localStorage.setItem('user', JSON.stringify({
-            name: UserName.value,
-            email: emailRegister.value,
-          }));
-          divActivo.value = 'paginaDeInicio';
+          alert("Sesion iniciada");
+          localStorage.setItem(
+            "user",
+            JSON.stringify({
+              name: UserName.value,
+              email: emailRegister.value,
+            })
+          );
+          divActivo.value = "paginaDeInicio";
         } else {
-          window.alert('Contraseña incorrecta')
-          document.querySelector(".email").value = '';
-          document.querySelector(".pass").value = '';
+          window.alert("Contraseña incorrecta");
+          document.querySelector(".email").value = "";
+          document.querySelector(".pass").value = "";
         }
       } catch (error) {
         console.error("Network error during login:", error);
@@ -502,34 +558,32 @@ createApp({
     }
 
     async function loginToken() {
-
       const jsonUser = {
-        "email": document.querySelector('#email').value,
-        "password": document.querySelector('#password').value,
-      }
+        email: document.querySelector("#email").value,
+        password: document.querySelector("#password").value,
+      };
 
       let response = await login(jsonUser);
 
       console.log(response);
 
       if (response.status == "success") {
-        localStorage.setItem('token', response.token)
-        localStorage.setItem('user', JSON.stringify(response.user));
+        localStorage.setItem("token", response.token);
+        localStorage.setItem("user", JSON.stringify(response.user));
 
-        divActivo.value = 'paginaDeInicio';
+        divActivo.value = "paginaDeInicio";
       } else {
-        window.alert('Contraseña incorrecta')
-        document.querySelector("#email").value = '';
-        document.querySelector("#password").value = '';
+        window.alert("Contraseña incorrecta");
+        document.querySelector("#email").value = "";
+        document.querySelector("#password").value = "";
       }
-
     }
     async function submitRegister() {
       const request = {
         name: UserName.value,
         email: emailRegister.value,
         password: passwordRegister.value,
-      }
+      };
 
       console.log(request);
 
@@ -541,40 +595,96 @@ createApp({
         body: JSON.stringify(request),
       });
       const data = await response.json();
-      console.log('respuesta data Registro', data)
+      console.log("respuesta data Registro", data);
       if (data.success) {
-        window.alert('Usuario registrado correctamente');
-        divActivo.value = 'divLogin';
+        window.alert("Usuario registrado correctamente");
+        divActivo.value = "divLogin";
       }
     }
     function filtroCategoriasPulsar(idCategoria) {
-      console.log(idCategoria)
+      console.log(idCategoria);
       switch (idCategoria) {
         case 0:
-          filtros.categoria = 'zapatillas'
+          filtros.categoria = "zapatillas";
           break;
         case 1:
-          filtros.categoria = 'sudadera'
+          filtros.categoria = "sudadera";
           break;
         case 2:
-          filtros.categoria = 'pantalon'
+          filtros.categoria = "pantalon";
           break;
         case 3:
-          filtros.categoria = 'chaqueta'
+          filtros.categoria = "chaqueta";
           break;
         case 4:
-          filtros.categoria = 'camiseta'
+          filtros.categoria = "camiseta";
           break;
         case 5:
-          filtros.categoria = 'chandal'
+          filtros.categoria = "chandal";
           break;
         case 6:
-          filtros.categoria = 'chaleco'
+          filtros.categoria = "chaleco";
           break;
       }
       filtrar();
-      divActivo.value = 'paginaPrincipal';
+      divActivo.value = "paginaPrincipal";
     }
+
+    async function irAPaginaPedidos() {
+      try {
+        // Obtener el ID del usuario desde localStorage
+        const user = JSON.parse(localStorage.getItem("user"));
+        const idUser = user?.id;
+
+        console.log("User ID Pedido:", idUser);
+        const response = await pedidoUser({ idUser });
+        console.log("Respuesta completa de pedidos:", response);
+
+        const pedidosData = response?.comandaUser;
+
+        pedidos.value = pedidosData;
+
+        divActivo.value = "pedidos-page";
+
+        responseData.value = response;
+      } catch (error) {
+        console.error("Error al cargar los pedidos:", error);
+      }
+    }
+
+    async function mostrarDetallesDelPedido(pedidoId) {
+      try {
+        const response = responseData.value;
+
+        // Buscar el pedido correspondiente al ID recibido
+        const pedido = response.comandaUser.find(
+          (item) => item.id === pedidoId
+        );
+
+        if (pedido) {
+          productosDetalles.value = pedido.comanda_articulo.map((product) => ({
+            nombre: product.producto.nom,
+            imagen: product.producto.img,
+            precio: product.preu,
+            talla: product.talla,
+            cantidad: product.quantitat,
+            color: product.producto.color,
+            desc: product.producto.desc,
+          }));
+
+          popupActivo.value = true;
+        } else {
+          console.error(`No se encontró el pedido con ID ${pedidoId}`);
+        }
+      } catch (error) {
+        console.error("Error al cargar los detalles del pedido:", error);
+      }
+    }
+
+    function cerrarPopup() {
+      popupActivo.value = false;
+    }
+
     return {
       productos2,
       nombre,
@@ -582,6 +692,8 @@ createApp({
       direccion,
       datosUsuario,
       productos,
+      prodMostrados,
+      categMostradas,
       cantidadTotalProductos,
       productosEnCesta,
       añadirALaCesta,
@@ -624,7 +736,16 @@ createApp({
       UserName,
       rol,
       cerrarSesion,
-      loginToken
+      loginToken,
+      irAPaginaPedidos,
+      pedidosID,
+      pedidos,
+      productosID,
+      productosDetalles,
+      popupActivo,
+      responseData,
+      mostrarDetallesDelPedido,
+      cerrarPopup,
     };
   },
 }).mount("#app");

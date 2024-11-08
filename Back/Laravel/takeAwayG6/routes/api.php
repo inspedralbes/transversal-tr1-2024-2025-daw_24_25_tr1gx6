@@ -11,6 +11,7 @@ use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\ComandaArticuloController;
 use App\Http\Controllers\AutorizacionController;
+use App\Http\Controllers\MailController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -35,6 +36,7 @@ Route::post('/compraStripe',[StripeController::class, 'compra'])->name('compra.s
 
 //Route::post('/loginAdmin',[AutorizacionController::class,'login'])->name('login.creendentials');
 
+Route::post('/mail/send', [MailController::class, 'sendMail']);
 Route::middleware('auth:sanctum')->group(callback: function () {
     Route::post('/createComanda', [ComandasController::class, 'createComanda'])->name('create.comanda');
     Route::post('/createComandaArt', [ComandaArticuloController::class, 'createComandaArt'])->name('create.comandaArt');

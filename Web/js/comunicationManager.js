@@ -4,9 +4,8 @@ const HOST = 'http://localhost:8000/api';
 /*-----------------------------------GET---------------------*/
 export async function getProductoss() {
     try {
-        const response = await fetch(HOST + '/getProductos');
+        const response = await fetch(`${HOST}/getProductos`);
 
-        //CONSULTAR SI LA CONEXION ES BUENA
         if (!response.ok) {
             throw new Error(`Error: ${response.status} - ${response.statusText}`);
         }
@@ -97,11 +96,16 @@ export async function createComanda(json) {
 }
 
 export async function pedidoUser(json) {
+    const token  = localStorage.getItem('token');
+    console.log("token",token);
+    console.log(json);
+    
     try {
         const response = await fetch(HOST + '/pedidoUser', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`  // Add the Authorization header with Bearer token
             },
             body: JSON.stringify(json),
         });
