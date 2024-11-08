@@ -113,7 +113,7 @@
             <!-- plantilla  -->
             <div id="cesta" v-if="cestaActiva" class="cesta-container">
                 <h2>Carrito</h2>
-                <div class="productos-container">
+                <div class="productos-carrito">
                     <div v-for="(producto, index) in productosEnCesta" :key="index" class="product-card">
                         <img :src="producto.img" :alt="producto.nom" class="imagenProducto">
                         <h4>{{ producto.nom }}</h4>
