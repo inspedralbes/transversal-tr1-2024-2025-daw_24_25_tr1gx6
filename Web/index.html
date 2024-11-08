@@ -13,7 +13,7 @@
         <nav id="navbar">
             <img @click="irPantallaInicio" id="logo" src="./Img/Logo.png" alt="Logo">
             <a @click="irABotiga">Botiga</a>
-            <a @click="misPedidos">Mis Pedidos</a>
+            <a @click="irAPaginaPedidos" v-if="!showPedidosPage">Mis comanda</a>
             <div class="search-box">
                 <form method="get" id="search-form">
                     <input type="text" id="search-input" placeholder="Buscar" />
@@ -28,7 +28,7 @@
 
             <img @click="IrLogin" id="loginIcono" src="Img/iconoLogin.png" alt="loginIcono">
         </nav>
-        <div id="paginaInicial">  
+        <div id="paginaInicial">
             <div v-if="divActivo=='paginaDeInicio'">
                 <h2>Productes millor valorats</h2>
                 <transition-group tag="div" class="productos-container-inici">
@@ -42,7 +42,8 @@
                 </transition-group>
                 <h2>Explora les nostres categories</h2>
                 <transition-group tag="div" id="categorias-container" class="categorias-container">
-                    <div v-for="(categoria, index) in categorias" :key="index" class="categoria-card" @click="filtroCategoriasPulsar(index)">
+                    <div v-for="(categoria, index) in categorias" :key="index" class="categoria-card"
+                        @click="filtroCategoriasPulsar(index)">
                         <img :src="categoria.imagen" :alt="categoria.nombre" class="imagenCategoria" />
                         <h4>{{ categoria.nom }}</h4>
                     </div>
@@ -58,16 +59,17 @@
                         </div>
                     </div>
                     <h3>preu: {{precioTotal.toFixed(2)}}€</h3>
-                    <h4 v-if="!finalitzaCompraActiva">Esta es la cesta, aqui podras ver los productos que has añadido a la
+                    <h4 v-if="!finalitzaCompraActiva">Esta es la cesta, aqui podras ver los productos que has añadido a
+                        la
                         cesta y podras pasar a finalizar la compra</h4>
                 </div>
             </div>
             <div v-if="divActivo=='perfil'" class="perfil">
-                <button class="cerrarSesion" @click="cerrarSesion" class="cerrarSesionn" >Cerrar sesion</button>
+                <button class="cerrarSesion" @click="cerrarSesion" class="cerrarSesionn">Cerrar sesion</button>
             </div>
             <div v-if="divActivo=='paginaPrincipal'">
                 <h2>Productos</h2>
-                 <div class="navbarFiltros">
+                <div class="navbarFiltros">
                     <select class="marca" name="marca" id="desplegable" @change="cambioFiltros">
                         <option value="todo">Marcas</option>
                         <option value="The North Face">The North Face</option>
@@ -98,9 +100,8 @@
                         <option value="<=150">Hasta 150€</option>
                         <option value="<=175">Hasta 175€</option>
                         <option value="<=200">Hasta 200€</option>
-                      </select>
-                </div> 
-
+                    </select>
+                </div>
                 <div id="productos-container-1" class="productos-container">
                     <div v-for="(producto, index) in productos2" :key="index" class="product-card"
                         @click="getProducte(producto.id)">
@@ -122,11 +123,13 @@
                         <p class="price">{{ producto.preu }}€</p>
                     </div>
                 </div>
-                <hr><h3 v-if="finalitzaCompraActiva" class="precioTotalCarrito">Preu: {{precioTotal.toFixed(2)}}€</h3>
-                <button @click="cambiarACarrito" v-if="finalitzaCompraActiva" id="finalizarCompra" class="btnAnarACestilla">Ir al carrito</button>
+                <hr>
+                <h3 v-if="finalitzaCompraActiva" class="precioTotalCarrito">Preu: {{precioTotal.toFixed(2)}}€</h3>
+                <button @click="cambiarACarrito" v-if="finalitzaCompraActiva" id="finalizarCompra"
+                    class="btnAnarACestilla">Ir al carrito</button>
                 <h4 v-if="!finalitzaCompraActiva">No hay nada en la cesta</h4>
                 <button v-if="productosEnCesta.length === 0" @click="cambiarACarrito" class="btnAnarACestilla"
-                id="volverACarrito">Pagament</button>
+                    id="volverACarrito">Pagament</button>
 
             </div>
 
@@ -152,9 +155,9 @@
 
                                 <h4>{{ producto.nom }}</h4>
                                 <p><strong>Categoria:</strong> {{ producto.category.nom }}</p>
-                                <p><strong>Marca:</strong> {{ producto.marca.nom }}</p> 
+                                <p><strong>Marca:</strong> {{ producto.marca.nom }}</p>
                                 <p><strong>Color:</strong> {{ producto.color }}</p>
-                                <p><strong>Descripción:</strong> {{ producto.desc }}</p>  
+                                <p><strong>Descripción:</strong> {{ producto.desc }}</p>
                             </div>
                         </div>
 
@@ -197,8 +200,10 @@
                 <div class="card">
                     <h2>Login</h2>
                     <form class="form">
-                        <input type="email" id="email" v-model="email" placeholder="Email Address" class="email" required />
-                        <input type="password" id="password" v-model="password" placeholder="Password" class="pass" required />
+                        <input type="email" id="email" v-model="email" placeholder="Email Address" class="email"
+                            required />
+                        <input type="password" id="password" v-model="password" placeholder="Password" class="pass"
+                            required />
                         <button type="button" class="login_btn" @click="loginToken">Login</button>
                     </form>
                     <div class="footer_card">
@@ -213,7 +218,7 @@
                         <input type="text" placeholder="Name" v-model="UserName" required>
                         <input type="email" placeholder="Email Address" v-model="emailRegister" required />
                         <input type="password" placeholder="Password" v-model="passwordRegister" required />
-                
+
                         <button type="button" class="login_btn" @click="submitRegister">Registrate</button>
                     </form>
                     <div class="footer_card">
@@ -238,8 +243,9 @@
                             <select id="combinaciones" v-model="selectedCombinacion" required>
                                 <option v-for="(combinacion, index) in stockProdctuId" :key="index"
                                     :value="combinacion.id">
-                                    {{ combinacion.Color }} 
-                                    {{ combinacion.TallaCamisa ? combinacion.TallaCamisa : combinacion.TallaZapato ? combinacion.TallaZapato : 'Sin talla' }}                            </option>
+                                    {{ combinacion.Color }}
+                                    {{ combinacion.TallaCamisa ? combinacion.TallaCamisa : combinacion.TallaZapato ?
+                                    combinacion.TallaZapato : 'Sin talla' }} </option>
                             </select>
                         </div>
 
@@ -248,7 +254,7 @@
                 </div>
             </div>
 
-  
+
 
             <!-- Parte de finalizar la compra y pago -->
             <div v-if="divActivo == 'finalizarCompraDeCarrito'" class="carritoFinal">
@@ -269,29 +275,82 @@
                     </div>
                     <div>
                         <label for="tarjeta">Numero de tarjeta:</label>
-                        <input type="number" v-model="datosUsuario.tarjeta" id="tarjeta" placeholder="Numero de tarjeta"
-                            required>
+                        <input type="text" 
+                               v-model="datosUsuario.tarjeta" 
+                               id="tarjeta" 
+                               placeholder="Numero de tarjeta"
+                               pattern="[0-9]{16}"
+                               maxlength="16"
+                               minlength="16"
+                               required>
                     </div>
                     <div>
                         <label for="expiracion">Fecha de expiración:</label>
-                        <input type="text" v-model="datosUsuario.expiracion" id="expiracion" required>
+                        <input type="text" 
+                               v-model="datosUsuario.expiracion" 
+                               id="expiracion"
+                               placeholder="MM/YY" 
+                               pattern="(0[1-9]|1[0-2])\/([0-9]{2})"
+                               maxlength="5"
+                               required>
                     </div>
                     <div>
                         <label for="cvv">CVV:</label>
-                        <input type="text" v-model="datosUsuario.cvv" id="cvv" required>
+                        <input type="text" 
+                               v-model="datosUsuario.cvv" 
+                               id="cvv"
+                               pattern="[0-9]{3}"
+                               maxlength="3"
+                               minlength="3" 
+                               required>
                     </div>
                     <button type="submit">Confirmar compra</button>
-
                     <button type="button" @click="volverACarrito">Volver al carrito</button>
-
                 </form>
             </div>
 
-            <!-- Parte de reseñar la compra -->
-            <div v-if="divActivo == 'reseñarCompra'  ">
+        </div>
 
+        <!-- Página de Pedidos -->
+        <div v-if="divActivo === 'pedidos-page'" class="pedidos-page">
+            <h1>Lista de Pedidos</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Estado</th>
+                        <th>Detalles</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="pedido in pedidos" :key="pedido.id">
+                        <td>{{ pedido.id }}</td>
+                        <td>{{ pedido.estat }}</td>
+                        <td><a href="javascript:void(0)" @click="mostrarDetallesDelPedido(pedido.id)">detalles</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Popup de Detalles del Pedido -->
+        <div v-if="popupActivo" class="popup">
+            <div class="popup-content">
+                <span class="close" @click="cerrarPopup">&times;</span>
+                <h2>Detalles del Pedido</h2>
+                <div v-for="producto in productosDetalles" :key="producto.nombre">
+                    <img :src="producto.imagen" alt="Imagen del producto" />
+                    <h3>{{ producto.nombre }}</h3>
+                    <p><strong>Cantidad:</strong> {{ producto.cantidad }}</p>
+                    <p><strong>Tamaño:</strong> {{ producto.talla }}</p>
+                    <p><strong>Color:</strong> {{ producto.color }}</p>
+                    <p><strong>Precio:</strong> {{ producto.precio }} €</p>
+                    <p><strong>Descripción:</strong> {{ producto.desc }}</p>
+                </div>
             </div>
         </div>
+
+
+
     </div>
     <script type="module" src="./js/utils.js"></script>
 </body>

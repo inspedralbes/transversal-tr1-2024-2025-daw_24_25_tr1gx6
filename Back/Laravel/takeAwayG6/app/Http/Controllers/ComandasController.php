@@ -39,7 +39,7 @@ class ComandasController extends Controller
             'idUser' => 'required'
         ]);
 
-        $comanda = Comanda::with('comandaArticulo')->where('idUser', $request->idUser)->get();
+        $comanda = Comanda::with(relations: ['user', 'comandaArticulo', 'ComandaArticulo.producto'])->where('idUser', $request->idUser)->get();
 
         return response()->json(['status' => 'success', 'comandaUser' => $comanda]);
     }
@@ -51,7 +51,7 @@ class ComandasController extends Controller
             return redirect()->route('login')->with('error', 'Debes iniciar sesión para acceder a esta página.');
         }
 
-        $comandas = Comanda::with(['user', 'comandaArticulo', 'ComandaArticulo.producto'])->get();
+        $comandas = Comanda::with(relations: ['user', 'comandaArticulo', 'ComandaArticulo.producto'])->get();
 
         //dd($comandas);
 

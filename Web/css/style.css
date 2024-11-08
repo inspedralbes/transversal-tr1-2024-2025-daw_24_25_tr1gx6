@@ -62,6 +62,7 @@ nav a {
     color: white;
     font-size: 16px;
     margin: 3px;
+    margin-left: 10px;
 }
 
 a:hover {
@@ -77,7 +78,7 @@ a:hover {
 #search-input {
     width: 60px;
     height: 30px;
-    margin-left: 5px;
+    margin-left: 40px;
     padding: 0 8px 0 24px;
     border-radius: 25px;
     border: 1px solid #ccc;
@@ -135,6 +136,18 @@ a:hover {
 .navbarFiltros select:focus {
     outline: none;
     border-color: #666;
+}
+
+.carrito-contadorDeproductos {
+    position: absolute;
+    top: 4px;
+    right: 39px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 10px;
+    font-weight: bold;
 }
 
 
@@ -254,15 +267,17 @@ a:hover {
 }
 
 .cesta {
-    width: 20px;
-    height: 20px;
-    padding: 5px;
-    margin: 0 5px;
-    border-radius: 5px;
+    width: 24px;
+    height: 24px;
+    padding: 6px;
+    margin: 0 2px;
+    border-radius: 4px;
     background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    cursor: pointer;
 }
 
 
@@ -330,6 +345,8 @@ a:hover {
     margin: 5px 0;
 }
 
+
+
 .form select {
     width: 100%;
     padding: 10px;
@@ -370,16 +387,17 @@ a:hover {
 
 
 #loginIcono {
-    width: 20x;
-    height: 20px;
-    padding: 5px;
-    margin: 0 5px;
-    border-radius: 5px;
+    width: 24px;
+    height: 24px;
+    padding: 6px;
+    margin: 0 2px;
+    border-radius: 4px;
     background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: -15px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    cursor: pointer;
 }
 
 .card {
@@ -731,79 +749,102 @@ a:hover {
 
 /* Finalizar compra y pago */
 .carritoFinal {
-    max-width: 500px;
-    margin: 50px auto;
+    width: 280px;
+    margin: 0 auto;
     padding: 20px;
-    background-color: #F5C21B;
-    border-radius: 10px;
-    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.784);
-    cursor: pointer;
+    background-color: #cacaca;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
 
 .carritoFinal h2 {
     text-align: center;
-    margin-bottom: 20px;
-    color: black;
-    font-size: 25px;
+    color: white;
+    margin-bottom: 25px;
+    font-size: 24px;
 }
 
 .carritoFinal form {
     display: flex;
     flex-direction: column;
+    gap: 15px;
+}
+
+.carritoFinal form div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .carritoFinal label {
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #333;
+    font-size: 14px;
+    color: #555555;
+    font-weight: 500;
 }
 
-.carritoFinal input[type="text"],
-.carritoFinal input[type="email"],
-.carritoFinal input[type="number"],
-.carritoFinal input[type="month"],
-.carritoFinal input[type="password"] {
-    padding: 12px;
-    margin-bottom: 16px;
-    border: 1px solid #7eaa0e;
-    border-radius: 30px;
+.carritoFinal input {
     width: 100%;
+    padding: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    font-size: 14px;
     box-sizing: border-box;
 }
 
+.carritoFinal input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.carritoFinal input::placeholder {
+    color: #999999;
+}
+
 .carritoFinal button {
-    padding: 10px;
-    background-color: gray;
-    color: white;
-    border-radius: 30px;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
-.carritoFinal button:hover {
-    background-color: white;
-    color: black;
-}
-
-.carrito-contenedor {
-    position: relative;
-    display: flex;
-    align-items: center;
-    margin: 0 15px;
-}
-
-.carrito-contadorDeproductos {
-    position: absolute;
-    top: -5px;
-    right: -2px;
-    background-color: red;
+.carritoFinal button[type="submit"] {
+    background-color: #47a75e;
     color: white;
-    border-radius: 50%;
-    padding: 2px 6px;
-    font-size: 10px;
-    font-weight: bold;
 }
 
+.carritoFinal button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+.carritoFinal button[type="button"] {
+    background-color: #6c757d;
+    color: white;
+}
+
+.carritoFinal button[type="button"]:hover {
+    background-color: #5a6268;
+}
+
+.carritoFinal input#tarjeta,
+.carritoFinal input#expiracion,
+.carritoFinal input#cvv {
+    font-family: monospace;
+    letter-spacing: 1px;
+}
+
+.carritoFinal input:invalid {
+    border-color: #dc3545;
+}
+
+
+.carritoFinal input:focus:invalid {
+    border-color: #ffc107;
+    box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.25);
+}
 /* Botón para añadir a la cesta */
 .btn {
     margin-top: 10px;
@@ -868,13 +909,171 @@ a:hover {
     margin: 0 auto;
 }
 
+/* Estilos para la tabla de pedidos */
+.pedidos-page {
+    padding: 10px;
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+}
+
+.pedidos-page h1 {
+    font-size: 24px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.table th,
+.table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.table th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+.table td a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.table td a:hover {
+    text-decoration: underline;
+}
+
+.table th:first-child,
+.table td:first-child {
+    width: 20%;
+}
+
+.table th:nth-child(2),
+.table td:nth-child(2) {
+    width: 50%;
+}
+
+.table th:last-child,
+.table td:last-child {
+    width: 30%;
+}
+
+/* Estilos para el popup */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background-color: white;
+    width: 80%;
+    max-height: 70vh;
+    overflow-y: auto;
+    border-radius: 8px;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+}
+
+.close:hover {
+    color: #333;
+}
+
+.popup-content h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    padding-top: 5px;
+}
+
+.popup-content div {
+    border-bottom: 1px solid #eee;
+    padding: 15px 0;
+    margin-bottom: 10px;
+}
+
+.popup-content div:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.popup-content img {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    display: block;
+    margin: 0 auto 15px auto;
+    border-radius: 4px;
+}
+
+.popup-content h3 {
+    font-size: 20px;
+    margin: 10px 0;
+    color: #333;
+}
+
+.popup-content p {
+    margin: 8px 0;
+    font-size: 15px;
+    line-height: 22px;
+}
+
+.popup-content strong {
+    color: #555;
+}
+
+/* Estilo para el scrollbar */
+.popup-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.popup-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.popup-content::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.popup-content::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 /*---------- Estilos para portátil ---------- */
 @media (min-width: 600px) {
     .productos-container {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 20px;
-        max-width: 1300px;
+        max-width: 1400px;
         margin: 0 auto;
         padding: 10px;
     }
@@ -940,17 +1139,17 @@ a:hover {
         display: inline;
         margin-right: -50px;
     }
+    .categorias-container {
+        display: flex;
+        overflow-x: auto;
+        padding: 20px;
+        gap: 10px;
+        margin-bottom: 10vh;
+    }
 
     .carrito-contadorDeproductos {
-        position: absolute;
-        top: -5px;
-        right: -50px;
-        background-color: red;
-        color: white;
-        border-radius: 50%;
-        padding: 2px 6px;
-        font-size: 10px;
-        font-weight: bold;
+        top: 10px;
+        right: 250px;
     }
 
     .card {
@@ -964,8 +1163,8 @@ a:hover {
     }
 
     .categoria-card img {
-        width: 375px;
-        height: 375px;
+        width: 322px;
+        height: 299px;
     }
 
     .cesta-container {
@@ -1022,6 +1221,7 @@ a:hover {
 
     #loginIcono {
         height: 30px;
+        width: 30px;
         margin: 0 5px;
         margin-right: 40px;
         padding: 5px;
