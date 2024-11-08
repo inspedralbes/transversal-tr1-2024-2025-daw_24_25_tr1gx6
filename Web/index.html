@@ -28,7 +28,7 @@
 
             <img @click="IrLogin" id="loginIcono" src="Img/iconoLogin.png" alt="loginIcono">
         </nav>
-        <div id="paginaInicial">  
+        <div id="paginaInicial">
             <div v-if="divActivo=='paginaDeInicio'">
                 <h2>Productes millor valorats</h2>
                 <transition-group tag="div" class="productos-container-inici">
@@ -42,7 +42,8 @@
                 </transition-group>
                 <h2>Explora les nostres categories</h2>
                 <transition-group tag="div" id="categorias-container" class="categorias-container">
-                    <div v-for="(categoria, index) in categorias" :key="index" class="categoria-card" @click="filtroCategoriasPulsar(index)">
+                    <div v-for="(categoria, index) in categorias" :key="index" class="categoria-card"
+                        @click="filtroCategoriasPulsar(index)">
                         <img :src="categoria.imagen" :alt="categoria.nombre" class="imagenCategoria" />
                         <h4>{{ categoria.nom }}</h4>
                     </div>
@@ -58,15 +59,16 @@
                         </div>
                     </div>
                     <h3>preu: {{precioTotal.toFixed(2)}}€</h3>
-                    <h4 v-if="!finalitzaCompraActiva">Esta es la cesta, aqui podras ver los productos que has añadido a la
+                    <h4 v-if="!finalitzaCompraActiva">Esta es la cesta, aqui podras ver los productos que has añadido a
+                        la
                         cesta y podras pasar a finalizar la compra</h4>
                 </div>
             </div>
             <div v-if="divActivo=='perfil'" class="perfil">
-                <button class="cerrarSesion" @click="cerrarSesion" class="cerrarSesionn" >Cerrar sesion</button>
+                <button class="cerrarSesion" @click="cerrarSesion" class="cerrarSesionn">Cerrar sesion</button>
             </div>
             <div v-if="divActivo=='paginaPrincipal'">
-                 <div class="navbarFiltros">
+                <div class="navbarFiltros">
                     <select class="marca" name="marca" id="desplegable" @change="cambioFiltros">
                         <option value="todo">Marcas</option>
                         <option value="The North Face">The North Face</option>
@@ -97,8 +99,8 @@
                         <option value="<=150">Hasta 150€</option>
                         <option value="<=175">Hasta 175€</option>
                         <option value="<=200">Hasta 200€</option>
-                      </select>
-                </div> 
+                    </select>
+                </div>
                 <h2>Productos</h2>
                 <div id="productos-container-1" class="productos-container">
                     <div v-for="(producto, index) in productos2" :key="index" class="product-card"
@@ -121,11 +123,13 @@
                         <p class="price">{{ producto.preu }}€</p>
                     </div>
                 </div>
-                <hr><h3 v-if="finalitzaCompraActiva" class="precioTotalCarrito">Preu: {{precioTotal.toFixed(2)}}€</h3>
-                <button @click="cambiarACarrito" v-if="finalitzaCompraActiva" id="finalizarCompra" class="btnAnarACestilla">Ir al carrito</button>
+                <hr>
+                <h3 v-if="finalitzaCompraActiva" class="precioTotalCarrito">Preu: {{precioTotal.toFixed(2)}}€</h3>
+                <button @click="cambiarACarrito" v-if="finalitzaCompraActiva" id="finalizarCompra"
+                    class="btnAnarACestilla">Ir al carrito</button>
                 <h4 v-if="!finalitzaCompraActiva">No hay nada en la cesta</h4>
                 <button v-if="productosEnCesta.length === 0" @click="cambiarACarrito" class="btnAnarACestilla"
-                id="volverACarrito">Pagament</button>
+                    id="volverACarrito">Pagament</button>
 
             </div>
 
@@ -151,9 +155,9 @@
 
                                 <h4>{{ producto.nom }}</h4>
                                 <p><strong>Categoria:</strong> {{ producto.category.nom }}</p>
-                                <p><strong>Marca:</strong> {{ producto.marca.nom }}</p> 
+                                <p><strong>Marca:</strong> {{ producto.marca.nom }}</p>
                                 <p><strong>Color:</strong> {{ producto.color }}</p>
-                                <p><strong>Descripción:</strong> {{ producto.desc }}</p>  
+                                <p><strong>Descripción:</strong> {{ producto.desc }}</p>
                             </div>
                         </div>
 
@@ -196,8 +200,10 @@
                 <div class="card">
                     <h2>Login</h2>
                     <form class="form">
-                        <input type="email" id="email" v-model="email" placeholder="Email Address" class="email" required />
-                        <input type="password" id="password" v-model="password" placeholder="Password" class="pass" required />
+                        <input type="email" id="email" v-model="email" placeholder="Email Address" class="email"
+                            required />
+                        <input type="password" id="password" v-model="password" placeholder="Password" class="pass"
+                            required />
                         <button type="button" class="login_btn" @click="loginToken">Login</button>
                     </form>
                     <div class="footer_card">
@@ -212,7 +218,7 @@
                         <input type="text" placeholder="Name" v-model="UserName" required>
                         <input type="email" placeholder="Email Address" v-model="emailRegister" required />
                         <input type="password" placeholder="Password" v-model="passwordRegister" required />
-                
+
                         <button type="button" class="login_btn" @click="submitRegister">Registrate</button>
                     </form>
                     <div class="footer_card">
@@ -237,8 +243,9 @@
                             <select id="combinaciones" v-model="selectedCombinacion" required>
                                 <option v-for="(combinacion, index) in stockProdctuId" :key="index"
                                     :value="combinacion.id">
-                                    {{ combinacion.Color }} 
-                                    {{ combinacion.TallaCamisa ? combinacion.TallaCamisa : combinacion.TallaZapato ? combinacion.TallaZapato : 'Sin talla' }}                            </option>
+                                    {{ combinacion.Color }}
+                                    {{ combinacion.TallaCamisa ? combinacion.TallaCamisa : combinacion.TallaZapato ?
+                                    combinacion.TallaZapato : 'Sin talla' }} </option>
                             </select>
                         </div>
 
@@ -247,7 +254,7 @@
                 </div>
             </div>
 
-  
+
 
             <!-- Parte de finalizar la compra y pago -->
             <div v-if="divActivo == 'finalizarCompraDeCarrito'" class="carritoFinal">
@@ -292,6 +299,34 @@
             </div>
         </div>
     </div>
+    <footer>
+        <div class="footerInfo0">
+            <img src="Img/ImgCoolLogo.png" alt="ImgCoolLogo" srcset="">
+        </div>
+        <div class="footerInfo1">
+            <h6>Projecte TakeAway 2024</h6>
+            <h6>Desenvolupat per:</h6>
+            <ul>
+                <li>Kevin Burga</li>
+                <li>Ayoub Boudhafri</li>
+                <li>Pablo Matamoros</li>
+                <li>Purvish Patel</li>
+            </ul>
+        </div>
+        <div class="footerInfo2">
+            <h5>Ubicació:</h5>
+            <ul>
+                <li>Av. Esplugues 48, Barcelona, 08034</li>
+            </ul>
+        </div>
+
+        <div class="footerInfo3">
+            <h5>Powered By</h5>
+            <p>Institut Pedralbes</p>
+            <img src="Img/logoPedralbes.png" alt="logoPedralbes" srcset="">
+        </div>
+
+    </footer>
     <script type="module" src="./js/utils.js"></script>
 </body>
 
