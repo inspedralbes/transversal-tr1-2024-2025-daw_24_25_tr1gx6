@@ -78,9 +78,9 @@ createApp({
       const data = await getProductoss();
       console.log('front', data);
       productos.value = data;
-      for (let index = 0; index < data.length; index++) {
-        categorias2.value.push(data[i].category);
-      }
+      // for (let index = 0; index < data.length; index++) {
+      //   categorias2.value.push(data[i].category);
+      // }
       mostrarProds();
       setTimeout(() => {
         // mostrarCategs(); 
