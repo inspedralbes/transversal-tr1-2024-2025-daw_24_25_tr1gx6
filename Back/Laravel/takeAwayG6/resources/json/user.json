@@ -10,5 +10,11 @@
         "email": "test2@gmail.com",
         "password": "1234",
         "rol": "cliente"
+    },
+    {
+        "name": "admin",
+        "email": "admin@gmail.com",
+        "password": "1234",
+        "rol": "admin"
     }
 ]
