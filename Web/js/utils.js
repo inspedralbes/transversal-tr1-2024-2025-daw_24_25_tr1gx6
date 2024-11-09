@@ -22,16 +22,16 @@ createApp({
     const correoElectronico = ref("");
     const direccion = ref("");
     const datosUsuario = ref({ tarjeta: "", expiracion: "", cvv: "" });
-    const categorias2 = ref([]);
-    const categorias = ref([
-      { nombre: "zapatillas", imagen: "Img/zapatillas.jpeg" },
-      { nombre: "sudadera", imagen: "Img/sudadera.jpeg" },
-      { nombre: "pantalon", imagen: "Img/pantalon.jpeg" },
-      { nombre: "chaqueta", imagen: "Img/chaqueta.jpeg" },
-      { nombre: "camiseta", imagen: "Img/camiseta.jpeg" },
-      { nombre: "chandal", imagen: "Img/chandal.jpeg" },
-      { nombre: "chaleco", imagen: "Img/chaleco.jpeg" },
-    ]);
+    // const categorias = ref([
+    //   { nombre: "zapatillas", imagen: "Img/zapatillas.jpeg" },
+    //   { nombre: "sudadera", imagen: "Img/sudadera.jpeg" },
+    //   { nombre: "pantalon", imagen: "Img/pantalon.jpeg" },
+    //   { nombre: "chaqueta", imagen: "Img/chaqueta.jpeg" },
+    //   { nombre: "camiseta", imagen: "Img/camiseta.jpeg" },
+    //   { nombre: "chandal", imagen: "Img/chandal.jpeg" },
+    //   { nombre: "chaleco", imagen: "Img/chaleco.jpeg" },
+    // ]);
+    const categorias = ref([]);
     const filtros = reactive({
       categoria: "todo",
       marca: "todo",
@@ -85,9 +85,12 @@ createApp({
       const data = await getProductoss();
       console.log("front", data);
       productos.value = data;
-      // for (let index = 0; index < data.length; index++) {
-      //   categorias2.value.push(data[i].category);
-      // }
+      for (let index = 0; index < data.length; index++) {
+        if (!categorias.value.some(categoria => categoria.nom === data[index].category.nom)) {
+          categorias.value.push(data[index].category);
+        }
+      }
+      
       mostrarProds();
       setTimeout(() => {
         // mostrarCategs();
@@ -611,7 +614,7 @@ createApp({
           filtros.categoria = "sudadera";
           break;
         case 2:
-          filtros.categoria = "pantalon";
+          filtros.categoria = "chandal";
           break;
         case 3:
           filtros.categoria = "chaqueta";
@@ -620,7 +623,7 @@ createApp({
           filtros.categoria = "camiseta";
           break;
         case 5:
-          filtros.categoria = "chandal";
+          filtros.categoria = "pantalon";
           break;
         case 6:
           filtros.categoria = "chaleco";
