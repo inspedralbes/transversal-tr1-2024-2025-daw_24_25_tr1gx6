@@ -10,6 +10,7 @@ use App\Mail\estadoPreparado;
 use App\Mail\estadoEnviado;
 use App\Mail\estadoReparto;
 use App\Mail\estadoEntregado;
+use App\Mail\estadoCancelado;
 
 
 
@@ -40,6 +41,9 @@ class MailController extends Controller
                     break;
                 case 'entregado':
                     Mail::to($email)->send(new estadoEntregado);
+                    break;  
+                case 'cancelado':
+                    Mail::to($email)->send(new estadoCancelado);
                     break;
                 default:
                     return response()->json(['message' => 'Tipo de correo no reconocido'], 400);

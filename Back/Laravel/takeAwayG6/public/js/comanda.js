@@ -68,6 +68,9 @@ async function cambiarSiguienteEstado() {
                         //Actualizar el estado en la tabla
                         document.getElementById(`estadoComanda${idComanda}`).innerText = newEstado;
                         console.log('Estado actualizado a:', newEstado);
+                        //switch de rutas hacia el router web.php con la ruta de mailController
+                        console.log('LlamaFndo a la funcion enviarCorreoEsatado con el nuevo estado');
+                        await enviarCorreoEstado(newEstado);
 
                         // Desactivar el botoón si el estado es 'Entregado'
                         if (newEstado === 'Entregado') {
@@ -87,6 +90,69 @@ async function cambiarSiguienteEstado() {
             }
         })
     })
+}
+
+//Funcionalidades del mail
+async function enviarCorreoEstado(estado) {
+    // Mapear el estado a un tipo de correo específico
+    console.log('Mapeando estado del correo mediante el estado del pedido');
+    console.log("estado: ",estado);
+    
+    let tipoCorreo;
+    switch (estado) {
+        case 'Por Confirmar':
+            tipoCorreo = 'confirm';
+            break;
+        case 'Confirmado':
+            tipoCorreo = 'confirmed';
+            break;
+        case 'Preparando':
+            tipoCorreo = 'preparando';
+            break;
+        case 'Preparado':
+            tipoCorreo = 'preparado';
+            break;
+        case 'Enviado':
+            tipoCorreo = 'enviado';
+            break;
+        case 'En Reparto':
+            tipoCorreo = 'reparto';
+            break;
+        case 'Entregado':
+            tipoCorreo = 'entregado';
+            break;
+        case 'Cancelado':
+            tipoCorreo = 'cancelado';
+            break;
+        default:
+            console.log('Estado no reconocido para el envío de correo');
+            return;
+    }
+
+    // Enviar solicitud para el correo
+    console.log('Enviando solicitud');
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    const response = await fetch('/mail/send', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        },
+        body: JSON.stringify({
+            type: tipoCorreo
+        })
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        if (data.message) {
+            console.log(data.message);
+            console.log('Estado cambiado correctamente');
+        }
+    } else {
+        console.error('Error al enviar el correo');
+    }
 }
 
 async function cancelarComanda() {
@@ -128,6 +194,8 @@ async function cancelarComanda() {
                             //Actualizar el estado en la tabla
                             document.getElementById(`estadoComanda${idComanda}`).innerText = estat;
                             console.log('Estado actualizado a:', estat);
+                            let newEstado = estat;
+                            await enviarCorreoEstado(estat);
 
                             // Desactivar el botoón si el estado es 'Cancelado'
                             if (estat === 'Cancelado') {
